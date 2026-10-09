@@ -14,9 +14,7 @@
 {%- for group in site.data.navigation -%}
   {%- if group.section == "Community Wiki" or group.section contains "Wiki" -%}
     {%- for entry in group.pages -%}
-      {%- if site_paths contains entry.path -%}
-        {%- assign wiki_pages = wiki_pages | push: entry -%}
-      {%- endif -%}
+      {%- assign wiki_pages = wiki_pages | push: entry -%}
     {%- endfor -%}
   {%- endif -%}
 {%- endfor -%}
@@ -65,16 +63,35 @@
         <nav class="wiki-nav-tree" aria-label="Wiki topics">
           {%- for group in site.data.navigation %}
           {%- if group.section == "Community Wiki" or group.section contains "Wiki" %}
-          {%- assign group_pages = group.pages | where_exp: "entry", "site_paths contains entry.path" %}
-          {%- if group_pages.size > 0 %}
+          {%- if group.pages.size > 0 %}
           <div class="wiki-nav-section">
             <span class="wiki-nav-section-title">{{ group.section }}</span>
             <ul class="wiki-nav-list">
-              {%- for entry in group_pages %}
+              {%- for entry in group.pages %}
               {%- assign entry_doc = all_site_docs | where: "path", entry.path | first -%}
-              {%- assign entry_url = entry_doc.url | default: entry.path | relative_url -%}
+              {%- if entry_doc == nil -%}
+                {%- for d in all_site_docs -%}
+                  {%- if d.path == entry.path or d.relative_path == entry.path or d.url == entry.path or d.url == entry.url -%}
+                    {%- assign entry_doc = d -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+              {%- if entry_doc -%}
+                {%- assign entry_url = entry_doc.url | relative_url -%}
+              {%- elsif entry.url -%}
+                {%- assign entry_url = entry.url | relative_url -%}
+              {%- elsif entry.path -%}
+                {%- assign entry_url = entry.path | remove: ".md" | remove_first: "_" | prepend: "/" | relative_url -%}
+              {%- else -%}
+                {%- assign entry_url = "#" -%}
+              {%- endif -%}
+              {%- assign is_active = false -%}
+              {%- if entry.path == page.path or entry_url == page.url or (entry_doc and page.url == entry_doc.url) -%}
+                {%- assign is_active = true -%}
+              {%- endif -%}
               <li class="wiki-nav-item">
-                <a href="{{ entry_url }}" class="wiki-nav-link{% if entry.path == page.path %} active{% endif %}"{% if entry.path == page.path %} aria-current="page"{% endif %}>
+                <a href="{{ entry_url }}" class="wiki-nav-link{% if is_active %} active{% endif %}"{% if is_active %} aria-current="page"{% endif %}>
                   <span class="wiki-nav-icon">📄</span>
                   <span>{{ entry.title | escape }}</span>
                 </a>
@@ -91,7 +108,7 @@
 
         <div class="sidebar__footer wiki-sidebar__footer">
           <a href="{{ '/' | relative_url }}">🏠 Portal Home</a>
-          {%- if site.collections.docs -%}
+          {%- if site.docs or site.collections.docs -%}
           <a href="{{ '/docs/' | relative_url }}">📖 Documentation Directory</a>
           {%- endif -%}
           <a href="{{ '/wiki/' | relative_url }}">📚 Wiki Directory</a>
@@ -108,7 +125,7 @@
           <nav class="navbar wiki-navbar" aria-label="Main wiki navigation">
             <ul class="navbar-list">
               <li><a class="navbar-link" href="{{ '/' | relative_url }}">Home</a></li>
-              {%- if site.collections.docs -%}
+              {%- if site.docs or site.collections.docs -%}
               <li><a class="navbar-link" href="{{ '/docs/' | relative_url }}">Docs</a></li>
               {%- endif -%}
               <li><a class="navbar-link active" href="{{ '/wiki/' | relative_url }}" aria-current="page">Wiki</a></li>

@@ -22,12 +22,22 @@ kramdown:
   input: GFM
   hard_wrap: false
   auto_ids: true
+  parse_block_html: true
   syntax_highlighter: rouge
   syntax_highlighter_opts:
     default_lang: yaml
     guess_lang: true
     line_numbers: false
     wrap: true
+
+# Jekyll Collections Registration
+collections:
+  docs:
+    output: true
+    permalink: /docs/:path/
+  wiki:
+    output: true
+    permalink: /wiki/:path/
 
 plugins:
   - jekyll-relative-links
@@ -38,8 +48,41 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
+relative_links:
+  enabled: true
+  collections: true
+
+optional_front_matter:
+  remove_originals: true
+
+titles_from_headings:
+  enabled: true
+  strip_title: true
+  collections: true
+
 defaults:
   - scope:
       path: ""
     values:
       layout: default
+      comments: false
+
+  - scope:
+      path: "index.md"
+    values:
+      layout: default
+      page_class: page--home
+
+  - scope:
+      type: docs
+    values:
+      layout: docs
+      page_class: page--doc
+      section: docs
+
+  - scope:
+      type: wiki
+    values:
+      layout: wiki
+      page_class: page--wiki
+      section: wiki

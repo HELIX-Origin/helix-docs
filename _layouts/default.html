@@ -43,15 +43,34 @@
         {%- if site.data.navigation %}
         <nav class="docs-nav" aria-label="Documentation pages">
           {%- for group in site.data.navigation %}
-          {%- assign group_pages = group.pages | where_exp: "entry", "site_paths contains entry.path" %}
-          {%- if group_pages.size > 0 %}
+          {%- if group.pages.size > 0 %}
           <div class="docs-nav-group">
             <h2 class="docs-nav-heading">{{ group.section }}</h2>
             <ul>
-              {%- for entry in group_pages %}
+              {%- for entry in group.pages %}
               {%- assign entry_doc = all_site_docs | where: "path", entry.path | first -%}
-              {%- assign entry_url = entry_doc.url | default: entry.path | relative_url -%}
-              <li><a href="{{ entry_url }}"{% if entry.path == page.path %} class="active" aria-current="page"{% endif %}>{{ entry.title | escape }}</a></li>
+              {%- if entry_doc == nil -%}
+                {%- for d in all_site_docs -%}
+                  {%- if d.path == entry.path or d.relative_path == entry.path or d.url == entry.path or d.url == entry.url -%}
+                    {%- assign entry_doc = d -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+              {%- if entry_doc -%}
+                {%- assign entry_url = entry_doc.url | relative_url -%}
+              {%- elsif entry.url -%}
+                {%- assign entry_url = entry.url | relative_url -%}
+              {%- elsif entry.path -%}
+                {%- assign entry_url = entry.path | remove: ".md" | remove_first: "_" | prepend: "/" | relative_url -%}
+              {%- else -%}
+                {%- assign entry_url = "#" -%}
+              {%- endif -%}
+              {%- assign is_active = false -%}
+              {%- if entry.path == page.path or entry_url == page.url or (entry_doc and page.url == entry_doc.url) -%}
+                {%- assign is_active = true -%}
+              {%- endif -%}
+              <li><a href="{{ entry_url }}"{% if is_active %} class="active" aria-current="page"{% endif %}>{{ entry.title | escape }}</a></li>
               {%- endfor %}
             </ul>
           </div>
@@ -62,14 +81,14 @@
         <div class="separator" aria-hidden="true"></div>
         {%- endif %}
 
-        <div class="sidebar__footer">
+          <div class="sidebar__footer">
           {%- if page.path != 'index.md' and page.url != '/' -%}
           <a href="{{ '/' | relative_url }}">🏠 Portal Home</a>
           {%- endif -%}
-          {%- if site.collections.docs -%}
+          {%- if site.docs or site.collections.docs -%}
           <a href="{{ '/docs/' | relative_url }}">📖 Documentation Directory</a>
           {%- endif -%}
-          {%- if site.collections.wiki -%}
+          {%- if site.wiki or site.collections.wiki -%}
           <a href="{{ '/wiki/' | relative_url }}">📚 Community Wiki</a>
           {%- endif -%}
           {%- if repo_slug -%}
@@ -97,10 +116,10 @@
                 <li><a class="navbar-link" href="#projects">Projects</a></li>
                 {%- endif -%}
               {%- endif -%}
-              {%- if site.collections.docs -%}
+              {%- if site.docs or site.collections.docs -%}
               <li><a class="navbar-link{% if page.url contains '/docs/' or page.collection == 'docs' %} active{% endif %}" href="{{ '/docs/' | relative_url }}">Docs</a></li>
               {%- endif -%}
-              {%- if site.collections.wiki -%}
+              {%- if site.wiki or site.collections.wiki -%}
               <li><a class="navbar-link{% if page.url contains '/wiki/' or page.collection == 'wiki' %} active{% endif %}" href="{{ '/wiki/' | relative_url }}">Wiki</a></li>
               {%- endif -%}
               {%- if repo_slug -%}
@@ -131,15 +150,9 @@
           {%- endif -%}
         </header>
 
-        {%- if page.path == 'index.md' or page.url == '/' or page.page_class contains 'page--home' -%}
-        <div class="landing-content">
-          {{ content }}
-        </div>
-        {%- else -%}
         <article class="doc-section documentation-content">
           {{ content }}
         </article>
-        {%- endif -%}
 
         <footer class="site-footer">
           <span>{{ site.title | default: "HELIX Origin" }} · Built by HELIX Origin</span>

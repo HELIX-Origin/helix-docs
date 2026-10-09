@@ -12,11 +12,9 @@
 {%- assign brand_logo = site.logo | default: "https://github.com/HELIX-Origin.png?size=150" -%}
 {%- assign doc_pages = "" | split: "" -%}
 {%- for group in site.data.navigation -%}
-  {%- unless group.section == "Community Wiki" -%}
+  {%- unless group.section == "Community Wiki" or group.section contains "Wiki" -%}
     {%- for entry in group.pages -%}
-      {%- if site_paths contains entry.path -%}
-        {%- assign doc_pages = doc_pages | push: entry -%}
-      {%- endif -%}
+      {%- assign doc_pages = doc_pages | push: entry -%}
     {%- endfor -%}
   {%- endunless -%}
 {%- endfor -%}
@@ -63,7 +61,7 @@
           </span>
         </a>
 
-        {%- if site.collections.wiki -%}
+        {%- if site.wiki or site.collections.wiki -%}
         <div class="docs-wiki-banner">
           <a href="{{ '/wiki/' | relative_url }}" class="docs-wiki-banner-link">
             <span>📚 Target Wiki</span>
@@ -77,16 +75,35 @@
         {%- if site.data.navigation %}
         <nav class="docs-nav" aria-label="Documentation sections">
           {%- for group in site.data.navigation %}
-          {%- unless group.section == "Community Wiki" %}
-          {%- assign group_pages = group.pages | where_exp: "entry", "site_paths contains entry.path" %}
-          {%- if group_pages.size > 0 %}
+          {%- unless group.section == "Community Wiki" or group.section contains "Wiki" %}
+          {%- if group.pages.size > 0 %}
           <div class="docs-nav-group">
             <h2 class="docs-nav-heading">{{ group.section }}</h2>
             <ul>
-              {%- for entry in group_pages %}
+              {%- for entry in group.pages %}
               {%- assign entry_doc = all_site_docs | where: "path", entry.path | first -%}
-              {%- assign entry_url = entry_doc.url | default: entry.path | relative_url -%}
-              <li><a href="{{ entry_url }}"{% if entry.path == page.path %} class="active" aria-current="page"{% endif %}>{{ entry.title | escape }}</a></li>
+              {%- if entry_doc == nil -%}
+                {%- for d in all_site_docs -%}
+                  {%- if d.path == entry.path or d.relative_path == entry.path or d.url == entry.path or d.url == entry.url -%}
+                    {%- assign entry_doc = d -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+              {%- if entry_doc -%}
+                {%- assign entry_url = entry_doc.url | relative_url -%}
+              {%- elsif entry.url -%}
+                {%- assign entry_url = entry.url | relative_url -%}
+              {%- elsif entry.path -%}
+                {%- assign entry_url = entry.path | remove: ".md" | remove_first: "_" | prepend: "/" | relative_url -%}
+              {%- else -%}
+                {%- assign entry_url = "#" -%}
+              {%- endif -%}
+              {%- assign is_active = false -%}
+              {%- if entry.path == page.path or entry_url == page.url or (entry_doc and page.url == entry_doc.url) -%}
+                {%- assign is_active = true -%}
+              {%- endif -%}
+              <li><a href="{{ entry_url }}"{% if is_active %} class="active" aria-current="page"{% endif %}>{{ entry.title | escape }}</a></li>
               {%- endfor %}
             </ul>
           </div>
@@ -100,10 +117,10 @@
 
         <div class="sidebar__footer docs-sidebar__footer">
           <a href="{{ '/' | relative_url }}">🏠 Portal Home</a>
-          {%- if site.collections.docs -%}
+          {%- if site.docs or site.collections.docs -%}
           <a href="{{ '/docs/' | relative_url }}">📖 Documentation Directory</a>
           {%- endif -%}
-          {%- if site.collections.wiki -%}
+          {%- if site.wiki or site.collections.wiki -%}
           <a href="{{ '/wiki/' | relative_url }}">📚 Community Wiki</a>
           {%- endif -%}
           {%- if repo_slug -%}
@@ -121,7 +138,7 @@
             <ul class="navbar-list">
               <li><a class="navbar-link" href="{{ '/' | relative_url }}">Home</a></li>
               <li><a class="navbar-link active" href="{{ '/docs/' | relative_url }}" aria-current="page">Docs</a></li>
-              {%- if site.collections.wiki -%}
+              {%- if site.wiki or site.collections.wiki -%}
               <li><a class="navbar-link" href="{{ '/wiki/' | relative_url }}">Wiki</a></li>
               {%- endif -%}
               {%- if repo_slug -%}

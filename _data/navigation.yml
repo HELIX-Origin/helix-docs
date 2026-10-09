@@ -1,0 +1,32 @@
+- section: Overview
+  pages:
+    - title: Home
+      path: index.md
+    - title: Documentation Directory
+      path: _docs/index.md
+
+- section: User Guides
+  pages:
+    - title: Getting Started
+      path: _docs/getting-started.md
+    - title: Working with Layouts
+      path: _docs/layouts.md
+    - title: Theme Configuration
+      path: _docs/configuration.md
+    - title: UI Components & Elements
+      path: _docs/components.md
+    - title: 18-Language Translation
+      path: _docs/multilingual.md
+
+- section: Community Wiki
+  pages:
+    - title: Wiki Home & Directory
+      path: _wiki/index.md
+    - title: CSS Design Architecture
+      path: _wiki/css-architecture.md
+    - title: Liquid Layout Templates
+      path: _wiki/layout-templates.md
+    - title: Client-Side JavaScript
+      path: _wiki/javascript-modules.md
+    - title: Packaging & Distribution
+      path: _wiki/gem-packaging.md

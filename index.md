@@ -9,50 +9,26 @@ header_actions:
   - title: View on GitHub ↗
     url: https://github.com/HELIX-Origin/helix-docs
     class: button--primary
+  - title: Read Documentation
+    url: /docs/
+    class: button--secondary
 ---
 
-<section id="features" class="doc-section">
-  <div class="section-heading">
-    <span class="section-number">01</span>
-    <div>
-      <p class="eyebrow">Architecture</p>
-      <h2>Theme Capabilities</h2>
-    </div>
-  </div>
-  <p>
-    Built to eliminate layout duplication and provide a cohesive, dark-themed experience across all organization projects:
-  </p>
-  <div class="features-grid">
-    <div class="feature-card">
-      <h3>Multi-Layout System</h3>
-      <p>Switch between portal landing pages, sequential documentation guides, and deep technical wiki trees using simple frontmatter.</p>
-    </div>
-    <div class="feature-card">
-      <h3>Remote Theme Compatible</h3>
-      <p>Works natively on GitHub Pages via <code>jekyll-remote-theme</code> without requiring local gem compilation or Ruby installations.</p>
-    </div>
-    <div class="feature-card">
-      <h3>18-Language Translation</h3>
-      <p>Zero-configuration multilingual support with persistent cookie storage and graceful offline fallback.</p>
-    </div>
-    <div class="feature-card">
-      <h3>Native Diagram Support</h3>
-      <p>Automatically renders standard GFM mermaid blocks into beautiful dark-themed architectural diagrams.</p>
-    </div>
-  </div>
-</section>
+## 01 Theme Capabilities
 
-<section id="layouts" class="doc-section">
-  <div class="section-heading">
-    <span class="section-number">02</span>
-    <div>
-      <p class="eyebrow">Layout Reference</p>
-      <h2>Supported Layouts</h2>
-    </div>
-  </div>
-  <p>
-    Declare the desired layout in your page's YAML frontmatter using <code>layout: &lt;name&gt;</code>:
-  </p>
+Built to eliminate layout duplication and provide a cohesive, dark-themed experience across all organization projects:
+
+- **Multi-Layout System**: Seamlessly switch between portal landing pages (`layout: default`), sequential documentation guides (`layout: docs`), deep technical wiki trees (`layout: wiki`), and catalogues (`layout: catalogue`) using simple frontmatter.
+- **Remote Theme Compatible**: Works natively on GitHub Pages via `jekyll-remote-theme` without requiring local gem compilation or Ruby installations.
+- **18-Language Translation**: Zero-configuration multilingual support with persistent cookie storage and graceful offline fallback.
+- **Native Diagram Support**: Automatically renders standard GFM mermaid blocks into dark-themed architectural diagrams.
+- **Responsive Navigation**: Dual sticky sidebar architecture, breadcrumbs, reading navigation pager, and responsive table wrappers.
+
+---
+
+## 02 Supported Layouts
+
+Declare the desired layout in your page's YAML frontmatter using `layout: <name>`:
 
 | Layout | Purpose | Content Wrapper | Navigation Support |
 | :--- | :--- | :--- | :--- |
@@ -60,23 +36,14 @@ header_actions:
 | `docs` | Sequential documentation guides & reading books | Breadcrumbs + sequential pager | Pager (prev/next) & wiki banner |
 | `wiki` | In-depth technical catalogs & reference trees | Filterable tree + deep breadcrumbs | Live filter search box |
 | `catalogue` | Grid-based project/theme showcases | Catalog cards grid | Category filterable (reserved) |
-{: .surfaces-table}
 
-</section>
+---
 
-<section id="installation" class="doc-section">
-  <div class="section-heading">
-    <span class="section-number">03</span>
-    <div>
-      <p class="eyebrow">Setup</p>
-      <h2>Using in Your Repository</h2>
-    </div>
-  </div>
-  <p>
-    To use this theme in any project's GitHub Pages site (e.g. in the <code>docs/</code> folder or root):
-  </p>
+## 03 Using in Your Repository
 
-  <p><strong>1. Add to <code>_config.yml</code>:</strong></p>
+To use this theme in any project's GitHub Pages site (e.g. in the `docs/` folder or root):
+
+### 1. Add to `_config.yml`:
 
 ```yaml
 remote_theme: HELIX-Origin/helix-docs
@@ -84,7 +51,7 @@ plugins:
   - jekyll-remote-theme
 ```
 
-  <p><strong>2. Create your site's <code>index.md</code>:</strong></p>
+### 2. Create your site's `index.md`:
 
 ```markdown
 ---
@@ -98,5 +65,3 @@ lead: Description of the project...
 ## Overview
 Your markdown content here...
 ```
-
-</section>
