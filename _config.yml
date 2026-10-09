@@ -1,0 +1,45 @@
+# ==============================================================================
+# jekyll-theme-helix - Theme Preview & Demonstration Configuration
+# ==============================================================================
+
+title: HELIX Docs Theme
+tagline: Modern Multi-Layout Theme for GitHub Pages
+description: "A developer-first, multi-layout Jekyll theme engineered for developer documentation, technical knowledge base wikis, and project portals."
+url: "https://helix-origin.github.io"
+baseurl: "/helix-docs"
+repository: "HELIX-Origin/helix-docs"
+github_username: "HELIX-Origin"
+
+author:
+  name: "HELIX Origin"
+  url: "https://helix-origin.github.io"
+
+encoding: "utf-8"
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    default_lang: yaml
+    guess_lang: true
+    line_numbers: false
+    wrap: true
+
+plugins:
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-titles-from-headings
+  - jekyll-default-layout
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default

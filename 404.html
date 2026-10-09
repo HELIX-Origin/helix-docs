@@ -1,0 +1,28 @@
+---
+layout: default
+title: Page Not Found
+eyebrow: Error 404
+heading: 404 - Page Not Found
+lead: The page you requested could not be found or may have been moved.
+header_actions:
+  - title: Return to Home
+    url: /
+    class: button--primary
+---
+
+<section class="doc-section">
+  <h2>Looking for something specific?</h2>
+  <p>Here are some helpful links to get you back on track:</p>
+  <ul>
+    <li><a href="{{ '/' | relative_url }}">Portal Home</a></li>
+    {%- if site.collections.docs -%}
+    <li><a href="{{ '/docs/' | relative_url }}">Documentation Directory</a></li>
+    {%- endif -%}
+    {%- if site.collections.wiki -%}
+    <li><a href="{{ '/wiki/' | relative_url }}">Community Wiki</a></li>
+    {%- endif -%}
+    {%- if site.repository -%}
+    <li><a href="https://github.com/{{ site.repository }}">GitHub Repository</a></li>
+    {%- endif -%}
+  </ul>
+</section>
