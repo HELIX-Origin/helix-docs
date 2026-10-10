@@ -1,0 +1,41 @@
+// ==============================================================================
+// HELIX Docs Theme - Main Sass Entrypoint
+// ==============================================================================
+// Mirrors the just-the-docs `just-the-docs.scss` entrypoint: load support
+// (functions/variables/mixins) first, then user setup, the color scheme,
+// vendor normalize, the page layout, and finally the layout modules.
+
+// Support & Setup
+@import "support/functions";
+@import "support/variables";
+@import "support/mixins";
+@import "custom/setup";
+
+// Color Scheme (HELIX palette -> CSS custom properties)
+@import "color_schemes/dark";
+
+// Vendor & Base
+@import "vendor/normalize";
+@import "layout";
+
+// Layout Modules
+@import "modules/aesthetics";
+@import "modules/sidebar";
+@import "modules/navigation";
+@import "modules/header";
+@import "modules/typography";
+@import "modules/tables";
+@import "modules/code";
+@import "modules/components";
+@import "modules/footer";
+@import "modules/utilities";
+
+// Page Modules
+@import "modules/landing";
+@import "modules/catalogue";
+@import "modules/store";
+@import "modules/changelog";
+@import "modules/faq";
+
+// User Overrides (loaded last so they win the cascade)
+@import "custom/custom";

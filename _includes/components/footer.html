@@ -1,0 +1,67 @@
+{%- comment -%}
+  components/footer.html — Site footer.
+
+  Include arguments:
+    variant    "default" | "docs" (also catalogue/store/changelog/faq) | "wiki"
+    label      footer text (defaults per variant when omitted)
+    back_url   optional "back" link target (item layouts)
+    back_label optional "back" link label (item layouts)
+{%- endcomment -%}
+{%- assign ft_variant = include.variant | default: "docs" -%}
+{%- assign ft_label = include.label -%}
+{%- if ft_label == nil or ft_label == "" -%}
+  {%- if ft_variant == 'default' -%}
+    {%- assign ft_label = site.title | default: "HELIX Origin" | append: " · Built by HELIX Origin" -%}
+  {%- else -%}
+    {%- assign ft_suffix = include.suffix -%}
+    {%- if ft_suffix == nil or ft_suffix == "" -%}
+      {%- if ft_variant == 'wiki' -%}{%- assign ft_suffix = "Wiki" -%}{%- else -%}{%- assign ft_suffix = "Documentation" -%}{%- endif -%}
+    {%- endif -%}
+    {%- assign ft_label = site.title | default: "HELIX Origin" | append: " " | append: ft_suffix -%}
+  {%- endif -%}
+{%- endif -%}
+{%- assign repo_slug = site.repository | default: site.github.repository_nwo | default: "HELIX-Origin/helix-docs" -%}
+
+{%- if ft_variant == 'default' -%}
+<footer class="site-footer">
+  <span>{{ ft_label }}</span>
+  {%- if include.back_url -%}
+  <a href="{{ include.back_url | relative_url }}">← {{ include.back_label | default: "Back" }}</a>
+  {%- elsif page.path != 'index.md' and page.url != '/' -%}
+  <a href="{{ '/' | relative_url }}">← Back to Home</a>
+  {%- elsif repo_slug -%}
+  <a href="https://github.com/{{ repo_slug }}">GitHub Repository</a>
+  {%- endif -%}
+</footer>
+{%- elsif ft_variant == 'wiki' -%}
+<footer class="site-footer wiki-footer">
+  <span>{{ ft_label }}</span>
+  <div class="wiki-footer-links">
+    {%- if include.back_url -%}
+    <a href="{{ include.back_url | relative_url }}">← {{ include.back_label | default: "Back" }}</a>
+    {%- else -%}
+    <a href="{{ '/' | relative_url }}">← Back to Home</a>
+    {%- endif -%}
+    {%- if repo_slug -%}
+    <a href="https://github.com/{{ repo_slug }}">GitHub Repository</a>
+    {%- endif -%}
+  </div>
+</footer>
+{%- else -%}
+<footer class="site-footer docs-footer">
+  <span>{{ ft_label }}</span>
+  <div class="docs-footer-links">
+    {%- if include.back_url -%}
+    <a href="{{ include.back_url | relative_url }}">← {{ include.back_label | default: "Back" }}</a>
+    {%- if repo_slug -%}
+    <a href="{{ '/' | relative_url }}">Home</a>
+    {%- endif -%}
+    {%- else -%}
+    <a href="{{ '/' | relative_url }}">← Back to Home</a>
+    {%- if repo_slug -%}
+    <a href="https://github.com/{{ repo_slug }}">GitHub Repository</a>
+    {%- endif -%}
+    {%- endif -%}
+  </div>
+</footer>
+{%- endif -%}

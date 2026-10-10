@@ -7,6 +7,11 @@ tagline: Modern Multi-Layout Theme for GitHub Pages
 description: "A developer-first, multi-layout Jekyll theme engineered for developer documentation, technical knowledge base wikis, and project portals."
 url: "https://helix-origin.github.io"
 baseurl: "/helix-docs"
+# This preview builds directly from the theme sources; it is not a theme-gem
+# site. `theme: null` stops the github-pages gem from falling back to its
+# default `jekyll-theme-primer`, which would otherwise leak its CSS into
+# `_site/assets/css/style.css`.
+theme: null
 repository: "HELIX-Origin/helix-docs"
 github_username: "HELIX-Origin"
 
@@ -35,6 +40,10 @@ sass:
   sass_dir: _sass
   style: compressed
 
+# Mermaid (just-the-docs style)
+mermaid:
+  version: "11.12.0"
+
 # Jekyll Collections Registration
 collections:
   docs:
@@ -53,7 +62,6 @@ collections:
 plugins:
   - jekyll-relative-links
   - jekyll-optional-front-matter
-  - jekyll-titles-from-headings
   - jekyll-default-layout
   - jekyll-sitemap
   - jekyll-feed
@@ -66,17 +74,13 @@ relative_links:
 optional_front_matter:
   remove_originals: true
 
-titles_from_headings:
-  enabled: true
-  strip_title: true
-  collections: true
-
 defaults:
   - scope:
       path: ""
     values:
       layout: default
       comments: false
+      nav_order: 9999
 
   - scope:
       path: "index.md"
@@ -84,7 +88,12 @@ defaults:
       layout: default
       page_class: page--home
 
+  # Type scopes use Jekyll's documented canonical form (`path: ""` + `type:`).
+  # An empty `path` matches every item, so `{path: "", type: docs}` is
+  # equivalent to `{type: docs}` — the `path` key is only present to satisfy
+  # YAML schema linters that require it (they flag type-only scopes otherwise).
   - scope:
+      path: ""
       type: docs
     values:
       layout: docs
@@ -92,6 +101,7 @@ defaults:
       section: docs
 
   - scope:
+      path: ""
       type: wiki
     values:
       layout: wiki
@@ -99,6 +109,7 @@ defaults:
       section: wiki
 
   - scope:
+      path: ""
       type: catalogue
     values:
       layout: catalogue-item
@@ -106,6 +117,7 @@ defaults:
       section: catalogue
 
   - scope:
+      path: ""
       type: store
     values:
       layout: store-item

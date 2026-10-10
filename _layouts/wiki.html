@@ -1,47 +1,17 @@
-{%- assign all_site_docs = site.pages -%}
-{%- if site.docs -%}{%- assign all_site_docs = all_site_docs | concat: site.docs -%}{%- endif -%}
-{%- if site.wiki -%}{%- assign all_site_docs = all_site_docs | concat: site.wiki -%}{%- endif -%}
-{%- assign site_paths = all_site_docs | map: "path" -%}
 {%- assign page_title = page.title | default: "Wiki" -%}
+{%- assign repo_slug = site.repository | default: site.github.repository_nwo | default: "HELIX-Origin/helix-docs" -%}
 {%- if page.source_path -%}
   {%- assign edit_path = page.source_path -%}
 {%- else -%}
   {%- assign edit_path = page.path | prepend: "docs/" -%}
 {%- endif -%}
-{%- assign repo_slug = site.repository | default: site.github.repository_nwo | default: "HELIX-Origin/helix-docs" -%}
-{%- assign brand_logo = site.logo | default: "https://github.com/HELIX-Origin.png?size=150" -%}
-{%- assign wiki_pages = "" | split: "" -%}
-{%- for group in site.data.navigation -%}
-  {%- if group.section == "Community Wiki" or group.section contains "Wiki" -%}
-    {%- for entry in group.pages -%}
-      {%- assign entry_doc = all_site_docs | where: "path", entry.path | first -%}
-      {%- if entry_doc == nil -%}
-        {%- for d in all_site_docs -%}
-          {%- if d.path == entry.path or d.relative_path == entry.path or d.url == entry.path or d.url == entry.url -%}
-            {%- assign entry_doc = d -%}
-            {%- break -%}
-          {%- endif -%}
-        {%- endfor -%}
-      {%- endif -%}
-      {%- if entry_doc and entry_doc.published == false -%}{%- continue -%}{%- endif -%}
-      {%- if entry.published == false -%}{%- continue -%}{%- endif -%}
-      {%- assign wiki_pages = wiki_pages | push: entry -%}
-    {%- endfor -%}
-  {%- endif -%}
-{%- endfor -%}
-{%- assign current_entry = nil -%}
-{%- assign previous_entry = nil -%}
-{%- assign next_entry = nil -%}
-{%- for entry in wiki_pages -%}
-  {%- if entry.path == page.path -%}
-    {%- assign current_entry = entry -%}
-    {%- unless forloop.first -%}
-      {%- assign previous_index = forloop.index0 | minus: 1 -%}
-      {%- assign previous_entry = wiki_pages[previous_index] -%}
-    {%- endunless -%}
-    {%- unless forloop.last -%}
-      {%- assign next_entry = wiki_pages[forloop.index] -%}
-    {%- endunless -%}
+{%- assign all_site_docs = site.html_pages -%}
+{%- if site.docs -%}{%- assign all_site_docs = all_site_docs | concat: site.docs -%}{%- endif -%}
+{%- if site.wiki -%}{%- assign all_site_docs = all_site_docs | concat: site.wiki -%}{%- endif -%}
+{%- assign wiki_items = "" | split: "" -%}
+{%- for item in all_site_docs -%}
+  {%- if item.layout == 'wiki' or item.collection == 'wiki' -%}
+    {%- assign wiki_items = wiki_items | push: item -%}
   {%- endif -%}
 {%- endfor -%}
 <!doctype html>
@@ -53,85 +23,7 @@
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="site-shell site-shell--wiki wiki-layout">
 
-      <aside class="sidebar wiki-sidebar" aria-label="Wiki navigation sidebar">
-        <a class="brand wiki-brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title | escape }} wiki home">
-          <span class="brand__mark" aria-hidden="true">
-            <img src="{{ brand_logo }}" alt="" width="150" height="150">
-          </span>
-          <span>
-            <strong>{{ site.title | default: "HELIX Origin" }}</strong>
-            <small class="wiki-tag">Community Wiki</small>
-          </span>
-        </a>
-
-        <div class="wiki-search-box">
-          <input type="search" id="wiki-filter-input" placeholder="Filter wiki targets..." aria-label="Filter wiki targets">
-          <span class="wiki-search-icon" aria-hidden="true">🔍</span>
-        </div>
-
-        <div class="separator" aria-hidden="true"></div>
-
-        <nav class="wiki-nav-tree" aria-label="Wiki topics">
-          {%- for group in site.data.navigation %}
-          {%- if group.section == "Community Wiki" or group.section contains "Wiki" %}
-          {%- if group.pages.size > 0 %}
-          <div class="wiki-nav-section">
-            <span class="wiki-nav-section-title">{{ group.section }}</span>
-            <ul class="wiki-nav-list">
-              {%- for entry in group.pages %}
-              {%- assign entry_doc = all_site_docs | where: "path", entry.path | first -%}
-              {%- if entry_doc == nil -%}
-                {%- for d in all_site_docs -%}
-                  {%- if d.path == entry.path or d.relative_path == entry.path or d.url == entry.path or d.url == entry.url -%}
-                    {%- assign entry_doc = d -%}
-                    {%- break -%}
-                  {%- endif -%}
-                {%- endfor -%}
-              {%- endif -%}
-              {%- if entry_doc and entry_doc.published == false -%}{%- continue -%}{%- endif -%}
-              {%- if entry.published == false -%}{%- continue -%}{%- endif -%}
-              {%- if entry_doc -%}
-                {%- assign entry_url = entry_doc.url | relative_url -%}
-              {%- elsif entry.url -%}
-                {%- assign entry_url = entry.url | relative_url -%}
-              {%- elsif entry.path -%}
-                {%- assign entry_url = entry.path | remove: ".md" | remove_first: "_" | prepend: "/" | relative_url -%}
-              {%- else -%}
-                {%- assign entry_url = "#" -%}
-              {%- endif -%}
-              {%- assign is_active = false -%}
-              {%- if entry.path == page.path or entry_url == page.url or (entry_doc and page.url == entry_doc.url) -%}
-                {%- assign is_active = true -%}
-              {%- endif -%}
-              <li class="wiki-nav-item">
-                <a href="{{ entry_url }}" class="wiki-nav-link{% if is_active %} active{% endif %}"{% if is_active %} aria-current="page"{% endif %}>
-                  <span class="wiki-nav-icon">📄</span>
-                  <span>{{ entry.title | escape }}</span>
-                </a>
-              </li>
-              {%- endfor %}
-            </ul>
-          </div>
-          {%- endif %}
-          {%- endif %}
-          {%- endfor %}
-        </nav>
-
-        <div class="separator" aria-hidden="true"></div>
-
-        <div class="sidebar__footer wiki-sidebar__footer">
-          <a href="{{ '/' | relative_url }}">🏠 Portal Home</a>
-          {%- if site.docs or site.collections.docs -%}
-          <a href="{{ '/docs/' | relative_url }}">📖 Documentation Directory</a>
-          {%- endif -%}
-          <a href="{{ '/wiki/' | relative_url }}">📚 Wiki Directory</a>
-          {%- if repo_slug -%}
-          <a href="https://github.com/{{ repo_slug }}">📦 GitHub repository</a>
-          <a href="https://github.com/{{ repo_slug }}/blob/main/{{ edit_path }}">✏️ Edit on GitHub ↗</a>
-          {%- endif -%}
-          <a href="https://helix-origin.github.io/">🧬 HELIX Origin</a>
-        </div>
-      </aside>
+      {% include components/sidebar.html variant="wiki" items=wiki_items %}
 
       <main id="main" class="main-content wiki-main">
         <header class="page-header wiki-header">
@@ -150,29 +42,7 @@
           </nav>
 
           <div class="wiki-header-top">
-            <nav class="wiki-breadcrumbs" aria-label="Breadcrumb navigation">
-              <ol class="breadcrumb-list">
-                <li><a href="{{ '/' | relative_url }}">Home</a></li>
-                <li><a href="{{ '/wiki/' | relative_url }}">Wiki</a></li>
-                {%- if page.grand_parent %}
-                  {%- assign gp_doc = all_site_docs | where: "title", page.grand_parent | first -%}
-                  {%- if gp_doc -%}
-                    <li><a href="{{ gp_doc.url | relative_url }}">{{ gp_doc.title | escape }}</a></li>
-                  {%- else -%}
-                    <li><span>{{ page.grand_parent | escape }}</span></li>
-                  {%- endif -%}
-                {%- endif %}
-                {%- if page.parent %}
-                  {%- assign p_doc = all_site_docs | where: "title", page.parent | first -%}
-                  {%- if p_doc -%}
-                    <li><a href="{{ p_doc.url | relative_url }}">{{ p_doc.title | escape }}</a></li>
-                  {%- else -%}
-                    <li><span>{{ page.parent | escape }}</span></li>
-                  {%- endif -%}
-                {%- endif %}
-                <li class="breadcrumb-current" aria-current="page">{{ page.title | default: page.heading | default: page_title | escape }}</li>
-              </ol>
-            </nav>
+            {% include components/breadcrumbs.html variant="wiki" %}
 
             <div class="wiki-header-actions">
               {%- if repo_slug -%}
@@ -199,61 +69,13 @@
           {{ content }}
         </article>
 
-        {%- if previous_entry or next_entry -%}
-        <nav class="doc-pager" aria-label="Wiki topic navigation">
-          {%- if previous_entry -%}
-            {%- assign prev_doc = all_site_docs | where: "path", previous_entry.path | first -%}
-            {%- if prev_doc == nil -%}
-              {%- for d in all_site_docs -%}
-                {%- if d.path == previous_entry.path or d.relative_path == previous_entry.path or d.url == previous_entry.path or d.url == previous_entry.url or (d.permalink and previous_entry.path == d.permalink) or (d.permalink and previous_entry.url == d.permalink) -%}
-                  {%- assign prev_doc = d -%}
-                  {%- break -%}
-                {%- endif -%}
-              {%- endfor -%}
-            {%- endif -%}
-            {%- assign prev_url = prev_doc.url | default: previous_entry.url | default: previous_entry.path | relative_url -%}
-            <a class="doc-pager-card doc-pager-card--prev" href="{{ prev_url }}">
-              <span class="doc-pager-label">← Previous Topic</span>
-              <span class="doc-pager-title">{{ previous_entry.title }}</span>
-            </a>
-          {%- else -%}
-            <div class="doc-pager-spacer"></div>
-          {%- endif -%}
+        {% include components/children_nav.html variant="wiki" %}
 
-          {%- if next_entry -%}
-            {%- assign next_doc = all_site_docs | where: "path", next_entry.path | first -%}
-            {%- if next_doc == nil -%}
-              {%- for d in all_site_docs -%}
-                {%- if d.path == next_entry.path or d.relative_path == next_entry.path or d.url == next_entry.path or d.url == next_entry.url or (d.permalink and next_entry.path == d.permalink) or (d.permalink and next_entry.url == d.permalink) -%}
-                  {%- assign next_doc = d -%}
-                  {%- break -%}
-                {%- endif -%}
-              {%- endfor -%}
-            {%- endif -%}
-            {%- assign next_url = next_doc.url | default: next_entry.url | default: next_entry.path | relative_url -%}
-            <a class="doc-pager-card doc-pager-card--next" href="{{ next_url }}">
-              <span class="doc-pager-label">Next Topic →</span>
-              <span class="doc-pager-title">{{ next_entry.title }}</span>
-            </a>
-          {%- else -%}
-            <div class="doc-pager-spacer"></div>
-          {%- endif -%}
-        </nav>
-        {%- endif -%}
-
-        <footer class="site-footer wiki-footer">
-          <span>{{ site.title | default: "HELIX Origin" }} Wiki</span>
-          <div class="wiki-footer-links">
-            <a href="{{ '/' | relative_url }}">← Back to Home</a>
-            {%- if repo_slug -%}
-            <a href="https://github.com/{{ repo_slug }}">GitHub Repository</a>
-            {%- endif -%}
-          </div>
-        </footer>
+        {% include components/footer.html variant="wiki" %}
       </main>
 
     </div>
-    <div id="google_translate_element" class="translation-host" hidden></div>
+    {% include components/scripts.html %}
     <script>
       (function() {
         const filterInput = document.getElementById('wiki-filter-input');
@@ -268,7 +90,5 @@
         });
       })();
     </script>
-    <script type="module" src="{{ '/assets/js/mermaid-init.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/translate.js' | relative_url }}" defer></script>
   </body>
 </html>

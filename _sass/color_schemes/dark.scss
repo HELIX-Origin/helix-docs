@@ -1,0 +1,27 @@
+// ==============================================================================
+// HELIX Docs Theme - Color Scheme: dark (default)
+// ==============================================================================
+// Mirrors the just-the-docs `color_schemes/` mechanism. The theme ships a single
+// dark "scheme" that maps the HELIX palette onto CSS custom properties. Consumers
+// can override these tokens via their own `_sass/custom/setup.scss`.
+
+:root {
+  color-scheme: dark;
+  --bg: #07111f;
+  --panel: #0d1b2d;
+  --panel-raised: #12243a;
+  --line: #203750;
+  --text: #edf5ff;
+  --muted: #a6b8ce;
+  --accent: #48d8f2;
+  --accent-strong: #b06cff;
+  --warning: #ffd27a;
+  --success: #67ddb0;
+  --radius: 16px;
+  --shadow: 0 20px 60px rgb(0 0 0 / 24%);
+
+  font-family: $font-sans;
+  background: var(--bg);
+  color: var(--text);
+  scroll-behavior: smooth;
+}

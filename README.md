@@ -119,26 +119,37 @@ For comprehensive frontmatter options and code examples for each layout, see [Wo
 
 ## Navigation Configuration
 
-Configure your sidebar navigation sections and links in `_data/navigation.yml`:
+helix-docs computes **all** navigation — sidebar trees, breadcrumbs, and the previous/next pager —
+from page **frontmatter** (the just-the-docs model). There is no `_data/navigation.yml`; consuming
+sites do not need any `_data` files for navigation.
 
-```yaml
-- section: Overview
-  pages:
-    - title: Home
-      path: index.md
-    - title: Documentation
-      path: _docs/index.md
+Each page participates in the tree through these frontmatter keys:
 
-- section: Guides
-  pages:
-    - title: Getting Started
-      path: _docs/Getting-Started.md
+| Key | Type | Purpose |
+| --- | --- | --- |
+| `title` | string | Displayed label in trees and pagers; `parent`/`grand_parent` match by exact `title` |
+| `parent` | string | Exact `title` of the level-2 page this page nests under |
+| `grand_parent` | string | Exact `title` of the level-1 page (optional, for three-level trees) |
+| `nav_order` | int | Ascending sort position within its sibling group (default `9999`) |
+| `published` | bool | `false` hides the page from all navigation |
+| `nav_exclude` | bool | `true` hides the page from the nav tree; the page is still built and reachable |
 
-- section: Community Wiki
-  pages:
-    - title: Wiki Home
-      path: _wiki/index.md
+Example:
+
+```markdown
+---
+layout: docs
+title: Getting Started
+summary: Learn how to connect helix-docs to any GitHub repository.
+parent: Theme Documentation Directory
+nav_order: 2
+---
 ```
+
+Navigation is rendered by components: the sidebar tree by
+`_includes/components/nav.html`, breadcrumbs by `_includes/components/breadcrumbs.html`, and the
+sequential pager by `_includes/components/children_nav.html`. Level-1 pages (no `parent`) are sorted
+by `nav_order`, then their children, then grandchildren — the same composition just-the-docs uses.
 
 ---
 
@@ -147,30 +158,46 @@ Configure your sidebar navigation sections and links in `_data/navigation.yml`:
 ```text
 helix-docs/
 ├── _data/
-│   └── languages.yml          # Supported languages for translation
+│   └── languages.yml          # Canonical 18-language list for translation
 ├── _includes/
+│   ├── components/            # Reusable navigation & layout components
+│   │   ├── header.html        # Site header (docs/wiki layouts)
+│   │   ├── sidebar.html       # Sidebar shell (variant: docs|wiki)
+│   │   ├── nav.html           # Frontmatter-driven sidebar tree
+│   │   ├── breadcrumbs.html   # Breadcrumb trail (docs|wiki)
+│   │   ├── children_nav.html  # Previous/next pager from frontmatter
+│   │   ├── toc.html           # In-page table of contents
+│   │   ├── footer.html        # Site footer (variant + suffix params)
+│   │   └── scripts.html       # Translate host + mermaid + scripts
 │   ├── head.html              # Main head tags & assets
 │   ├── head_custom.html       # Custom head extension hook
 │   ├── header_custom.html     # Custom header extension hook
 │   ├── footer_custom.html     # Custom footer extension hook
-│   └── translate-control.html # Language selector dropdown
+│   └── translate-control.html # Language selector dropdown (data or fallback)
 ├── _layouts/
 │   ├── default.html           # Portal / default layout
 │   ├── docs.html              # Documentation reading layout
 │   ├── wiki.html              # Technical wiki layout
-│   └── catalogue.html         # Project / theme catalogue layout
+│   ├── catalogue.html         # Project / theme catalogue layout
+│   ├── catalogue-item.html    # Single catalogue item page
+│   ├── store.html             # Package store layout
+│   ├── store-item.html        # Single package page
+│   ├── changelog.html         # Release timeline layout
+│   └── faq.html               # FAQ accordion layout
+├── _sass/
+│   └── helix-docs.scss        # Design-system entrypoint (dart-sass → site.css)
 ├── assets/
 │   ├── css/
-│   │   └── site.css           # Complete design system & classes
+│   │   └── site.css           # Complete design system (precompiled)
 │   └── js/
 │       ├── mermaid-init.js    # Mermaid diagrams & table auto-wrapper
 │       └── translate.js       # Google translate cookie engine
 ├── _config.yml                # Theme preview configuration
-├── 404.html                   # Styled 404 error page
+├── 404.md                     # Styled 404 error page (nav_exclude)
 ├── index.md                   # Live theme documentation page
 ├── Gemfile                    # Dependency specification
 ├── helix-docs.gemspec         # Ruby gem specification
-└── LICENSE                    # MIT License
+└── LICENSE.md                 # MIT License
 ```
 
 ---

@@ -1,0 +1,32 @@
+// ==============================================================================
+// HELIX Docs Theme - Modules: Footer
+// ==============================================================================
+// Mirrors the just-the-docs `modules/footer.scss` component.
+
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 0.4rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+
+  @include mobile-sm {
+    flex-direction: column;
+  }
+
+  .docs-footer-links,
+  .wiki-footer-links {
+    display: flex;
+    gap: 1rem;
+
+    a {
+      color: var(--muted);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--accent);
+      }
+    }
+  }
+}

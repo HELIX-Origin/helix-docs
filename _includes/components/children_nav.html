@@ -1,0 +1,92 @@
+{%- comment -%}
+  components/children_nav.html — Sequential previous/next pager.
+
+  The pager sequence is computed from page frontmatter ONLY (no `_data`):
+  level-1 pages by `nav_order`, then their children, then grandchildren.
+  Pages are scoped to the requested section by `layout`/`collection`.
+
+  Include arguments:
+    variant  "docs" or "wiki"
+{%- endcomment -%}
+{%- assign pager_variant = include.variant | default: "docs" -%}
+
+{%- assign all_pages = site.html_pages -%}
+{%- if site.docs -%}{%- assign all_pages = all_pages | concat: site.docs -%}{%- endif -%}
+{%- if site.wiki -%}{%- assign all_pages = all_pages | concat: site.wiki -%}{%- endif -%}
+
+{%- comment -%} Section pages: published, in the requested docs/wiki scope {%- endcomment -%}
+{%- assign section_pages = "" | split: "" -%}
+{%- for item in all_pages -%}
+  {%- assign in_section = false -%}
+  {%- if item.layout == pager_variant -%}{%- assign in_section = true -%}{%- endif -%}
+  {%- if item.collection == pager_variant -%}{%- assign in_section = true -%}{%- endif -%}
+  {%- if in_section and item.published != false -%}
+    {%- assign section_pages = section_pages | push: item -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- comment -%} Flatten the tree in nav order {%- endcomment -%}
+{%- assign ordered = "" | split: "" -%}
+{%- assign level1 = "" | split: "" -%}
+{%- for item in section_pages -%}
+  {%- assign item_parent = item.parent | default: "" -%}
+  {%- if item_parent == "" -%}
+    {%- assign level1 = level1 | push: item -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign level1 = level1 | sort: "nav_order" -%}
+{%- for top in level1 -%}
+  {%- assign ordered = ordered | push: top -%}
+  {%- assign children = section_pages | where: "parent", top.title | sort: "nav_order" -%}
+  {%- for child in children -%}
+    {%- assign ordered = ordered | push: child -%}
+    {%- assign grandchildren = section_pages | where: "parent", child.title | sort: "nav_order" -%}
+    {%- for grandchild in grandchildren -%}
+      {%- assign ordered = ordered | push: grandchild -%}
+    {%- endfor -%}
+  {%- endfor -%}
+{%- endfor -%}
+
+{%- assign current_index = -1 -%}
+{%- for item in ordered -%}
+  {%- if item.path == page.path or item.url == page.url -%}
+    {%- assign current_index = forloop.index0 -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if current_index >= 0 -%}
+  {%- assign prev_entry = nil -%}
+  {%- assign next_entry = nil -%}
+  {%- assign last_index = ordered.size | minus: 1 -%}
+  {%- if current_index > 0 -%}
+    {%- assign prev_index = current_index | minus: 1 -%}
+    {%- assign prev_entry = ordered[prev_index] -%}
+  {%- endif -%}
+  {%- if current_index < last_index -%}
+    {%- assign next_index = current_index | plus: 1 -%}
+    {%- assign next_entry = ordered[next_index] -%}
+  {%- endif -%}
+
+  {%- if prev_entry or next_entry -%}
+  <nav class="doc-pager" aria-label="{% if pager_variant == 'wiki' %}Wiki topic navigation{% else %}Documentation navigation{% endif %}">
+    {%- if prev_entry -%}
+    <a class="doc-pager-card doc-pager-card--prev" href="{{ prev_entry.url | relative_url }}">
+      <span class="doc-pager-label">{% if pager_variant == 'wiki' %}← Previous Topic{% else %}← Previous Guide{% endif %}</span>
+      <span class="doc-pager-title">{{ prev_entry.title }}</span>
+    </a>
+    {%- else -%}
+    <div class="doc-pager-spacer"></div>
+    {%- endif -%}
+
+    {%- if next_entry -%}
+    <a class="doc-pager-card doc-pager-card--next" href="{{ next_entry.url | relative_url }}">
+      <span class="doc-pager-label">{% if pager_variant == 'wiki' %}Next Topic →{% else %}Next Guide →{% endif %}</span>
+      <span class="doc-pager-title">{{ next_entry.title }}</span>
+    </a>
+    {%- else -%}
+    <div class="doc-pager-spacer"></div>
+    {%- endif -%}
+  </nav>
+  {%- endif -%}
+{%- endif -%}

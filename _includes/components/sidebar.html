@@ -1,0 +1,85 @@
+{%- comment -%}
+  components/sidebar.html — Project/portal sidebar (default) or wiki sidebar.
+
+  Include arguments:
+    variant  "docs" (default/portal sidebar with the docs tree) or "wiki"
+    items    (array) pages/documents the navigation tree is built from
+{%- endcomment -%}
+{%- assign sidebar_variant = include.variant | default: "docs" -%}
+{%- assign sidebar_items = include.items -%}
+{%- assign repo_slug = site.repository | default: site.github.repository_nwo | default: "HELIX-Origin/helix-docs" -%}
+{%- assign brand_logo = site.logo | default: "https://github.com/HELIX-Origin.png?size=150" -%}
+{%- assign is_home = false -%}
+{%- if page.path == 'index.md' or page.url == '/' -%}
+  {%- assign is_home = true -%}
+{%- endif -%}
+{%- if page.source_path -%}
+  {%- assign edit_path = page.source_path -%}
+{%- else -%}
+  {%- assign edit_path = page.path | prepend: "docs/" -%}
+{%- endif -%}
+
+<aside class="sidebar{% if sidebar_variant == 'wiki' %} wiki-sidebar{% endif %}" aria-label="{% if sidebar_variant == 'wiki' %}Wiki navigation sidebar{% else %}Project and documentation navigation{% endif %}">
+  <a class="brand{% if sidebar_variant == 'wiki' %} wiki-brand{% endif %}" href="{{ '/' | relative_url }}" aria-label="{{ site.title | escape }} {% if sidebar_variant == 'wiki' %}wiki{% else %}home{% endif %}">
+    <span class="brand__mark" aria-hidden="true">
+      <img src="{{ brand_logo }}" alt="" width="150" height="150">
+    </span>
+    <span>
+      <strong>{{ site.title | default: "HELIX Origin" }}</strong>
+      {%- if sidebar_variant == 'wiki' -%}
+      <small class="wiki-tag">Community Wiki</small>
+      {%- else -%}
+      <small>{{ site.tagline_short | default: site.tagline | default: "Theme Engineering" }}</small>
+      {%- endif -%}
+    </span>
+  </a>
+
+  {%- if sidebar_variant == 'wiki' -%}
+  <div class="wiki-search-box">
+    <input type="search" id="wiki-filter-input" placeholder="Filter wiki targets..." aria-label="Filter wiki targets">
+    <span class="wiki-search-icon" aria-hidden="true">🔍</span>
+  </div>
+  {%- endif -%}
+
+  <div class="separator" aria-hidden="true"></div>
+
+  {%- if sidebar_variant != 'wiki' and is_home and site.description -%}
+  <p class="sidebar__summary">
+    {{ site.description }}
+  </p>
+  <div class="separator" aria-hidden="true"></div>
+  {%- endif -%}
+
+  {%- if sidebar_items and sidebar_items.size > 0 -%}
+  <nav class="{% if sidebar_variant == 'wiki' %}wiki-nav-tree{% else %}docs-nav{% endif %}" aria-label="{% if sidebar_variant == 'wiki' %}Wiki topics{% else %}Documentation pages{% endif %}">
+    {% include components/nav.html items=sidebar_items active=page.path variant=sidebar_variant %}
+  </nav>
+  <div class="separator" aria-hidden="true"></div>
+  {%- endif -%}
+
+  <div class="sidebar__footer{% if sidebar_variant == 'wiki' %} wiki-sidebar__footer{% endif %}">
+    {%- if sidebar_variant == 'wiki' or is_home != true -%}
+    <a href="{{ '/' | relative_url }}">🏠 Portal Home</a>
+    {%- endif -%}
+    {%- if site.docs or site.collections.docs -%}
+    <a href="{{ '/docs/' | relative_url }}">📖 Documentation Directory</a>
+    {%- endif -%}
+    {%- if sidebar_variant == 'wiki' -%}
+    <a href="{{ '/wiki/' | relative_url }}">📚 Wiki Directory</a>
+    {%- else -%}
+    {%- if site.wiki or site.collections.wiki -%}
+    <a href="{{ '/wiki/' | relative_url }}">📚 Community Wiki</a>
+    {%- endif -%}
+    {%- endif -%}
+    {%- if repo_slug -%}
+    <a href="https://github.com/{{ repo_slug }}">📦 GitHub repository</a>
+    {%- if sidebar_variant != 'wiki' -%}
+    <a href="https://github.com/{{ repo_slug }}/releases">🏷️ Releases</a>
+    {%- endif -%}
+    {%- if is_home != true -%}
+    <a href="https://github.com/{{ repo_slug }}/blob/main/{{ edit_path }}">✏️ Edit on GitHub ↗</a>
+    {%- endif -%}
+    {%- endif -%}
+    <a href="https://helix-origin.github.io/">🧬 HELIX Origin</a>
+  </div>
+</aside>

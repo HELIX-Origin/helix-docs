@@ -1,0 +1,9 @@
+// ==============================================================================
+// HELIX Docs Theme - Support: Functions
+// ==============================================================================
+// Mirrors the just-the-docs `support/_functions.scss` layer.
+
+// Convert a px value to rem (16px root).
+@function rem($px) {
+  @return ($px / 16px) * 1rem;
+}

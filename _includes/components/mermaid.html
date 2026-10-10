@@ -1,0 +1,66 @@
+{%- comment -%}
+  components/mermaid.html — Mermaid runtime loader (gated by site.mermaid).
+  Mirrors just-the-docs style: only loaded when `site.mermaid` is truthy.
+  Allows overriding version via `site.mermaid.version`.
+  Also performs HELIX-specific enhancements (table wrapping + block detection).
+{%- endcomment -%}
+{%- if site.mermaid -%}
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@{{ site.mermaid.version | default: "11.12.0" }}/dist/mermaid.esm.min.mjs';
+    try {
+      const mod = await import('{{ "/assets/js/mermaid_config.js" | relative_url }}');
+      const config = mod.default || mod;
+      mermaid.initialize(config);
+    } catch (e) {
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
+          darkMode: true,
+          background: '#0d1b2d',
+          primaryColor: '#12243a',
+          primaryTextColor: '#edf5ff',
+          primaryBorderColor: '#203750',
+          lineColor: '#48d8f2',
+          secondaryColor: '#19324b',
+          tertiaryColor: '#07111f',
+          fontFamily: 'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '13px'
+        }
+      });
+    }
+    window.mermaid || (window.mermaid = mermaid);
+
+    async function enhanceDocumentation() {
+      document.querySelectorAll('.documentation-content table, .doc-section table').forEach((table) => {
+        if (!table.parentElement.classList.contains('table-wrap')) {
+          const wrap = document.createElement('div');
+          wrap.className = 'table-wrap';
+          table.parentNode.insertBefore(wrap, table);
+          wrap.appendChild(table);
+        }
+      });
+      const codeBlocks = document.querySelectorAll('div.language-mermaid, pre code.language-mermaid, pre.language-mermaid, pre.mermaid');
+      if (codeBlocks.length === 0) return;
+      for (const block of codeBlocks) {
+        const code = block.querySelector('code')?.textContent ?? block.textContent;
+        const container = document.createElement('pre');
+        container.className = 'mermaid';
+        container.textContent = code.trim();
+        const wrapper = block.closest('.highlighter-rouge') || block;
+        wrapper.replaceWith(container);
+      }
+      try {
+        await mermaid.run();
+      } catch (err) {
+        console.warn('Mermaid rendering error:', err);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enhanceDocumentation);
+    } else {
+      enhanceDocumentation();
+    }
+  </script>
+{%- endif -%}

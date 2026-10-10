@@ -216,21 +216,8 @@
   }
 }
 
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.translation-host {
-  display: none;
-}
+// Additional footer & utility styles live in modules/footer.scss and
+// modules/utilities.scss (mirrors just-the-docs module organization).
 
 // Hero Page Header Block
 .page-header {

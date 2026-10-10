@@ -1,0 +1,54 @@
+{%- comment -%}
+  components/header.html — Top documentation-site header (brand + main navbar).
+
+  Used by the docs, catalogue, store, changelog, faq and item layouts.
+  Include arguments:
+    tag     (string) short label under the brand (e.g. "Developer Guides", "Catalogue")
+    active  (string) which navbar entry is the current page:
+                     home | docs | wiki | catalogue | store | changelog | faq
+{%- endcomment -%}
+{%- assign hdr_tag = include.tag | default: "Developer Guides" -%}
+{%- assign hdr_active = include.active | default: "docs" -%}
+{%- assign repo_slug = site.repository | default: site.github.repository_nwo | default: "HELIX-Origin/helix-docs" -%}
+{%- assign brand_logo = site.logo | default: "https://github.com/HELIX-Origin.png?size=150" -%}
+<header class="docs-site-header">
+  <div class="docs-site-header-inner">
+    <a class="brand-inline" href="{{ '/' | relative_url }}" aria-label="{{ site.title | escape }} home">
+      <span class="brand__mark brand__mark--sm" aria-hidden="true">
+        <img src="{{ brand_logo }}" alt="" width="36" height="36">
+      </span>
+      <span>
+        <strong>{{ site.title | default: "HELIX Origin" }}</strong>
+        <small class="docs-tag">{{ hdr_tag }}</small>
+      </span>
+    </a>
+
+    <nav class="navbar docs-navbar" aria-label="Main navigation">
+      <ul class="navbar-list">
+        <li><a class="navbar-link{% if hdr_active == 'home' %} active{% endif %}" href="{{ '/' | relative_url }}"{% if hdr_active == 'home' %} aria-current="page"{% endif %}>Home</a></li>
+        {%- if site.docs or site.collections.docs -%}
+        <li><a class="navbar-link{% if hdr_active == 'docs' %} active{% endif %}" href="{{ '/docs/' | relative_url }}"{% if hdr_active == 'docs' %} aria-current="page"{% endif %}>Docs</a></li>
+        {%- endif -%}
+        {%- if site.wiki or site.collections.wiki -%}
+        <li><a class="navbar-link{% if hdr_active == 'wiki' %} active{% endif %}" href="{{ '/wiki/' | relative_url }}"{% if hdr_active == 'wiki' %} aria-current="page"{% endif %}>Wiki</a></li>
+        {%- endif -%}
+        {%- if site.catalogue or site.collections.catalogue -%}
+        <li><a class="navbar-link{% if hdr_active == 'catalogue' %} active{% endif %}" href="{{ '/catalogue/' | relative_url }}"{% if hdr_active == 'catalogue' %} aria-current="page"{% endif %}>Catalogue</a></li>
+        {%- endif -%}
+        {%- if site.store or site.collections.store -%}
+        <li><a class="navbar-link{% if hdr_active == 'store' %} active{% endif %}" href="{{ '/store/' | relative_url }}"{% if hdr_active == 'store' %} aria-current="page"{% endif %}>Store</a></li>
+        {%- endif -%}
+        {%- if hdr_active == 'changelog' -%}
+        <li><a class="navbar-link active" href="{{ page.url | relative_url }}" aria-current="page">Changelog</a></li>
+        {%- endif -%}
+        {%- if hdr_active == 'faq' -%}
+        <li><a class="navbar-link active" href="{{ page.url | relative_url }}" aria-current="page">FAQ</a></li>
+        {%- endif -%}
+        {%- if repo_slug -%}
+        <li><a class="navbar-link" href="https://github.com/{{ repo_slug }}/releases">Releases ↗</a></li>
+        {%- endif -%}
+      </ul>
+      {% include translate-control.html %}
+    </nav>
+  </div>
+</header>

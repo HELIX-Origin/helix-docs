@@ -1,0 +1,115 @@
+{%- comment -%}
+  ============================================================================
+  components/nav.html — Theme-managed, frontmatter-driven navigation tree
+  ============================================================================
+  Mirrors the just-the-docs navigation model: page frontmatter drives the
+  sidebar trees and sequential pagers. No per-site `_data` files are required.
+
+  Every page contributes with:
+    parent        (string) exact title of the level-2 (parent) page
+    grand_parent  (string) exact title of the level-1 (grandparent) page
+    nav_order     (int)    ascending sort position within its sibling group
+    published     (bool)   `false` hides the page from all navigation
+    nav_exclude   (bool)   `true` hides this page from the nav tree only
+                            (the page is still built and reachable by URL)
+
+  Include arguments:
+    items    (array)  pages/documents to build the tree from
+    active   (string) page.path of the current page (active state)
+    variant  (string) "docs" (default sidebar) or "wiki" (wiki tree)
+  ============================================================================
+{%- endcomment -%}
+
+{%- assign nav_items = include.items -%}
+{%- if nav_items == nil or nav_items.size == 0 -%}
+  {%- assign nav_items = site.html_pages -%}
+{%- endif -%}
+
+{%- assign nav_active = include.active -%}
+{%- assign nav_variant = include.variant | default: "docs" -%}
+
+{%- comment -%} Exclude unpublished and nav-excluded pages from every tree {%- endcomment -%}
+{%- assign nav_items = nav_items | where_exp: "item", "item.published != false" -%}
+{%- assign nav_items = nav_items | where_exp: "item", "item.nav_exclude != true" -%}
+
+{%- comment -%} Level 1: pages without a `parent` {%- endcomment -%}
+{%- assign nav_l1 = "" | split: "" -%}
+{%- for item in nav_items -%}
+  {%- assign item_parent = item.parent | default: "" -%}
+  {%- if item_parent == "" -%}
+    {%- assign nav_l1 = nav_l1 | push: item -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign nav_l1 = nav_l1 | sort: "nav_order" -%}
+
+{%- if nav_variant == "wiki" -%}
+<ul class="wiki-nav-list">
+{%- else -%}
+<ul class="docs-nav-list">
+{%- endif -%}
+  {%- for top in nav_l1 -%}
+
+    {%- comment -%} Level 2: pages whose `parent` is this level-1 page {%- endcomment -%}
+    {%- assign top_children = "" | split: "" -%}
+    {%- for item in nav_items -%}
+      {%- assign item_parent = item.parent | default: "" -%}
+      {%- if item_parent == top.title -%}
+        {%- assign top_children = top_children | push: item -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- assign top_children = top_children | sort: "nav_order" -%}
+
+    <li{% if nav_variant == 'wiki' %} class="wiki-nav-item"{% endif %}>
+      {%- if nav_variant == "wiki" -%}
+      <a class="wiki-nav-link{% if top.path == nav_active %} active{% endif %}" href="{{ top.url | relative_url }}"{% if top.path == nav_active %} aria-current="page"{% endif %}>
+        <span class="wiki-nav-icon" aria-hidden="true">📄</span><span>{{ top.title | escape }}</span>
+      </a>
+      {%- else -%}
+      <a href="{{ top.url | relative_url }}"{% if top.path == nav_active %} class="active" aria-current="page"{% endif %}>{{ top.title | escape }}</a>
+      {%- endif -%}
+
+      {%- if top_children.size > 0 -%}
+      <ul class="{% if nav_variant == 'wiki' %}wiki-nav-list{% else %}docs-nav-list{% endif %}">
+        {%- for child in top_children -%}
+
+          {%- comment -%} Level 3: pages whose `parent` is this level-2 page {%- endcomment -%}
+          {%- assign child_children = "" | split: "" -%}
+          {%- for item in nav_items -%}
+            {%- assign item_parent = item.parent | default: "" -%}
+            {%- if item_parent == child.title -%}
+              {%- assign child_children = child_children | push: item -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- assign child_children = child_children | sort: "nav_order" -%}
+
+          <li{% if nav_variant == 'wiki' %} class="wiki-nav-item"{% endif %}>
+            {%- if nav_variant == "wiki" -%}
+            <a class="wiki-nav-link{% if child.path == nav_active %} active{% endif %}" href="{{ child.url | relative_url }}"{% if child.path == nav_active %} aria-current="page"{% endif %}>
+              <span class="wiki-nav-icon" aria-hidden="true">📄</span><span>{{ child.title | escape }}</span>
+            </a>
+            {%- else -%}
+            <a href="{{ child.url | relative_url }}"{% if child.path == nav_active %} class="active" aria-current="page"{% endif %}>{{ child.title | escape }}</a>
+            {%- endif -%}
+
+            {%- if child_children.size > 0 -%}
+            <ul class="{% if nav_variant == 'wiki' %}wiki-nav-list{% else %}docs-nav-list{% endif %}">
+              {%- for grandchild in child_children -%}
+              <li{% if nav_variant == 'wiki' %} class="wiki-nav-item"{% endif %}>
+                {%- if nav_variant == "wiki" -%}
+                <a class="wiki-nav-link{% if grandchild.path == nav_active %} active{% endif %}" href="{{ grandchild.url | relative_url }}"{% if grandchild.path == nav_active %} aria-current="page"{% endif %}>
+                  <span class="wiki-nav-icon" aria-hidden="true">📄</span><span>{{ grandchild.title | escape }}</span>
+                </a>
+                {%- else -%}
+                <a href="{{ grandchild.url | relative_url }}"{% if grandchild.path == nav_active %} class="active" aria-current="page"{% endif %}>{{ grandchild.title | escape }}</a>
+                {%- endif -%}
+              </li>
+              {%- endfor -%}
+            </ul>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- endif -%}
+    </li>
+  {%- endfor -%}
+</ul>

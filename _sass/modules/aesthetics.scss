@@ -1,0 +1,66 @@
+// ==============================================================================
+// HELIX Docs Theme - Modules: Aesthetics & Base Elements
+// ==============================================================================
+// Mirrors the just-the-docs `modules/aesthetics.scss` layer. The document reset
+// lives in vendor/_normalize.scss; the site shell grid lives in layout.scss.
+
+h1, h2, h3, h4, h5, h6, .brand strong, .eyebrow {
+  font-family: $font-display;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 78% -12%, rgb(72 216 242 / 10%), transparent 42rem),
+    linear-gradient(140deg, #081527, var(--bg) 65%);
+  color: var(--text);
+  line-height: 1.7;
+  top: 0 !important; // Prevent Google Translate from offsetting body
+
+  &.is-wiki {
+    background:
+      radial-gradient(ellipse at 85% -10%, rgb(72 216 242 / 12%), transparent 48rem),
+      radial-gradient(ellipse at 15% 30%, rgb(176 108 255 / 6%), transparent 40rem),
+      linear-gradient(140deg, #071221, var(--bg) 70%);
+  }
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+
+  &:hover {
+    color: var(--text);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+}
+
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  z-index: 10;
+  top: 0.75rem;
+  left: 0.75rem;
+  transform: translateY(-180%);
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--bg);
+  padding: 0.55rem 0.8rem;
+
+  &:focus {
+    transform: translateY(0);
+  }
+}
+
+// Google Translate Suppression is defined in layout.scss (site shell layer).
+// Accessibility & Motion Settings live in layout.scss as well.

@@ -1,0 +1,39 @@
+{%- comment -%}
+  components/breadcrumbs.html — Breadcrumb trail for docs and wiki pages.
+
+  Crumb chain: Home > [Docs|Wiki] > grand_parent? > parent? > current
+  Parent/grand-parent pages are resolved by title from the site's pages.
+  Include arguments:
+    variant  "docs" or "wiki"
+{%- endcomment -%}
+{%- assign crumb_variant = include.variant | default: "docs" -%}
+
+{%- assign all_site_docs = site.html_pages -%}
+{%- if site.docs -%}{%- assign all_site_docs = all_site_docs | concat: site.docs -%}{%- endif -%}
+{%- if site.wiki -%}{%- assign all_site_docs = all_site_docs | concat: site.wiki -%}{%- endif -%}
+{%- assign crumb_root = crumb_variant | prepend: "/" | append: "/" -%}
+{%- assign crumb_root_label = crumb_variant | capitalize -%}
+
+<nav class="{% if crumb_variant == 'wiki' %}wiki-breadcrumbs{% else %}docs-breadcrumbs{% endif %}" aria-label="Breadcrumb navigation">
+  <ol class="breadcrumb-list">
+    <li><a href="{{ '/' | relative_url }}">Home</a></li>
+    <li><a href="{{ crumb_root | relative_url }}">{{ crumb_root_label }}</a></li>
+    {%- if page.grand_parent -%}
+      {%- assign gp_doc = all_site_docs | where: "title", page.grand_parent | first -%}
+      {%- if gp_doc -%}
+      <li><a href="{{ gp_doc.url | relative_url }}">{{ gp_doc.title | escape }}</a></li>
+      {%- else -%}
+      <li><span>{{ page.grand_parent | escape }}</span></li>
+      {%- endif -%}
+    {%- endif -%}
+    {%- if page.parent -%}
+      {%- assign p_doc = all_site_docs | where: "title", page.parent | first -%}
+      {%- if p_doc -%}
+      <li><a href="{{ p_doc.url | relative_url }}">{{ p_doc.title | escape }}</a></li>
+      {%- else -%}
+      <li><span>{{ page.parent | escape }}</span></li>
+      {%- endif -%}
+    {%- endif -%}
+    <li class="breadcrumb-current" aria-current="page">{{ page.title | default: page.heading | escape }}</li>
+  </ol>
+</nav>

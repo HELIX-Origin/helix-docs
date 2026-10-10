@@ -1,0 +1,157 @@
+// ==============================================================================
+// HELIX Docs Theme - Modules: Layout / Navigation Trees
+// ==============================================================================
+// Mirrors the just-the-docs `modules/layout/nav.scss` component. These classes
+// style the frontmatter-driven trees emitted by _includes/components/nav.html.
+
+// Docs Nav Tree
+.docs-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+
+  &-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-heading {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.35rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  li a {
+    display: block;
+    padding: 0.35rem 0.6rem;
+    border-radius: 8px;
+    color: var(--muted);
+    font-size: 0.82rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: var(--text);
+      background: var(--panel-raised);
+    }
+
+    &.active,
+    &[aria-current="page"] {
+      color: var(--accent);
+      background: rgba(72, 216, 242, 0.1);
+      font-weight: 600;
+    }
+  }
+
+  // Frontmatter-driven docs nav list (emitted by _includes/components/nav.html)
+  .docs-nav-list,
+  ul.docs-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+
+    ul {
+      margin-top: 0.2rem;
+      padding-left: 0.75rem;
+    }
+
+    li > ul {
+      padding-top: 0.15rem;
+    }
+  }
+
+  .docs-nav-group + .docs-nav-list,
+  .docs-nav-heading + .docs-nav-list {
+    margin-top: 0.25rem;
+  }
+}
+
+// Wiki Nav Tree
+.wiki-nav-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  margin: 0.75rem 0;
+}
+
+.wiki-nav-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+
+  &-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    padding: 0 0.4rem;
+  }
+}
+
+.wiki-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+
+  // Nested (parent/child/grandchild) levels
+  ul,
+  .wiki-nav-list {
+    margin-top: 0.2rem;
+    padding-left: 0.8rem;
+  }
+}
+
+.wiki-nav-item {
+  margin: 0;
+}
+
+.wiki-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 0.75rem;
+  border-radius: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.86rem;
+  line-height: 1.4;
+  transition: color 0.15s, background-color 0.15s;
+
+  &:hover {
+    color: var(--text);
+    background: rgb(72 216 242 / 6%);
+  }
+
+  &.active {
+    color: var(--text);
+    background: rgb(72 216 242 / 12%);
+    font-weight: 600;
+    border-left: 3px solid var(--accent);
+    padding-left: calc(0.75rem - 3px);
+  }
+}
+
+.wiki-nav-icon {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
