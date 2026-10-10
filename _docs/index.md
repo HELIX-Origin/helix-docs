@@ -1,9 +1,8 @@
 ---
 layout: docs
-title: Documentation Directory
-eyebrow: User Guides
-heading: Theme Documentation Directory
-lead: Comprehensive guides for installing, configuring, and building multi-layout documentation sites with helix-docs.
+title: Theme Documentation Directory
+summary: Comprehensive guides for installing, configuring, and building multi-layout documentation sites with helix-docs.
+nav_order: 1
 ---
 
 ## User Guides

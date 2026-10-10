@@ -1,9 +1,8 @@
 ---
 layout: wiki
-title: Wiki Directory
-eyebrow: Technical Reference
-heading: Community Wiki & Technical Architecture
-lead: In-depth technical specifications, CSS variable tokens, Liquid layout hierarchies, and JavaScript module documentation.
+title: Community Wiki & Technical Architecture
+summary: In-depth technical specifications, CSS variable tokens, Liquid layout hierarchies, and JavaScript module documentation.
+nav_order: 1
 ---
 
 ## Technical Topics

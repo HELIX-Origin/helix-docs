@@ -1,7 +1,7 @@
-{%- assign page_title = page.title | default: site.title | default: "Documentation" -%}
+{%- assign page_title = page.title | default: page.heading | default: site.title | default: "Documentation" -%}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="{{ page.description | default: site.description | escape }}">
+<meta name="description" content="{{ page.summary | default: page.lead | default: page.description | default: site.description | escape }}">
 <meta name="theme-color" content="#081426">
 <title>{{ page_title | escape }} | {{ site.title | default: "HELIX Origin" }}</title>
 <link rel="icon" href="{{ site.favicon | default: 'https://github.com/HELIX-Origin.png?size=64' }}">

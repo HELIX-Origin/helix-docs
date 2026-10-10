@@ -1,9 +1,9 @@
 ---
 layout: wiki
-title: Liquid Layout Templates
-eyebrow: Technical Reference
-heading: Liquid Layout Templates & Hooks
-lead: Template structure, frontmatter variable resolution, and include hooks.
+title: Liquid Layout Templates & Hooks
+summary: Template structure, frontmatter variable resolution, and include hooks.
+parent: Community Wiki & Technical Architecture
+nav_order: 3
 ---
 
 ## 🏗️ Template Hierarchy

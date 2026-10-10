@@ -1,9 +1,8 @@
 ---
 layout: faq
 title: Frequently Asked Questions
-eyebrow: Help & Troubleshooting
-heading: Frequently Asked Questions
-lead: Answers to common questions regarding theme setup, remote consumption, custom layouts, and markdown rendering.
+summary: Answers to common questions regarding theme setup, remote consumption, custom layouts, and markdown rendering.
+nav_order: 5
 categories:
   - Getting Started
   - Remote Theme

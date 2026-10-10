@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: UI Components & Elements
-eyebrow: User Guides
-heading: UI Components & Elements
-lead: Learn how to leverage built-in Markdown elements, cards, notices, and Mermaid diagrams.
+summary: Learn how to leverage built-in Markdown elements, cards, notices, and Mermaid diagrams.
+parent: Theme Documentation Directory
+nav_order: 5
 ---
 
 ## 📊 Standard Markdown Tables

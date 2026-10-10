@@ -1,9 +1,9 @@
 ---
 layout: wiki
 title: Packaging & Distribution
-eyebrow: Technical Reference
-heading: Packaging & Distribution
-lead: How helix-docs is published, versioned, and consumed via GitHub Pages remote_theme and RubyGems.
+summary: How helix-docs is published, versioned, and consumed via GitHub Pages remote_theme and RubyGems.
+parent: Community Wiki & Technical Architecture
+nav_order: 5
 ---
 
 ## 📦 Distribution Models

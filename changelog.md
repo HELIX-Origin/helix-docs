@@ -1,9 +1,8 @@
 ---
 layout: changelog
-title: Release Changelog
-eyebrow: Version History
-heading: Project Changelog & Releases
-lead: Comprehensive record of version milestones, feature enhancements, and bug fixes across the ecosystem.
+title: Project Changelog & Releases
+summary: Comprehensive record of version milestones, feature enhancements, and bug fixes across the ecosystem.
+nav_order: 4
 releases:
   - version: v1.1.0
     date: 2026-10-09

@@ -1,9 +1,9 @@
 ---
 layout: wiki
-title: CSS Design Architecture
-eyebrow: Technical Reference
-heading: CSS Design Architecture & Tokens
-lead: Architectural design tokens, layout grid parameters, and dark mode palette variables.
+title: CSS Design Architecture & Tokens
+summary: Architectural design tokens, layout grid parameters, and dark mode palette variables.
+parent: Community Wiki & Technical Architecture
+nav_order: 2
 ---
 
 ## 🎨 Theme Tokens (`:root`)

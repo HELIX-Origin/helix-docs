@@ -1,9 +1,9 @@
 ---
 layout: docs
 title: Working with Layouts
-eyebrow: User Guides
-heading: Working with Layouts
-lead: Explore the seven built-in layouts and learn how to declare them in your page frontmatter.
+summary: Explore the seven built-in layouts and learn how to declare them in your page frontmatter.
+parent: Theme Documentation Directory
+nav_order: 4
 ---
 
 ## 🎨 Supported Layouts
@@ -30,9 +30,10 @@ The `default` layout provides a sticky brand sidebar, a top navigation bar, Goog
 ---
 layout: default
 title: Page Title
-eyebrow: Category Label
-heading: Primary Headline
-lead: Explanatory lead paragraph...
+summary: Explanatory summary paragraph...
+parent: Parent Page (optional)
+grand_parent: Grand Parent Page (optional)
+nav_order: 1
 header_actions:
   - title: Get Started
     url: /docs/getting-started/
@@ -56,7 +57,9 @@ The `docs` layout is an uncluttered, reading-focused layout designed for guides 
 ---
 layout: docs
 title: Getting Started
-eyebrow: User Guides
+summary: Learn how to connect helix-docs to any GitHub repository in less than two minutes.
+parent: Theme Documentation Directory # Optional: exact case-sensitive title of parent page
+nav_order: 2 # Optional: numeric navigation position
 ---
 ```
 
@@ -73,7 +76,9 @@ The `wiki` layout provides a Just-the-docs style knowledge base experience:
 ---
 layout: wiki
 title: CSS Architecture
-eyebrow: Technical Reference
+summary: Architectural tokens, layout grids, and dark mode palette variables.
+parent: Community Wiki & Technical Architecture # Optional: exact case-sensitive title of parent page
+nav_order: 2 # Optional: numeric navigation position
 ---
 ```
 

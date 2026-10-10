@@ -1,9 +1,9 @@
 ---
 layout: wiki
-title: Client-Side JavaScript
-eyebrow: Technical Reference
-heading: Client-Side JavaScript Modules
-lead: Architecture of translate.js and mermaid-init.js modules.
+title: Client-Side JavaScript Modules
+summary: Architecture of translate.js and mermaid-init.js modules.
+parent: Community Wiki & Technical Architecture
+nav_order: 4
 ---
 
 ## 🌐 Google Translate Module (`translate.js`)

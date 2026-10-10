@@ -1,9 +1,9 @@
 ---
 layout: docs
-title: Getting Started
-eyebrow: User Guides
-heading: Getting Started with helix-docs
-lead: Learn how to connect helix-docs to any GitHub repository in less than two minutes.
+title: Getting Started with helix-docs
+summary: Learn how to connect helix-docs to any GitHub repository in less than two minutes.
+parent: Theme Documentation Directory
+nav_order: 2
 ---
 
 ## 🚀 Quick Setup (Remote Theme)
@@ -29,9 +29,10 @@ Create an `index.md` file using standard GitHub Flavored Markdown:
 ---
 layout: default
 title: My Project
-eyebrow: Documentation Portal
-heading: Welcome to My Project
-lead: A clean and fast open-source library.
+summary: A clean and fast open-source library.
+parent: Parent Page (optional)
+grand_parent: Grand Parent Page (optional)
+nav_order: 1
 ---
 
 ## Overview

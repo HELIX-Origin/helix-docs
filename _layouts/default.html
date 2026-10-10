@@ -129,12 +129,14 @@
             {% include translate-control.html %}
           </nav>
 
-          {%- if page.eyebrow -%}
-          <p class="eyebrow">{{ page.eyebrow }}</p>
+          {%- assign category_label = page.parent | default: page.category | default: page.eyebrow -%}
+          {%- if category_label -%}
+          <p class="eyebrow">{{ category_label }}</p>
           {%- endif -%}
-          <h1>{{ page.heading | default: page_title | escape }}</h1>
-          {%- if page.lead -%}
-          <p class="lead">{{ page.lead }}</p>
+          <h1>{{ page.title | default: page.heading | default: page_title | escape }}</h1>
+          {%- assign page_summary = page.summary | default: page.lead | default: page.description -%}
+          {%- if page_summary -%}
+          <p class="lead">{{ page_summary }}</p>
           {%- endif -%}
           {%- if page.notice -%}
           <div class="notice">

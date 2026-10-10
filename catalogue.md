@@ -1,9 +1,8 @@
 ---
 layout: catalogue
-title: Catalogue Template
-eyebrow: Layout Template
-heading: Catalogue Showcase
-lead: An interactive showcase layout for browsing, filtering, and previewing assets, themes, components, and extensions.
+title: Catalogue Showcase
+summary: An interactive showcase layout for browsing, filtering, and previewing assets, themes, components, and extensions.
+nav_order: 2
 categories:
   - Example Category A
   - Example Category B

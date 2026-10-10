@@ -1,9 +1,9 @@
 ---
 layout: docs
-title: 18-Language Translation
-eyebrow: User Guides
-heading: Multilingual Translation Engine
-lead: Zero-configuration Google Translate dropdown with persistent cookie state and graceful degradation.
+title: Multilingual Translation Engine
+summary: Zero-configuration Google Translate dropdown with persistent cookie state and graceful degradation.
+parent: Theme Documentation Directory
+nav_order: 6
 ---
 
 ## 🌐 Supported Languages

@@ -1,9 +1,8 @@
 ---
 layout: store
-title: Store Template
-eyebrow: Layout Template
-heading: Package & Add-on Store
-lead: A digital distribution hub layout for releases, installers, tools, and downloadable packages.
+title: Package & Add-on Store
+summary: A digital distribution hub layout for releases, installers, tools, and downloadable packages.
+nav_order: 3
 featured:
   title: Example Package Spotlight
   description: This is a placeholder spotlight demonstrating how a featured release, platform requirements, and download buttons render.

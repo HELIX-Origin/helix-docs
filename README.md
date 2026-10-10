@@ -53,10 +53,11 @@ Used for portal home pages (`index.md`), landing pages, and general standalone a
 ```markdown
 ---
 layout: default
-title: Project Documentation
-eyebrow: Developer Framework
-heading: Modern documentation engineered for clarity and performance.
-lead: A high-performance framework and multi-layout theme for technical documentation.
+title: Modern documentation engineered for clarity and performance.
+summary: A high-performance framework and multi-layout theme for technical documentation.
+parent: Parent Page (optional)
+grand_parent: Grand Parent Page (optional)
+nav_order: 1
 notice: "<strong>Documentation Notice:</strong> This documentation site is powered by helix-docs."
 header_actions:
   - title: Read Documentation
@@ -71,16 +72,18 @@ header_actions:
 ### 2. Documentation Guide Layout (`layout: docs`)
 Used for reading guides, tutorials, and sequential documentation in `_docs/`.
 Includes:
-- Reading navigation breadcrumbs
+- Reading navigation breadcrumbs (auto-linking `parent` & `grand_parent` page titles)
+- In-page Table of Contents
 - Previous & Next topic pager (`doc-pager`)
 - Direct "Edit on GitHub" link
-- Target Wiki shortcut banner
 
 ```markdown
 ---
 layout: docs
 title: Getting Started
-eyebrow: Fundamentals
+summary: Learn how to connect helix-docs in two minutes.
+parent: Theme Documentation Directory
+nav_order: 2
 ---
 ```
 
@@ -89,14 +92,16 @@ Used for technical reference catalogs, architectural hierarchies, and schemas in
 Includes:
 - Interactive live search filter input
 - Hierarchy navigation tree
-- Deep breadcrumbs
+- Deep breadcrumbs (linking parent pages)
 - Structured schema tables
 
 ```markdown
 ---
 layout: wiki
 title: System Architecture
-eyebrow: Technical Reference
+summary: Architectural overview and system diagram.
+parent: Community Wiki & Technical Architecture
+nav_order: 2
 ---
 ```
 

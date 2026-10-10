@@ -141,7 +141,23 @@
               <ol class="breadcrumb-list">
                 <li><a href="{{ '/' | relative_url }}">Home</a></li>
                 <li><a href="{{ '/wiki/' | relative_url }}">Wiki</a></li>
-                <li class="breadcrumb-current" aria-current="page">{{ page_title | escape }}</li>
+                {%- if page.grand_parent %}
+                  {%- assign gp_doc = all_site_docs | where: "title", page.grand_parent | first -%}
+                  {%- if gp_doc -%}
+                    <li><a href="{{ gp_doc.url | relative_url }}">{{ gp_doc.title | escape }}</a></li>
+                  {%- else -%}
+                    <li><span>{{ page.grand_parent | escape }}</span></li>
+                  {%- endif -%}
+                {%- endif %}
+                {%- if page.parent %}
+                  {%- assign p_doc = all_site_docs | where: "title", page.parent | first -%}
+                  {%- if p_doc -%}
+                    <li><a href="{{ p_doc.url | relative_url }}">{{ p_doc.title | escape }}</a></li>
+                  {%- else -%}
+                    <li><span>{{ page.parent | escape }}</span></li>
+                  {%- endif -%}
+                {%- endif %}
+                <li class="breadcrumb-current" aria-current="page">{{ page.title | default: page.heading | default: page_title | escape }}</li>
               </ol>
             </nav>
 
@@ -156,10 +172,12 @@
           </div>
 
           <div class="wiki-title-block">
-            <p class="eyebrow">{{ page.eyebrow | default: "Community Knowledge Base" }}</p>
-            <h1>{{ page.heading | default: page_title | escape }}</h1>
-            {%- if page.lead -%}
-            <p class="lead">{{ page.lead }}</p>
+            {%- assign category_label = page.parent | default: page.category | default: page.eyebrow | default: "Community Knowledge Base" -%}
+            <p class="eyebrow">{{ category_label }}</p>
+            <h1>{{ page.title | default: page.heading | default: page_title | escape }}</h1>
+            {%- assign page_summary = page.summary | default: page.lead | default: page.description -%}
+            {%- if page_summary -%}
+            <p class="lead">{{ page_summary }}</p>
             {%- endif -%}
           </div>
         </header>

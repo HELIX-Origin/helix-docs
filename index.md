@@ -1,9 +1,8 @@
 ---
 layout: default
 title: HELIX Docs Theme
-eyebrow: Modern Multi-Layout GitHub Pages Theme
-heading: The universal Jekyll theme for documentation, wikis, and project portals.
-lead: helix-docs provides clean responsive layouts, deep navigation trees, integrated Google Translate, and Mermaid diagrams for GitHub Pages sites across the HELIX Origin organization.
+summary: The universal Jekyll theme for documentation, wikis, and project portals across the HELIX Origin organization.
+nav_order: 1
 notice: "<strong>Zero-Install Remote Theme:</strong> Use directly on GitHub Pages by adding <code>remote_theme: HELIX-Origin/helix-docs</code> to your <code>_config.yml</code>."
 header_actions:
   - title: View on GitHub ↗
@@ -57,9 +56,10 @@ plugins:
 ---
 layout: default
 title: My Project
-eyebrow: Project Category
-heading: My Project Title
-lead: Description of the project...
+summary: Description of the project...
+parent: Parent Page (optional)
+grand_parent: Grand Parent Page (optional)
+nav_order: 1
 ---
 
 ## Overview

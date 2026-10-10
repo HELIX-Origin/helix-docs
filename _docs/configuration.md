@@ -1,9 +1,9 @@
 ---
 layout: docs
-title: Theme Configuration
-eyebrow: User Guides
-heading: Theme Configuration Reference
-lead: A complete reference for configuring _config.yml, registering collections, and setting defaults.
+title: Theme Configuration Reference
+summary: A complete reference for configuring _config.yml, registering collections, and setting defaults.
+parent: Theme Documentation Directory
+nav_order: 3
 ---
 
 ## ⚙️ Configuration Schema

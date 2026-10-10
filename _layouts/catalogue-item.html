@@ -61,7 +61,15 @@
               <ol class="breadcrumb-list">
                 <li><a href="{{ '/' | relative_url }}">Home</a></li>
                 <li><a href="{{ '/catalogue/' | relative_url }}">Catalogue</a></li>
-                <li class="breadcrumb-current" aria-current="page">{{ page_title | escape }}</li>
+                {%- if page.grand_parent %}
+                <li><span>{{ page.grand_parent }}</span></li>
+                {%- endif %}
+                {%- if page.parent %}
+                <li><span>{{ page.parent }}</span></li>
+                {%- elsif page.category %}
+                <li><span>{{ page.category }}</span></li>
+                {%- endif %}
+                <li class="breadcrumb-current" aria-current="page">{{ page.title | default: page.heading | default: page_title | escape }}</li>
               </ol>
             </nav>
 
@@ -74,12 +82,14 @@
           </div>
 
           <div class="docs-title-block">
-            {%- if page.category -%}
-            <p class="eyebrow">{{ page.category }}</p>
+            {%- assign category_label = page.parent | default: page.category | default: page.eyebrow -%}
+            {%- if category_label -%}
+            <p class="eyebrow">{{ category_label }}</p>
             {%- endif -%}
-            <h1>{{ page.heading | default: page_title | escape }}</h1>
-            {%- if page.lead -%}
-            <p class="lead">{{ page.lead }}</p>
+            <h1>{{ page.title | default: page.heading | default: page_title | escape }}</h1>
+            {%- assign page_summary = page.summary | default: page.lead | default: page.description -%}
+            {%- if page_summary -%}
+            <p class="lead">{{ page_summary }}</p>
             {%- endif -%}
 
             <div class="catalogue-item-meta">
