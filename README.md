@@ -6,7 +6,7 @@
 
 ## Features
 
-- 🎨 **Multi-Layout System**: Seamlessly switch between portal landing pages (`layout: default`), sequential documentation guides (`layout: docs`), Just-the-docs style technical wikis (`layout: wiki`), and catalogues (`layout: catalogue`).
+- 🎨 **Multi-Layout System**: Seamlessly switch between portal landing pages (`layout: default`), sequential documentation guides (`layout: docs`), deep technical wikis (`layout: wiki`), and catalogues (`layout: catalogue`).
 - 🚀 **Zero-Install Remote Theme**: Works natively on GitHub Pages via `remote_theme: HELIX-Origin/helix-docs` without requiring Ruby or local gem compilation.
 - 🌐 **Integrated 18-Language Translation**: Built-in Google Translate integration with persistent cookies and responsive dropdown.
 - 📊 **Native Mermaid Diagrams**: Automatically detects and renders GitHub Flavored Markdown `mermaid` code blocks into dark-themed architectural diagrams.

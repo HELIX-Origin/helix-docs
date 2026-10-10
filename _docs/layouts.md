@@ -67,7 +67,7 @@ nav_order: 2 # Optional: numeric navigation position
 
 ## 3. Wiki Layout (`wiki`)
 
-The `wiki` layout provides a Just-the-docs style knowledge base experience:
+The `wiki` layout provides an in-depth technical knowledge base experience:
 - Interactive live search filter input
 - Multi-tier topic hierarchy tree
 - Deep breadcrumbs
