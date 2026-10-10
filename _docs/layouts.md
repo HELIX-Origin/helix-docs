@@ -193,4 +193,5 @@ Each page in your site can configure the following standardized frontmatter prop
 | `parent` | String | Optional | The exact (case-sensitive) title of the parent page. Automatically generates linked breadcrumbs and nests navigation items. |
 | `grand_parent` | String | Optional | The exact (case-sensitive) title of the grandparent page for 3-tier deep navigation hierarchies. |
 | `nav_order` | Integer | Optional | Numerical position to order pages inside sidebar navigation trees and sequential reading pagers. |
+| `permalink` | String | Optional | Custom output route / URL (e.g. `/guides/setup/`, `/404.html`). Overrides default URL auto-derivation if a custom path is desired. |
 | `published` | Boolean | Optional | Set `published: false` to draft or unpublish a page. Unpublished pages are excluded from navigation sidebars, sequential reading pagers, and showcase grids. Defaults to `true`. |

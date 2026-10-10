@@ -203,7 +203,15 @@
         <nav class="doc-pager" aria-label="Wiki topic navigation">
           {%- if previous_entry -%}
             {%- assign prev_doc = all_site_docs | where: "path", previous_entry.path | first -%}
-            {%- assign prev_url = prev_doc.url | default: previous_entry.path | relative_url -%}
+            {%- if prev_doc == nil -%}
+              {%- for d in all_site_docs -%}
+                {%- if d.path == previous_entry.path or d.relative_path == previous_entry.path or d.url == previous_entry.path or d.url == previous_entry.url or (d.permalink and previous_entry.path == d.permalink) or (d.permalink and previous_entry.url == d.permalink) -%}
+                  {%- assign prev_doc = d -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+            {%- assign prev_url = prev_doc.url | default: previous_entry.url | default: previous_entry.path | relative_url -%}
             <a class="doc-pager-card doc-pager-card--prev" href="{{ prev_url }}">
               <span class="doc-pager-label">← Previous Topic</span>
               <span class="doc-pager-title">{{ previous_entry.title }}</span>
@@ -214,7 +222,15 @@
 
           {%- if next_entry -%}
             {%- assign next_doc = all_site_docs | where: "path", next_entry.path | first -%}
-            {%- assign next_url = next_doc.url | default: next_entry.path | relative_url -%}
+            {%- if next_doc == nil -%}
+              {%- for d in all_site_docs -%}
+                {%- if d.path == next_entry.path or d.relative_path == next_entry.path or d.url == next_entry.path or d.url == next_entry.url or (d.permalink and next_entry.path == d.permalink) or (d.permalink and next_entry.url == d.permalink) -%}
+                  {%- assign next_doc = d -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+            {%- assign next_url = next_doc.url | default: next_entry.url | default: next_entry.path | relative_url -%}
             <a class="doc-pager-card doc-pager-card--next" href="{{ next_url }}">
               <span class="doc-pager-label">Next Topic →</span>
               <span class="doc-pager-title">{{ next_entry.title }}</span>
