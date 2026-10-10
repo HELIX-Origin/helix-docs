@@ -10,7 +10,7 @@
   {%- endif -%}
 {%- endfor -%}
 {%- assign is_home = false -%}
-{%- if page.path == 'index.md' or page.url == '/' -%}
+{%- if page.url == '/' or page.url == '/index.html' or page.path == 'index.md' or page.path == 'index.html' or page.path == 'docs/index.md' or page.path == 'docs/index.html' or page.page_class contains 'page--home' or page.layout == 'home' -%}
   {%- assign is_home = true -%}
 {%- endif -%}
 <!doctype html>
@@ -18,45 +18,51 @@
   <head>
     {% include head.html %}
   </head>
-  <body class="{% if page.page_class %}{{ page.page_class }}{% elsif is_home %}page--home{% else %}is-doc{% endif %}" data-page-layout="{{ page.layout | default: 'default' }}">
+  <body class="{% if is_home %}page--home{% if page.page_class %} {{ page.page_class }}{% endif %}{% elsif page.page_class %}{{ page.page_class }}{% else %}is-doc{% endif %}" data-page-layout="{{ page.layout | default: 'default' }}">
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="site-shell{% if is_home %} site-shell--home{% endif %}">
 
-      {% include components/sidebar.html variant="docs" items=nav_items %}
+      {% include components/sidebar.html variant="docs" items=nav_items is_home=is_home %}
 
       <main id="main" class="main-content">
         <header class="page-header">
           <nav class="navbar" aria-label="Site navigation">
             <ul class="navbar-list">
-              <li><a class="navbar-link{% if is_home %} active{% endif %}" href="{{ '/' | relative_url }}"{% if is_home %} aria-current="page"{% endif %}>Home</a></li>
-              {%- if is_home -%}
-                {%- if site.has_surfaces -%}
-                <li><a class="navbar-link" href="#surfaces">Surfaces</a></li>
-                <li><a class="navbar-link" href="#toolchain">Toolchain</a></li>
+              {%- if page.navbar_links -%}
+                {%- for link in page.navbar_links -%}
+                <li><a class="navbar-link{% if link.url == '#' or link.url == '#about' or link.active %} active{% endif %}" href="{{ link.url | relative_url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              {%- else -%}
+                <li><a class="navbar-link{% if is_home %} active{% endif %}" href="{{ '/' | relative_url }}"{% if is_home %} aria-current="page"{% endif %}>Home</a></li>
+                {%- if is_home -%}
+                  {%- if site.has_surfaces -%}
+                  <li><a class="navbar-link" href="#surfaces">Surfaces</a></li>
+                  <li><a class="navbar-link" href="#toolchain">Toolchain</a></li>
+                  {%- endif -%}
+                  {%- if site.has_projects -%}
+                  <li><a class="navbar-link" href="#projects">Projects</a></li>
+                  {%- endif -%}
                 {%- endif -%}
-                {%- if site.has_projects -%}
-                <li><a class="navbar-link" href="#projects">Projects</a></li>
+                {%- if site.docs or site.collections.docs -%}
+                <li><a class="navbar-link{% if page.url contains '/docs/' or page.collection == 'docs' %} active{% endif %}" href="{{ '/docs/' | relative_url }}">Docs</a></li>
                 {%- endif -%}
-              {%- endif -%}
-              {%- if site.docs or site.collections.docs -%}
-              <li><a class="navbar-link{% if page.url contains '/docs/' or page.collection == 'docs' %} active{% endif %}" href="{{ '/docs/' | relative_url }}">Docs</a></li>
-              {%- endif -%}
-              {%- if site.wiki or site.collections.wiki -%}
-              <li><a class="navbar-link{% if page.url contains '/wiki/' or page.collection == 'wiki' %} active{% endif %}" href="{{ '/wiki/' | relative_url }}">Wiki</a></li>
-              {%- endif -%}
-              {%- if repo_slug -%}
-              <li><a class="navbar-link" href="https://github.com/{{ repo_slug }}/releases">Releases ↗</a></li>
+                {%- if site.wiki or site.collections.wiki -%}
+                <li><a class="navbar-link{% if page.url contains '/wiki/' or page.collection == 'wiki' %} active{% endif %}" href="{{ '/wiki/' | relative_url }}">Wiki</a></li>
+                {%- endif -%}
+                {%- if repo_slug -%}
+                <li><a class="navbar-link" href="https://github.com/{{ repo_slug }}/releases">Releases ↗</a></li>
+                {%- endif -%}
               {%- endif -%}
             </ul>
             {% include translate-control.html %}
           </nav>
 
-          {%- assign category_label = page.parent | default: page.category | default: page.eyebrow -%}
+          {%- assign category_label = page.eyebrow | default: page.tagline | default: page.parent | default: page.category | default: site.tagline_short | default: site.tagline -%}
           {%- if category_label -%}
           <p class="eyebrow">{{ category_label }}</p>
           {%- endif -%}
-          <h1>{{ page.title | default: page.heading | default: page_title | escape }}</h1>
-          {%- assign page_summary = page.summary | default: page.lead | default: page.description -%}
+          <h1>{{ page.heading | default: page.title | default: page_title | escape }}</h1>
+          {%- assign page_summary = page.lead | default: page.summary | default: page.description | default: site.description -%}
           {%- if page_summary -%}
           <p class="lead">{{ page_summary }}</p>
           {%- endif -%}
@@ -74,9 +80,15 @@
           {%- endif -%}
         </header>
 
+        {%- if is_home -%}
+        <div class="landing-content">
+          {{ content }}
+        </div>
+        {%- else -%}
         <article class="doc-section documentation-content">
           {{ content }}
         </article>
+        {%- endif -%}
 
         {% include components/footer.html variant="default" %}
       </main>

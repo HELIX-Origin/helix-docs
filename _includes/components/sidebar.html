@@ -8,10 +8,23 @@
 {%- assign sidebar_variant = include.variant | default: "docs" -%}
 {%- assign sidebar_items = include.items -%}
 {%- assign repo_slug = site.repository | default: site.github.repository_nwo | default: "HELIX-Origin/helix-docs" -%}
-{%- assign brand_logo = site.logo | default: "https://github.com/HELIX-Origin.png?size=150" -%}
-{%- assign is_home = false -%}
-{%- if page.path == 'index.md' or page.url == '/' -%}
-  {%- assign is_home = true -%}
+{%- assign raw_logo = page.logo | default: site.logo -%}
+{%- if raw_logo -%}
+  {%- if raw_logo contains 'http' -%}
+    {%- assign brand_logo = raw_logo -%}
+  {%- else -%}
+    {%- assign brand_logo = raw_logo | relative_url -%}
+  {%- endif -%}
+{%- else -%}
+  {%- assign brand_logo = "https://github.com/HELIX-Origin.png?size=150" -%}
+{%- endif -%}
+{%- assign is_home = include.is_home -%}
+{%- if is_home == nil -%}
+  {%- if page.url == '/' or page.url == '/index.html' or page.path == 'index.md' or page.path == 'index.html' or page.path == 'docs/index.md' or page.path == 'docs/index.html' or page.page_class contains 'page--home' or page.layout == 'home' -%}
+    {%- assign is_home = true -%}
+  {%- else -%}
+    {%- assign is_home = false -%}
+  {%- endif -%}
 {%- endif -%}
 {%- if page.source_path -%}
   {%- assign edit_path = page.source_path -%}
@@ -25,11 +38,11 @@
       <img src="{{ brand_logo }}" alt="" width="150" height="150">
     </span>
     <span>
-      <strong>{{ site.title | default: "HELIX Origin" }}</strong>
+      <strong>{{ page.brand_title | default: site.title | default: "HELIX Origin" }}</strong>
       {%- if sidebar_variant == 'wiki' -%}
       <small class="wiki-tag">Community Wiki</small>
       {%- else -%}
-      <small>{{ site.tagline_short | default: site.tagline | default: "Theme Engineering" }}</small>
+      <small>{{ page.brand_tagline | default: site.tagline_short | default: site.tagline | default: "Theme Engineering" }}</small>
       {%- endif -%}
     </span>
   </a>
@@ -43,14 +56,15 @@
 
   <div class="separator" aria-hidden="true"></div>
 
-  {%- if sidebar_variant != 'wiki' and is_home and site.description -%}
+  {%- assign summary_text = page.sidebar_summary | default: page.summary | default: site.description -%}
+  {%- if sidebar_variant != 'wiki' and is_home and summary_text -%}
   <p class="sidebar__summary">
-    {{ site.description }}
+    {{ summary_text }}
   </p>
   <div class="separator" aria-hidden="true"></div>
   {%- endif -%}
 
-  {%- if sidebar_items and sidebar_items.size > 0 -%}
+  {%- if is_home != true and sidebar_items and sidebar_items.size > 0 -%}
   <nav class="{% if sidebar_variant == 'wiki' %}wiki-nav-tree{% else %}docs-nav{% endif %}" aria-label="{% if sidebar_variant == 'wiki' %}Wiki topics{% else %}Documentation pages{% endif %}">
     {% include components/nav.html items=sidebar_items active=page.path variant=sidebar_variant %}
   </nav>
@@ -75,6 +89,15 @@
     <a href="https://github.com/{{ repo_slug }}">📦 GitHub repository</a>
     {%- if sidebar_variant != 'wiki' -%}
     <a href="https://github.com/{{ repo_slug }}/releases">🏷️ Releases</a>
+    {%- endif -%}
+    {%- if page.license or site.license -%}
+    <a href="https://github.com/{{ repo_slug }}/blob/main/LICENSE">⚖️ {{ page.license | default: site.license }}</a>
+    {%- endif -%}
+    {%- if site.issues -%}
+    <a href="https://github.com/{{ repo_slug }}/issues">🐛 Issues</a>
+    {%- endif -%}
+    {%- if site.discussions -%}
+    <a href="https://github.com/{{ repo_slug }}/discussions">💬 Discussions</a>
     {%- endif -%}
     {%- if is_home != true -%}
     <a href="https://github.com/{{ repo_slug }}/blob/main/{{ edit_path }}">✏️ Edit on GitHub ↗</a>
