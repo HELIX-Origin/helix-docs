@@ -1,8 +1,214 @@
----
-layout: default
-page_class: page--catalogue
----
+{%- assign page_title = page.title | default: "Catalogue" -%}
+{%- assign repo_slug = site.repository | default: site.github.repository_nwo | default: "HELIX-Origin/helix-docs" -%}
+{%- assign brand_logo = site.logo | default: "https://github.com/HELIX-Origin.png?size=150" -%}
+{%- assign catalogue_items = page.items | default: site.data.catalogue -%}
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}">
+  <head>
+    {% include head.html %}
+  </head>
+  <body class="is-catalogue catalogue-theme{% if page.page_class %} {{ page.page_class }}{% endif %}" data-page-layout="catalogue">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="site-shell site-shell--docs catalogue-shell">
 
-<div class="catalogue-layout">
-  {{ content }}
-</div>
+      <header class="docs-site-header">
+        <div class="docs-site-header-inner">
+          <a class="brand-inline" href="{{ '/' | relative_url }}" aria-label="{{ site.title | escape }} home">
+            <span class="brand__mark brand__mark--sm" aria-hidden="true">
+              <img src="{{ brand_logo }}" alt="" width="36" height="36">
+            </span>
+            <span>
+              <strong>{{ site.title | default: "HELIX Origin" }}</strong>
+              <small class="docs-tag">Catalogue</small>
+            </span>
+          </a>
+
+          <nav class="navbar docs-navbar" aria-label="Main navigation">
+            <ul class="navbar-list">
+              <li><a class="navbar-link" href="{{ '/' | relative_url }}">Home</a></li>
+              {%- if site.docs or site.collections.docs -%}
+              <li><a class="navbar-link" href="{{ '/docs/' | relative_url }}">Docs</a></li>
+              {%- endif -%}
+              {%- if site.wiki or site.collections.wiki -%}
+              <li><a class="navbar-link" href="{{ '/wiki/' | relative_url }}">Wiki</a></li>
+              {%- endif -%}
+              <li><a class="navbar-link active" href="{{ page.url | relative_url }}" aria-current="page">Catalogue</a></li>
+              {%- if repo_slug -%}
+              <li><a class="navbar-link" href="https://github.com/{{ repo_slug }}/releases">Releases ↗</a></li>
+              {%- endif -%}
+            </ul>
+            {% include translate-control.html %}
+          </nav>
+        </div>
+      </header>
+
+      <main id="main" class="main-content catalogue-main">
+        <header class="page-header catalogue-header">
+          <div class="docs-header-top">
+            <nav class="docs-breadcrumbs" aria-label="Breadcrumb navigation">
+              <ol class="breadcrumb-list">
+                <li><a href="{{ '/' | relative_url }}">Home</a></li>
+                <li class="breadcrumb-current" aria-current="page">{{ page_title | escape }}</li>
+              </ol>
+            </nav>
+
+            {%- if repo_slug -%}
+            <div class="docs-header-actions">
+              <a href="https://github.com/{{ repo_slug }}" class="docs-action-link" target="_blank" rel="noopener">📦 Repository ↗</a>
+            </div>
+            {%- endif -%}
+          </div>
+
+          <div class="docs-title-block">
+            <p class="eyebrow">{{ page.eyebrow | default: "Asset Showcase" }}</p>
+            <h1>{{ page.heading | default: page_title | escape }}</h1>
+            {%- if page.lead -%}
+            <p class="lead">{{ page.lead }}</p>
+            {%- endif -%}
+          </div>
+
+          <div class="catalogue-toolbar">
+            <div class="catalogue-search-wrapper">
+              <span class="catalogue-search-icon" aria-hidden="true">🔍</span>
+              <input type="search" id="catalogue-search-input" placeholder="Search catalogue by name, tag, or description..." aria-label="Search catalogue">
+            </div>
+
+            {%- if page.categories -%}
+            <div class="catalogue-filter-pills" id="catalogue-category-filters" role="group" aria-label="Category filters">
+              <button type="button" class="catalogue-pill active" data-category="all">All</button>
+              {%- for cat in page.categories -%}
+              <button type="button" class="catalogue-pill" data-category="{{ cat | slugify }}">{{ cat }}</button>
+              {%- endfor -%}
+            </div>
+            {%- endif -%}
+          </div>
+        </header>
+
+        {%- if content and content != "" -%}
+        <div class="catalogue-intro doc-section documentation-content">
+          {{ content }}
+        </div>
+        {%- endif -%}
+
+        {%- if catalogue_items and catalogue_items.size > 0 -%}
+        <section class="catalogue-section" aria-label="Catalogue gallery">
+          <div class="catalogue-meta-bar">
+            <span class="catalogue-count"><strong id="catalogue-item-count">{{ catalogue_items.size }}</strong> items available</span>
+          </div>
+
+          <div class="catalogue-grid" id="catalogue-grid">
+            {%- for item in catalogue_items -%}
+            <article class="catalogue-card" data-category="{{ item.category | default: 'general' | slugify }}" data-title="{{ item.title | escape | downcase }}" data-tags="{{ item.tags | join: ' ' | downcase }}">
+              {%- if item.image -%}
+              <div class="catalogue-card__media">
+                <img src="{{ item.image | relative_url }}" alt="{{ item.title | escape }}" loading="lazy">
+                {%- if item.badge -%}
+                <span class="catalogue-card__badge">{{ item.badge }}</span>
+                {%- endif -%}
+              </div>
+              {%- endif -%}
+
+              <div class="catalogue-card__body">
+                <div class="catalogue-card__head">
+                  <h3 class="catalogue-card__title">{{ item.title }}</h3>
+                  {%- if item.version -%}
+                  <span class="item-badge">{{ item.version }}</span>
+                  {%- endif -%}
+                </div>
+
+                {%- if item.description -%}
+                <p class="catalogue-card__desc">{{ item.description }}</p>
+                {%- endif -%}
+
+                {%- if item.tags -%}
+                <div class="catalogue-card__tags">
+                  {%- for tag in item.tags -%}
+                  <span class="catalogue-tag">{{ tag }}</span>
+                  {%- endfor -%}
+                </div>
+                {%- endif -%}
+
+                <div class="catalogue-card__actions">
+                  {%- if item.preview_url -%}
+                  <a href="{{ item.preview_url | relative_url }}" class="button button--primary button--sm">Preview</a>
+                  {%- endif -%}
+                  {%- if item.docs_url -%}
+                  <a href="{{ item.docs_url | relative_url }}" class="button button--secondary button--sm">Docs</a>
+                  {%- endif -%}
+                  {%- if item.github_url -%}
+                  <a href="{{ item.github_url }}" class="catalogue-link" target="_blank" rel="noopener">GitHub ↗</a>
+                  {%- endif -%}
+                </div>
+              </div>
+            </article>
+            {%- endfor -%}
+          </div>
+        </section>
+        {%- endif -%}
+
+        <footer class="site-footer docs-footer">
+          <span>{{ site.title | default: "HELIX Origin" }} Catalogue</span>
+          <div class="docs-footer-links">
+            <a href="{{ '/' | relative_url }}">← Back to Home</a>
+            {%- if repo_slug -%}
+            <a href="https://github.com/{{ repo_slug }}">GitHub Repository</a>
+            {%- endif -%}
+          </div>
+        </footer>
+      </main>
+
+    </div>
+    <div id="google_translate_element" class="translation-host" hidden></div>
+    <script>
+      (function() {
+        const searchInput = document.getElementById('catalogue-search-input');
+        const filterPills = document.querySelectorAll('.catalogue-pill');
+        const cards = document.querySelectorAll('.catalogue-card');
+        const countSpan = document.getElementById('catalogue-item-count');
+        if (!cards.length) return;
+
+        let activeCategory = 'all';
+        let searchQuery = '';
+
+        function updateFilter() {
+          let visibleCount = 0;
+          cards.forEach(function(card) {
+            const cardCat = card.getAttribute('data-category') || '';
+            const cardTitle = card.getAttribute('data-title') || '';
+            const cardTags = card.getAttribute('data-tags') || '';
+            const cardText = card.textContent.toLowerCase();
+
+            const matchCat = (activeCategory === 'all' || cardCat === activeCategory);
+            const matchQuery = !searchQuery || cardTitle.includes(searchQuery) || cardTags.includes(searchQuery) || cardText.includes(searchQuery);
+
+            if (matchCat && matchQuery) {
+              card.style.display = '';
+              visibleCount++;
+            } else {
+              card.style.display = 'none';
+            }
+          });
+          if (countSpan) countSpan.textContent = visibleCount;
+        }
+
+        if (searchInput) {
+          searchInput.addEventListener('input', function(e) {
+            searchQuery = e.target.value.toLowerCase().trim();
+            updateFilter();
+          });
+        }
+
+        filterPills.forEach(function(pill) {
+          pill.addEventListener('click', function() {
+            filterPills.forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            activeCategory = pill.getAttribute('data-category') || 'all';
+            updateFilter();
+          });
+        });
+      })();
+    </script>
+    <script type="module" src="{{ '/assets/js/mermaid-init.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/translate.js' | relative_url }}" defer></script>
+  </body>
+</html>

@@ -5,6 +5,17 @@
     - title: Documentation Directory
       path: _docs/index.md
 
+- section: Layout Showcases
+  pages:
+    - title: Asset Catalogue
+      path: catalogue.md
+    - title: Package Store
+      path: store.md
+    - title: Release Changelog
+      path: changelog.md
+    - title: Frequently Asked Questions
+      path: faq.md
+
 - section: User Guides
   pages:
     - title: Getting Started
