@@ -75,3 +75,14 @@ defaults:
       layout: wiki
       page_class: page--wiki
 ```
+
+---
+
+## 🎨 Custom SCSS Styling (`custom.scss`)
+
+Similar to Just the Docs, `helix-docs` supports non-destructive style overrides without modifying theme core files:
+
+- **Custom Styles (`custom.scss`)**: Create `_sass/custom/custom.scss` (or `_scss/custom/custom.scss`) in your repository to inject custom CSS classes, layout tweaks, and element overrides. This file is imported at the end of the stylesheet cascade.
+- **Variable Setup (`setup.scss`)**: Create `_sass/custom/setup.scss` (or `_scss/custom/setup.scss`) to override SCSS variables (such as brand colors and font stacks) before component styles compile.
+
+When Jekyll builds on GitHub Pages, your custom SCSS files are automatically resolved and compiled directly into `assets/css/site.css`.
