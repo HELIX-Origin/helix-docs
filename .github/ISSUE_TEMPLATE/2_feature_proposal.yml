@@ -1,0 +1,82 @@
+name: "✨ Feature Proposal"
+description: "Suggest a new layout, UI component, SCSS feature, or enhancement for helix-docs"
+title: "✨ [Feature]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea to improve the **helix-docs** theme? We welcome proposals that align with
+        our dark-mode aesthetics, frontmatter-driven navigation, and zero-install GitHub Pages workflow.
+  - type: dropdown
+    id: scope
+    attributes:
+      label: "Feature Domain"
+      description: "Which area of the theme does this proposal target?"
+      options:
+        - "New Layout System (e.g. specialized dashboard, showcase, index)"
+        - "Existing Layout Enhancement (default, docs, wiki, catalogue, store, faq)"
+        - "New UI Component / Include (_includes/components/*)"
+        - "Navigation Tree, TOC & Pager Architecture"
+        - "SCSS Styling / Color Schemes / Aesthetics (_sass/*)"
+        - "Frontmatter Metadata & Configuration Schema"
+        - "Mobile Responsiveness & Breakpoint Behavior"
+        - "Multilingual / Translation Engine"
+        - "Mermaid / Diagramming / Syntax Highlighting"
+        - "Other / Cross-Cutting"
+    validations:
+      required: true
+  - type: textarea
+    id: problem_statement
+    attributes:
+      label: "Problem or Use Case"
+      description: "What problem are you trying to solve, or what project documentation need is currently unmet?"
+      placeholder: "When creating project documentation for..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: "Proposed Solution"
+      description: "Describe the desired capability, markup structure, or layout design you would like to see."
+      placeholder: "Introduce a new include or layout that..."
+    validations:
+      required: true
+  - type: textarea
+    id: frontmatter_spec
+    attributes:
+      label: "Proposed Frontmatter & Liquid Specification"
+      description: "How should users configure this feature in their page YAML frontmatter or _config.yml?"
+      render: yaml
+      placeholder: |
+        ---
+        layout: my-layout
+        feature_setting: value
+        ---
+    validations:
+      required: false
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternative Approaches Considered"
+      description: "Did you consider any alternative solutions or workarounds?"
+    validations:
+      required: false
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Additional Context / Visual Mockups"
+      description: "Attach wireframes, screenshots, or code examples illustrating the concept."
+    validations:
+      required: false
+  - type: checkboxes
+    id: guidelines_agreement
+    attributes:
+      label: "Theme Design Constraints Agreement"
+      options:
+        - label: "I understand that helix-docs runs as a zero-install remote theme on GitHub Pages and cannot rely on custom unwhitelisted Ruby gems."
+          required: true
+        - label: "I understand that theme SCSS must compile cleanly with modern Dart Sass."
+          required: true
+        - label: "I understand that navigation must remain frontmatter-driven without requiring manual navigation data files."
+          required: true

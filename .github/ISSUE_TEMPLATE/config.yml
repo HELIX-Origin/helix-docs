@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 Theme Documentation
+    url: https://helix-origin.github.io/helix-docs/docs/
+    about: Read the configuration guide, layout reference, and UI component documentation.
+  - name: 📚 Community Wiki
+    url: https://helix-origin.github.io/helix-docs/wiki/
+    about: Explore technical schemas, layout specifications, and architecture notes.
+  - name: 🧬 HELIX Origin Portal
+    url: https://helix-origin.github.io/
+    about: Learn more about HELIX Origin open-source projects, tools, and themes.

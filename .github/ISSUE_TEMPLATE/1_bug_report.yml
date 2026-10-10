@@ -1,0 +1,122 @@
+name: "🐛 Bug Report"
+description: "Report a layout bug, styling defect, Liquid error, or theme failure in helix-docs"
+title: "🐛 [Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue with **helix-docs**!
+        Please search existing issues before submitting to avoid duplicates.
+  - type: dropdown
+    id: component
+    attributes:
+      label: "Affected Theme Subsystem"
+      description: "Select the theme component or layout where the problem occurs."
+      options:
+        - "Default / Portal Landing Layout (layout: default / home)"
+        - "Documentation Guide Layout (layout: docs)"
+        - "Wiki Catalog Tree Layout (layout: wiki)"
+        - "Showcase Layouts (catalogue / store / changelog / faq)"
+        - "Sidebar & vCard Profile Card (_includes/components/sidebar.html)"
+        - "Frontmatter Navigation Tree (_includes/components/nav.html)"
+        - "Header, Navbar & Action Buttons (_includes/components/header.html)"
+        - "Breadcrumbs & Pager (_includes/components/breadcrumbs.html, children_nav.html)"
+        - "SCSS Styling / Dart Sass Pipeline (assets/css/site.css)"
+        - "18-Language Translation Engine (_includes/translate-control.html, translate.js)"
+        - "Mermaid Diagram Rendering (_includes/components/mermaid.html, mermaid-init.js)"
+        - "jekyll-remote-theme Integration & Build"
+        - "Other / Unsure"
+    validations:
+      required: true
+  - type: dropdown
+    id: environment
+    attributes:
+      label: "Build & Hosting Environment"
+      description: "How are you building or hosting the site?"
+      options:
+        - "GitHub Pages (via jekyll-remote-theme)"
+        - "Local Jekyll 3.9.x (Ruby 3.3 / Windows 11)"
+        - "Local Jekyll 3.9.x (Linux / macOS)"
+        - "Custom GitHub Actions Workflow"
+        - "Other"
+    validations:
+      required: true
+  - type: input
+    id: consuming_repo
+    attributes:
+      label: "Consuming Repository (if applicable)"
+      description: "URL or name of the project repository consuming helix-docs."
+      placeholder: "e.g. HELIX-Origin/Windhawk-Themes"
+    validations:
+      required: false
+  - type: textarea
+    id: frontmatter_config
+    attributes:
+      label: "Page Frontmatter or _config.yml Excerpt"
+      description: "Include the relevant YAML frontmatter of the failing page or theme config block."
+      render: yaml
+      placeholder: |
+        ---
+        layout: default
+        title: My Project
+        parent: Documentation Directory
+        nav_order: 1
+        ---
+    validations:
+      required: false
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: "Bug Description"
+      description: "A clear and concise description of what the bug is."
+      placeholder: "When viewing the page..."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction_steps
+    attributes:
+      label: "Steps to Reproduce"
+      description: "Step-by-step instructions to reproduce the issue."
+      value: |
+        1. Set page layout to '...'
+        2. Build site with 'bundle exec jekyll build' (or view on GitHub Pages)
+        3. Navigate to '....'
+        4. Observe unexpected layout or error
+    validations:
+      required: true
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: "Expected Behavior"
+      description: "A clear description of what you expected to happen."
+      placeholder: "The section cards should render as dark panel cards with borders..."
+    validations:
+      required: true
+  - type: textarea
+    id: logs_or_errors
+    attributes:
+      label: "Jekyll Build Logs or Browser Console Output"
+      description: "Include relevant terminal error output, Liquid syntax warnings, or DevTools errors."
+      render: shell
+      placeholder: "Liquid Warning: ..."
+    validations:
+      required: false
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Screenshots / Media"
+      description: "Attach screenshots showing the issue (drag and drop images here)."
+    validations:
+      required: false
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: "Pre-submission Checklist"
+      options:
+        - label: "I have searched open and closed issues and confirmed this is not a duplicate."
+          required: true
+        - label: "I verified there are no duplicate keys in the page frontmatter (e.g. duplicate layout:)."
+          required: true
+        - label: "If using HTML tags in markdown, I ensured they are flush-left (<= 2 spaces) to avoid Kramdown code block conversion."
+          required: false

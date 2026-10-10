@@ -1,0 +1,52 @@
+name: "📖 Documentation Improvement"
+description: "Suggest improvements, report errors, or propose new guides for helix-docs documentation"
+title: "📖 [Docs]: "
+labels: ["documentation", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Accurate, high-quality documentation is critical for theme consumers.
+        Before submitting, please review our [Live Theme Documentation](https://helix-origin.github.io/helix-docs/docs/).
+  - type: dropdown
+    id: doc_location
+    attributes:
+      label: "Target Documentation Guide"
+      description: "Which documentation page or section needs improvement?"
+      options:
+        - "Theme Documentation Directory (docs/_docs/index.md)"
+        - "Getting Started with helix-docs (docs/_docs/getting-started.md)"
+        - "Theme Configuration Reference (docs/_docs/configuration.md)"
+        - "Working with Layouts (docs/_docs/layouts.md)"
+        - "UI Components & Elements (docs/_docs/components.md)"
+        - "Multilingual Translation Engine (docs/_docs/multilingual.md)"
+        - "Community Technical Wiki (docs/_wiki/*)"
+        - "Repository README.md"
+        - "Other / New Guide Proposal"
+    validations:
+      required: true
+  - type: textarea
+    id: issue_description
+    attributes:
+      label: "Description of the Inaccuracy or Gap"
+      description: "What is outdated, inaccurate, misleading, or missing from the documentation?"
+      placeholder: "The documentation for layout X states that... but actual behavior is..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_change
+    attributes:
+      label: "Proposed Text or Code Replacement"
+      description: "Provide the exact text, frontmatter examples, or code blocks you recommend."
+      placeholder: "Update the frontmatter block to: ..."
+    validations:
+      required: false
+  - type: checkboxes
+    id: verification
+    attributes:
+      label: "Documentation Checklist"
+      options:
+        - label: "I verified that all Markdown links use explicit `.md` extensions or relative URLs."
+          required: false
+        - label: "I verified that frontmatter examples follow valid YAML syntax without duplicate keys."
+          required: true
