@@ -35,11 +35,14 @@
   }
 
   li a {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
     padding: 0.35rem 0.6rem;
     border-radius: 8px;
     color: var(--muted);
     font-size: 0.82rem;
+    text-align: left;
     text-decoration: none;
     transition: all 0.2s ease;
 
@@ -128,10 +131,12 @@
 .wiki-nav-link {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 0.45rem;
   padding: 0.42rem 0.75rem;
   border-radius: 8px;
   color: var(--muted);
+  text-align: left;
   text-decoration: none;
   font-size: 0.86rem;
   line-height: 1.4;
@@ -151,7 +156,41 @@
   }
 }
 
-.wiki-nav-icon {
-  font-size: 0.9rem;
-  flex-shrink: 0;
+// Shared leading markers for both the docs and wiki trees.
+// Level-1 category pages show a category emoji; nested sub-pages show a bullet.
+.nav-icon {
+  flex: 0 0 1.25rem;
+  width: 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.nav-bullet {
+  display: inline-flex;
+  flex: 0 0 1.25rem;
+  width: 1.25rem;
+  align-items: center;
+  justify-content: center;
+
+  &::before {
+    content: "";
+    width: 0.34rem;
+    height: 0.34rem;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.55;
+  }
+}
+
+.nav-label {
+  min-width: 0;
+}
+
+// Level-1 categories read slightly stronger than their sub-pages.
+.wiki-nav-link--category,
+.docs-nav-link--category {
+  font-weight: 600;
+  color: var(--text);
 }

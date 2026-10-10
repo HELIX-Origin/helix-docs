@@ -27,7 +27,23 @@
 {%- endif -%}
 <meta name="twitter:title" content="{{ page_title | escape }}">
 <meta name="twitter:description" content="{{ page_desc | escape }}">
-<link rel="icon" href="{{ site.favicon | default: 'https://github.com/HELIX-Origin.png?size=64' }}">
+{%- assign raw_favicon = site.favicon | default: 'https://github.com/HELIX-Origin.png?size=64' -%}
+{%- assign raw_favicon_scheme = raw_favicon | slice: 0, 2 -%}
+{%- if raw_favicon contains '://' or raw_favicon_scheme == '//' -%}
+  {%- assign favicon_href = raw_favicon -%}
+{%- else -%}
+  {%- assign favicon_href = raw_favicon | relative_url -%}
+{%- endif -%}
+<link rel="icon" href="{{ favicon_href }}">
+{%- if site.icon -%}
+  {%- assign raw_icon_scheme = site.icon | slice: 0, 2 -%}
+  {%- if site.icon contains '://' or raw_icon_scheme == '//' -%}
+    {%- assign icon_href = site.icon -%}
+  {%- else -%}
+    {%- assign icon_href = site.icon | relative_url -%}
+  {%- endif -%}
+<link rel="apple-touch-icon" href="{{ icon_href }}">
+{%- endif -%}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">

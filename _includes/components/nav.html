@@ -9,9 +9,23 @@
     parent        (string) exact title of the level-2 (parent) page
     grand_parent  (string) exact title of the level-1 (grandparent) page
     nav_order     (int)    ascending sort position within its sibling group
+    nav_icon      (string) optional emoji/glyph for a level-1 category page
     published     (bool)   `false` hides the page from all navigation
     nav_exclude   (bool)   `true` hides this page from the nav tree only
                             (the page is still built and reachable by URL)
+
+  Category icons are resolved in this order:
+    1. `nav_icon:` in the category page's front matter
+    2. a `nav_icons:` map in `_config.yml`, keyed by title, path, or url:
+         nav_icons:
+           "Theme Documentation Directory": "📖"
+           "wiki/index.md": "📚"
+    3. a keyword heuristic on the page title/path
+    4. a neutral folder fallback
+
+  Visual hierarchy:
+    Level 1 (category) pages render a category emoji.
+    Level 2/3 (sub) pages render a left-aligned bullet.
 
   Include arguments:
     items    (array)  pages/documents to build the tree from
@@ -49,6 +63,9 @@
 {%- endif -%}
   {%- for top in nav_l1 -%}
 
+    {%- comment -%} Resolve the level-1 category icon (front matter > site config > heuristic) {%- endcomment -%}
+    {%- capture nav_icon -%}{%- include components/nav-icon.html page=top -%}{%- endcapture -%}
+
     {%- comment -%} Level 2: pages whose `parent` is this level-1 page {%- endcomment -%}
     {%- assign top_children = "" | split: "" -%}
     {%- for item in nav_items -%}
@@ -61,11 +78,13 @@
 
     <li{% if nav_variant == 'wiki' %} class="wiki-nav-item"{% endif %}>
       {%- if nav_variant == "wiki" -%}
-      <a class="wiki-nav-link{% if top.path == nav_active %} active{% endif %}" href="{{ top.url | relative_url }}"{% if top.path == nav_active %} aria-current="page"{% endif %}>
-        <span class="wiki-nav-icon" aria-hidden="true">📄</span><span>{{ top.title | escape }}</span>
+      <a class="wiki-nav-link wiki-nav-link--category{% if top.path == nav_active %} active{% endif %}" href="{{ top.url | relative_url }}"{% if top.path == nav_active %} aria-current="page"{% endif %}>
+        <span class="nav-icon" aria-hidden="true">{{ nav_icon }}</span><span class="nav-label">{{ top.title | escape }}</span>
       </a>
       {%- else -%}
-      <a href="{{ top.url | relative_url }}"{% if top.path == nav_active %} class="active" aria-current="page"{% endif %}>{{ top.title | escape }}</a>
+      <a class="docs-nav-link docs-nav-link--category{% if top.path == nav_active %} active{% endif %}" href="{{ top.url | relative_url }}"{% if top.path == nav_active %} aria-current="page"{% endif %}>
+        <span class="nav-icon" aria-hidden="true">{{ nav_icon }}</span><span class="nav-label">{{ top.title | escape }}</span>
+      </a>
       {%- endif -%}
 
       {%- if top_children.size > 0 -%}
@@ -84,11 +103,13 @@
 
           <li{% if nav_variant == 'wiki' %} class="wiki-nav-item"{% endif %}>
             {%- if nav_variant == "wiki" -%}
-            <a class="wiki-nav-link{% if child.path == nav_active %} active{% endif %}" href="{{ child.url | relative_url }}"{% if child.path == nav_active %} aria-current="page"{% endif %}>
-              <span class="wiki-nav-icon" aria-hidden="true">📄</span><span>{{ child.title | escape }}</span>
+            <a class="wiki-nav-link wiki-nav-link--child{% if child.path == nav_active %} active{% endif %}" href="{{ child.url | relative_url }}"{% if child.path == nav_active %} aria-current="page"{% endif %}>
+              <span class="nav-bullet" aria-hidden="true"></span><span class="nav-label">{{ child.title | escape }}</span>
             </a>
             {%- else -%}
-            <a href="{{ child.url | relative_url }}"{% if child.path == nav_active %} class="active" aria-current="page"{% endif %}>{{ child.title | escape }}</a>
+            <a class="docs-nav-link docs-nav-link--child{% if child.path == nav_active %} active{% endif %}" href="{{ child.url | relative_url }}"{% if child.path == nav_active %} aria-current="page"{% endif %}>
+              <span class="nav-bullet" aria-hidden="true"></span><span class="nav-label">{{ child.title | escape }}</span>
+            </a>
             {%- endif -%}
 
             {%- if child_children.size > 0 -%}
@@ -96,11 +117,13 @@
               {%- for grandchild in child_children -%}
               <li{% if nav_variant == 'wiki' %} class="wiki-nav-item"{% endif %}>
                 {%- if nav_variant == "wiki" -%}
-                <a class="wiki-nav-link{% if grandchild.path == nav_active %} active{% endif %}" href="{{ grandchild.url | relative_url }}"{% if grandchild.path == nav_active %} aria-current="page"{% endif %}>
-                  <span class="wiki-nav-icon" aria-hidden="true">📄</span><span>{{ grandchild.title | escape }}</span>
+                <a class="wiki-nav-link wiki-nav-link--child{% if grandchild.path == nav_active %} active{% endif %}" href="{{ grandchild.url | relative_url }}"{% if grandchild.path == nav_active %} aria-current="page"{% endif %}>
+                  <span class="nav-bullet" aria-hidden="true"></span><span class="nav-label">{{ grandchild.title | escape }}</span>
                 </a>
                 {%- else -%}
-                <a href="{{ grandchild.url | relative_url }}"{% if grandchild.path == nav_active %} class="active" aria-current="page"{% endif %}>{{ grandchild.title | escape }}</a>
+                <a class="docs-nav-link docs-nav-link--child{% if grandchild.path == nav_active %} active{% endif %}" href="{{ grandchild.url | relative_url }}"{% if grandchild.path == nav_active %} aria-current="page"{% endif %}>
+                  <span class="nav-bullet" aria-hidden="true"></span><span class="nav-label">{{ grandchild.title | escape }}</span>
+                </a>
                 {%- endif -%}
               </li>
               {%- endfor -%}

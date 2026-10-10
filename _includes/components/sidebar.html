@@ -10,7 +10,8 @@
 {%- assign repo_slug = site.repository | default: site.github.repository_nwo | default: "HELIX-Origin/helix-docs" -%}
 {%- assign raw_logo = page.logo | default: site.logo -%}
 {%- if raw_logo -%}
-  {%- if raw_logo contains 'http' -%}
+  {%- assign raw_logo_scheme = raw_logo | slice: 0, 2 -%}
+  {%- if raw_logo contains '://' or raw_logo_scheme == '//' -%}
     {%- assign brand_logo = raw_logo -%}
   {%- else -%}
     {%- assign brand_logo = raw_logo | relative_url -%}
@@ -71,18 +72,28 @@
   <div class="separator" aria-hidden="true"></div>
   {%- endif -%}
 
+  {%- comment -%} Resolve the category index pages so footer icons honor their front matter {%- endcomment -%}
+  {%- assign docs_index = nil -%}
+  {%- if site.docs -%}
+    {%- assign docs_index = site.docs | where: "url", "/docs/" | first -%}
+  {%- endif -%}
+  {%- assign wiki_index = nil -%}
+  {%- if site.wiki -%}
+    {%- assign wiki_index = site.wiki | where: "url", "/wiki/" | first -%}
+  {%- endif -%}
+
   <div class="sidebar__footer{% if sidebar_variant == 'wiki' %} wiki-sidebar__footer{% endif %}">
     {%- if sidebar_variant == 'wiki' or is_home != true -%}
     <a href="{{ '/' | relative_url }}">🏠 Portal Home</a>
     {%- endif -%}
     {%- if site.docs or site.collections.docs -%}
-    <a href="{{ '/docs/' | relative_url }}">📖 Documentation Directory</a>
+    <a href="{{ '/docs/' | relative_url }}">{% include components/nav-icon.html page=docs_index fallback="📖" %} Documentation Directory</a>
     {%- endif -%}
     {%- if sidebar_variant == 'wiki' -%}
-    <a href="{{ '/wiki/' | relative_url }}">📚 Wiki Directory</a>
+    <a href="{{ '/wiki/' | relative_url }}">{% include components/nav-icon.html page=wiki_index fallback="📚" %} Wiki Directory</a>
     {%- else -%}
     {%- if site.wiki or site.collections.wiki -%}
-    <a href="{{ '/wiki/' | relative_url }}">📚 Community Wiki</a>
+    <a href="{{ '/wiki/' | relative_url }}">{% include components/nav-icon.html page=wiki_index fallback="📚" %} Community Wiki</a>
     {%- endif -%}
     {%- endif -%}
     {%- if repo_slug -%}

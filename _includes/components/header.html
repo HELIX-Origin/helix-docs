@@ -9,7 +9,17 @@
 {%- endcomment -%}
 {%- assign hdr_tag = include.tag | default: "Developer Guides" -%}
 {%- assign repo_slug = site.repository | default: site.github.repository_nwo | default: "HELIX-Origin/helix-docs" -%}
-{%- assign brand_logo = site.logo | default: "https://github.com/HELIX-Origin.png?size=150" -%}
+{%- assign raw_logo = site.logo -%}
+{%- if raw_logo -%}
+  {%- assign raw_logo_scheme = raw_logo | slice: 0, 2 -%}
+  {%- if raw_logo contains '://' or raw_logo_scheme == '//' -%}
+    {%- assign brand_logo = raw_logo -%}
+  {%- else -%}
+    {%- assign brand_logo = raw_logo | relative_url -%}
+  {%- endif -%}
+{%- else -%}
+  {%- assign brand_logo = "https://github.com/HELIX-Origin.png?size=150" -%}
+{%- endif -%}
 <header class="docs-site-header">
   <div class="docs-site-header-inner">
     <a class="brand-inline" href="{{ '/' | relative_url }}" aria-label="{{ site.title | escape }} home">

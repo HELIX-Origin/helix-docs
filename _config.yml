@@ -15,6 +15,13 @@ theme: null
 repository: "HELIX-Origin/helix-docs"
 github_username: "HELIX-Origin"
 
+# Site branding — HELIX Docs squircle artwork (assets/images/).
+# `logo` is the header/sidebar brand mark, `favicon` the browser tab icon
+# (multi-size .ico), and `icon` the Apple touch icon / PWA PNG.
+logo: "assets/images/logo.svg"
+favicon: "assets/images/favicon.ico"
+icon: "assets/images/icon.png"
+
 author:
   name: "HELIX Origin"
   url: "https://helix-origin.github.io"
@@ -43,6 +50,14 @@ sass:
 # Mermaid (just-the-docs style)
 mermaid:
   version: "11.12.0"
+
+# Sidebar category icons (optional)
+# Level-1 "category" pages show an emoji marker in the sidebar tree. Set the
+# icon per page via `nav_icon:` front matter, or centrally with this map.
+# Map keys may be a page title, its source path, or its output URL.
+# nav_icons:
+#   "Theme Documentation Directory": "📖"
+#   "Community Wiki & Technical Architecture": "📚"
 
 # Jekyll Collections Registration
 collections:

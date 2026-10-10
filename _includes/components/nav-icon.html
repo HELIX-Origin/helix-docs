@@ -1,0 +1,55 @@
+{%- comment -%}
+  ============================================================================
+  components/nav-icon.html — Resolve a sidebar category icon for a page
+  ============================================================================
+  Emits a single emoji/glyph (no surrounding whitespace) so callers can use it
+  inline or capture it. Shared by components/nav.html (the tree) and
+  components/sidebar.html (the footer quick links) so category icons stay
+  consistent everywhere.
+
+  Include arguments:
+    page      (object) the page/document whose category icon to resolve
+    fallback  (string) optional glyph used when nothing else matches
+
+  Resolution precedence:
+    1. `nav_icon:` in the page's front matter
+    2. a `nav_icons:` map in `_config.yml`, keyed by title, path, or url:
+         nav_icons:
+           "Theme Documentation Directory": "📖"
+           "wiki/index.md": "📚"
+    3. a keyword heuristic on the page title/path
+    4. include.fallback, else "📁"
+  ============================================================================
+{%- endcomment -%}
+{%- assign icon_page = include.page -%}
+{%- assign nav_icon = icon_page.nav_icon -%}
+{%- if nav_icon == nil -%}
+  {%- assign nav_icon = site.nav_icons[icon_page.title] -%}
+{%- endif -%}
+{%- if nav_icon == nil -%}
+  {%- assign nav_icon = site.nav_icons[icon_page.path] -%}
+{%- endif -%}
+{%- if nav_icon == nil -%}
+  {%- assign nav_icon = site.nav_icons[icon_page.url] -%}
+{%- endif -%}
+{%- if nav_icon == nil -%}
+  {%- assign icon_haystack = icon_page.title | append: " " | append: icon_page.path | downcase -%}
+  {%- if icon_haystack contains "wiki" -%}
+    {%- assign nav_icon = "📚" -%}
+  {%- elsif icon_haystack contains "doc" or icon_haystack contains "guide" -%}
+    {%- assign nav_icon = "📖" -%}
+  {%- elsif icon_haystack contains "catalog" -%}
+    {%- assign nav_icon = "🗂️" -%}
+  {%- elsif icon_haystack contains "changelog" or icon_haystack contains "release" -%}
+    {%- assign nav_icon = "🕒" -%}
+  {%- elsif icon_haystack contains "store" or icon_haystack contains "package" -%}
+    {%- assign nav_icon = "📦" -%}
+  {%- elsif icon_haystack contains "faq" or icon_haystack contains "help" -%}
+    {%- assign nav_icon = "❓" -%}
+  {%- elsif icon_haystack contains "home" or icon_haystack contains "portal" -%}
+    {%- assign nav_icon = "🏠" -%}
+  {%- else -%}
+    {%- assign nav_icon = include.fallback | default: "📁" -%}
+  {%- endif -%}
+{%- endif -%}
+{{- nav_icon -}}

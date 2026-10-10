@@ -1,7 +1,7 @@
 {%- comment -%}
   components/scripts.html — Shared bottom-of-page assets:
-  Google Translate host element, mermaid component (gated by site.mermaid),
-  translation boot script.
+  Google Translate host element, mermaid component (enabled by default;
+  opt out with `mermaid: false`), translation boot script.
 {%- endcomment -%}
 <div id="google_translate_element" class="translation-host" hidden></div>
 {%- include components/mermaid.html -%}

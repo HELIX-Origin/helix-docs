@@ -1,12 +1,15 @@
 {%- comment -%}
-  components/mermaid.html — Mermaid runtime loader (gated by site.mermaid).
-  Mirrors just-the-docs style: only loaded when `site.mermaid` is truthy.
-  Allows overriding version via `site.mermaid.version`.
+  components/mermaid.html — Mermaid runtime loader.
+
+  Mermaid is ENABLED BY DEFAULT so every remote-theme consumer renders GFM
+  ```mermaid fences with no extra configuration. Opt out per site with
+  `mermaid: false` in `_config.yml`, or pin a release with `mermaid.version`.
   Also performs HELIX-specific enhancements (table wrapping + block detection).
 {%- endcomment -%}
-{%- if site.mermaid -%}
+{%- assign mermaid_version = site.mermaid.version | default: "11.12.0" -%}
+{%- unless site.mermaid == false -%}
   <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@{{ site.mermaid.version | default: "11.12.0" }}/dist/mermaid.esm.min.mjs';
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@{{ mermaid_version }}/dist/mermaid.esm.min.mjs';
     try {
       const mod = await import('{{ "/assets/js/mermaid_config.js" | relative_url }}');
       const config = mod.default || mod;
@@ -63,4 +66,4 @@
       enhanceDocumentation();
     }
   </script>
-{%- endif -%}
+{%- endunless -%}
