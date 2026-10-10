@@ -14,6 +14,17 @@
 {%- for group in site.data.navigation -%}
   {%- if group.section == "Community Wiki" or group.section contains "Wiki" -%}
     {%- for entry in group.pages -%}
+      {%- assign entry_doc = all_site_docs | where: "path", entry.path | first -%}
+      {%- if entry_doc == nil -%}
+        {%- for d in all_site_docs -%}
+          {%- if d.path == entry.path or d.relative_path == entry.path or d.url == entry.path or d.url == entry.url -%}
+            {%- assign entry_doc = d -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+      {%- if entry_doc and entry_doc.published == false -%}{%- continue -%}{%- endif -%}
+      {%- if entry.published == false -%}{%- continue -%}{%- endif -%}
       {%- assign wiki_pages = wiki_pages | push: entry -%}
     {%- endfor -%}
   {%- endif -%}
@@ -77,6 +88,8 @@
                   {%- endif -%}
                 {%- endfor -%}
               {%- endif -%}
+              {%- if entry_doc and entry_doc.published == false -%}{%- continue -%}{%- endif -%}
+              {%- if entry.published == false -%}{%- continue -%}{%- endif -%}
               {%- if entry_doc -%}
                 {%- assign entry_url = entry_doc.url | relative_url -%}
               {%- elsif entry.url -%}

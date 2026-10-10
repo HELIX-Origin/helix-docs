@@ -7,7 +7,7 @@
   {%- if site.catalogue -%}
     {%- assign catalogue_items = "" | split: "" -%}
     {%- for doc in site.catalogue -%}
-      {%- unless doc.url == '/catalogue/' or doc.path == '_catalogue/index.md' or doc.is_subpage -%}
+      {%- unless doc.url == '/catalogue/' or doc.path == '_catalogue/index.md' or doc.is_subpage or doc.published == false -%}
         {%- assign path_parts = doc.path | remove_first: "_catalogue/" | split: "/" -%}
         {%- if path_parts.size == 1 or path_parts[1] == "index.md" -%}
           {%- assign catalogue_items = catalogue_items | push: doc -%}
@@ -127,6 +127,7 @@
 
           <div class="catalogue-grid" id="catalogue-grid">
             {%- for item in catalogue_items -%}
+            {%- if item.published == false -%}{%- continue -%}{%- endif -%}
             {%- assign item_target_url = item.url | default: item.preview_url | relative_url -%}
             <article class="catalogue-card" data-category="{{ item.category | default: 'general' | slugify }}" data-title="{{ item.title | escape | downcase }}" data-tags="{{ item.tags | join: ' ' | downcase }}">
               {%- if item.image -%}

@@ -7,7 +7,7 @@
   {%- if site.store -%}
     {%- assign store_packages = "" | split: "" -%}
     {%- for doc in site.store -%}
-      {%- unless doc.url == '/store/' or doc.path == '_store/index.md' or doc.is_subpage -%}
+      {%- unless doc.url == '/store/' or doc.path == '_store/index.md' or doc.is_subpage or doc.published == false -%}
         {%- assign path_parts = doc.path | remove_first: "_store/" | split: "/" -%}
         {%- if path_parts.size == 1 or path_parts[1] == "index.md" -%}
           {%- assign store_packages = store_packages | push: doc -%}
@@ -162,6 +162,7 @@
         <section class="store-section" aria-label="Available packages">
           <div class="store-grid" id="store-grid">
             {%- for pkg in store_packages -%}
+            {%- if pkg.published == false -%}{%- continue -%}{%- endif -%}
             {%- assign pkg_target_url = pkg.url | default: pkg.docs_url | default: pkg.download_url | relative_url -%}
             <article class="store-card" data-category="{{ pkg.category | default: 'general' | slugify }}" data-title="{{ pkg.title | escape | downcase }}" data-desc="{{ pkg.description | escape | downcase }}">
               <div class="store-card__header">

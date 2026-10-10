@@ -178,3 +178,19 @@ faqs:
     a: Add `remote_theme: HELIX-Origin/helix-docs` to `_config.yml`.
 ---
 ```
+
+---
+
+## 📋 Frontmatter Reference
+
+Each page in your site can configure the following standardized frontmatter properties:
+
+| Key | Type | Requirement | Description |
+| :--- | :--- | :--- | :--- |
+| `layout` | String | **Required** | The layout template (`default`, `docs`, `wiki`, `catalogue`, `store`, `changelog`, `faq`). |
+| `title` | String | **Required** | The headline and document title. Used for page headings and `<title>` tags. |
+| `summary` | String | Optional | Concise description paragraph displayed directly below the title. Populates `<meta description>`. |
+| `parent` | String | Optional | The exact (case-sensitive) title of the parent page. Automatically generates linked breadcrumbs and nests navigation items. |
+| `grand_parent` | String | Optional | The exact (case-sensitive) title of the grandparent page for 3-tier deep navigation hierarchies. |
+| `nav_order` | Integer | Optional | Numerical position to order pages inside sidebar navigation trees and sequential reading pagers. |
+| `published` | Boolean | Optional | Set `published: false` to draft or unpublish a page. Unpublished pages are excluded from navigation sidebars, sequential reading pagers, and showcase grids. Defaults to `true`. |
