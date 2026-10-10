@@ -1,0 +1,123 @@
+// ==============================================================================
+// HELIX Docs Theme - Base Styles & Shell Layout
+// ==============================================================================
+
+* {
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, .brand strong, .eyebrow {
+  font-family: $font-display;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 78% -12%, rgb(72 216 242 / 10%), transparent 42rem),
+    linear-gradient(140deg, #081527, var(--bg) 65%);
+  color: var(--text);
+  line-height: 1.7;
+  top: 0 !important; // Prevent Google Translate from offsetting body
+
+  &.is-wiki {
+    background:
+      radial-gradient(ellipse at 85% -10%, rgb(72 216 242 / 12%), transparent 48rem),
+      radial-gradient(ellipse at 15% 30%, rgb(176 108 255 / 6%), transparent 40rem),
+      linear-gradient(140deg, #071221, var(--bg) 70%);
+  }
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+
+  &:hover {
+    color: var(--text);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+}
+
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  z-index: 10;
+  top: 0.75rem;
+  left: 0.75rem;
+  transform: translateY(-180%);
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--bg);
+  padding: 0.55rem 0.8rem;
+
+  &:focus {
+    transform: translateY(0);
+  }
+}
+
+// Adaptive Site Grid Shell
+.site-shell {
+  display: grid;
+  grid-template-columns: minmax(230px, 280px) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.75rem);
+  width: min(1440px, 100%);
+  margin: 0 auto;
+  padding: clamp(1rem, 3vw, 2.5rem);
+
+  &--wiki {
+    grid-template-columns: minmax(260px, 310px) minmax(0, 1fr);
+    width: min(1680px, 100%);
+    gap: clamp(1.2rem, 3vw, 3rem);
+  }
+
+  &--docs {
+    width: min(1520px, 100%);
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    padding: 1rem 1rem 5rem;
+  }
+}
+
+.main-content {
+  min-width: 0;
+}
+
+// Per-Page Layout Frontmatter Modifiers
+body[data-page-layout="wide"] .site-shell,
+body[data-page-layout="full"] .site-shell {
+  width: min(1800px, 100%);
+}
+
+// Google Translate Suppression
+body > .skiptranslate,
+.goog-te-banner-frame,
+#goog-gt-tt,
+.goog-te-balloon-frame {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+// Accessibility & Motion Settings
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+  }
+}

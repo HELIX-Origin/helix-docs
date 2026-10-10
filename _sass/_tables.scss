@@ -1,0 +1,133 @@
+// ==============================================================================
+// HELIX Docs Theme - Tables & Data Grids
+// ==============================================================================
+
+.table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.25rem 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: $font-sans;
+  font-size: 0.83rem;
+  line-height: 1.5;
+  margin: 1.25rem 0;
+}
+
+th, td {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+th {
+  background: var(--panel-raised);
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+td {
+  color: var(--muted);
+
+  &:first-child {
+    color: var(--text);
+    font-weight: 600;
+    white-space: normal;
+  }
+
+  code {
+    font-size: 0.82em;
+    word-break: break-all;
+  }
+}
+
+// Wiki Content Table Modifiers
+.wiki-content table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1.4rem 0 2rem;
+  font-size: 0.88rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgb(5 13 24 / 70%);
+
+  th {
+    background: var(--panel-raised);
+    color: var(--text);
+    font-weight: 600;
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    letter-spacing: 0.02em;
+  }
+
+  td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid rgb(32 55 80 / 45%);
+    color: var(--muted);
+    vertical-align: top;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:hover td {
+    background: rgb(72 216 242 / 4%);
+    color: var(--text);
+  }
+
+  code {
+    background: rgb(18 36 58 / 85%);
+    padding: 0.15rem 0.45rem;
+    border-radius: 6px;
+    border: 1px solid rgb(72 216 242 / 20%);
+    font-size: 0.84rem;
+  }
+}
+
+body[data-page-layout="reference"] .wiki-content table {
+  font-size: 0.84rem;
+}
+
+// Surfaces Table & Responsive Container
+.surfaces-table,
+.documentation-content table,
+.doc-section table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--line);
+  margin-top: 1.5rem;
+
+  th {
+    background: var(--panel-raised);
+    text-align: left;
+    padding: 0.85rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--text);
+  }
+
+  td {
+    padding: 0.85rem;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+.surfaces-table-wrap,
+.table-wrap {
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}

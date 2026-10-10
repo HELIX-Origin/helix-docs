@@ -38,3 +38,22 @@ The site shell uses an adaptable CSS Grid layout with responsive breakout:
   padding: clamp(1rem, 3vw, 2.5rem);
 }
 ```
+
+---
+
+## 📁 Modular SCSS Architecture
+
+`helix-docs` uses a modular SCSS partial system located in `_sass/`, compiled automatically on GitHub Pages via `jekyll-sass-converter`:
+
+| Partial | Purpose |
+| :--- | :--- |
+| `_variables.scss` | Sass variables, breakpoints, responsive mixins, and `:root` CSS custom properties |
+| `_base.scss` | Reset, typography, skip links, site shell, and layout modifiers |
+| `_sidebar.scss` | Dual sticky sidebar, brand badge, nav tree, and live filter input |
+| `_header.scss` | Navbar, breadcrumb trails, action buttons, and hero page headers |
+| `_markdown.scss` | GFM typography, blockquotes, alert banners, and nested list styles |
+| `_tables.scss` | Full-width data tables, sticky headers, cell padding, and responsive wrappers |
+| `_code.scss` | Rouge Nord/Cyber syntax highlighter tokens and inline code badges |
+| `_components.scss` | Buttons, previous/next reading pager cards, notices, and Mermaid diagram containers |
+| `_landing.scss` | Project showcase grid, feature cards, and catalog layout grids |
+

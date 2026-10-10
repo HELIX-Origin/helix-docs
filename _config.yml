@@ -18,6 +18,11 @@ encoding: "utf-8"
 markdown: kramdown
 highlighter: rouge
 
+# Sass / CSS Asset Compilation
+sass:
+  sass_dir: _sass
+  style: compressed
+
 kramdown:
   input: GFM
   hard_wrap: false

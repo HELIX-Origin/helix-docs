@@ -1,0 +1,154 @@
+// ==============================================================================
+// HELIX Docs Theme - Markdown & Technical Typography
+// ==============================================================================
+
+.documentation-content {
+  color: var(--muted);
+  font-family: $font-sans;
+  font-size: 0.95rem;
+  line-height: 1.7;
+
+  h1, h2, h3, h4 {
+    font-family: $font-display;
+    color: var(--text);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.5rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  blockquote {
+    margin: 1.2rem 0;
+    padding: 0.8rem 1.2rem;
+    border-left: 3px solid var(--accent);
+    background: var(--panel);
+    border-radius: 0 10px 10px 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+
+    p {
+      margin: 0.3rem 0;
+    }
+  }
+
+  ul, ol {
+    padding-left: 1.5rem;
+    margin: 0.8rem 0 1.1rem;
+    font-family: $font-sans;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
+  li {
+    margin-bottom: 0.4rem;
+    color: var(--text);
+
+    &::marker {
+      color: var(--accent);
+    }
+
+    > ul,
+    > ol {
+      margin: 0.25rem 0 0.4rem;
+      padding-left: 1.2rem;
+    }
+  }
+}
+
+// Docs Content Modifier
+.docs-content {
+  line-height: 1.75;
+
+  h2 {
+    margin-top: 2.2rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+// Wiki Content Frame & Typography
+.wiki-content {
+  background: linear-gradient(155deg, rgb(11 23 39 / 98%), rgb(8 17 30 / 99%));
+  border: 1px solid var(--line);
+  box-shadow: 0 25px 70px rgb(0 0 0 / 35%);
+  padding: clamp(1.8rem, 4.5vw, 3.2rem);
+
+  h1 {
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    letter-spacing: -0.03em;
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--line);
+    background: linear-gradient(135deg, var(--text) 60%, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  h2 {
+    font-size: clamp(1.35rem, 2.5vw, 1.7rem);
+    letter-spacing: -0.02em;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  h3 {
+    font-size: 1.18rem;
+    color: var(--accent);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  h4 {
+    font-size: 1.02rem;
+    color: var(--text);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  hr {
+    height: 1px;
+    border: 0;
+    background: linear-gradient(90deg, transparent, var(--line) 20%, var(--line) 80%, transparent);
+    margin: 2.2rem 0;
+  }
+
+  blockquote {
+    position: relative;
+    margin: 1.5rem 0;
+    padding: 1rem 1.4rem;
+    border-left: 4px solid var(--accent);
+    background: rgb(13 27 45 / 80%);
+    border-radius: 0 12px 12px 0;
+    box-shadow: 0 4px 20px rgb(0 0 0 / 15%);
+
+    p {
+      color: var(--text);
+      font-size: 0.92rem;
+      margin: 0.4rem 0;
+    }
+  }
+}

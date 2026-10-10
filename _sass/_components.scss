@@ -1,0 +1,302 @@
+// ==============================================================================
+// HELIX Docs Theme - Buttons, Pager Cards, Diagrams & Sections
+// ==============================================================================
+
+// Buttons
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+
+  @include mobile-sm {
+    width: 100%;
+  }
+
+  &--primary {
+    border-color: transparent;
+    background: linear-gradient(100deg, var(--accent), #9cf0fc);
+    color: #06111e;
+
+    &:hover {
+      color: #06111e;
+    }
+  }
+
+  &--secondary {
+    background: rgb(255 255 255 / 3%);
+    color: var(--text);
+
+    &:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+  }
+}
+
+// Documentation Sections & Card Panels
+.doc-section {
+  margin-top: 1.1rem;
+  padding: clamp(1.4rem, 4vw, 2.5rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(150deg, rgb(13 27 45 / 98%), rgb(9 20 35 / 98%));
+
+  > p {
+    color: var(--muted);
+  }
+
+  h3 {
+    margin-bottom: 0.55rem;
+    font-size: 1.04rem;
+    color: var(--text);
+  }
+
+  ul:not(.navbar-list):not(.cards),
+  ol:not(.timeline) {
+    padding-left: 1.5rem;
+    margin: 0.8rem 0 1.1rem;
+    font-family: $font-sans;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
+  li:not(.navbar-item) {
+    margin-bottom: 0.4rem;
+    color: var(--text);
+
+    &::marker {
+      color: var(--accent);
+    }
+  }
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+
+  h2 {
+    margin: 0;
+    font-size: clamp(1.45rem, 3vw, 2rem);
+    letter-spacing: -0.035em;
+    line-height: 1.2;
+  }
+
+  .eyebrow {
+    margin-bottom: 0.2rem;
+  }
+}
+
+.section-number {
+  display: grid;
+  flex: none;
+  width: 38px;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel-raised);
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+// Notice Callouts
+.notice {
+  margin: 1.2rem 0 1.6rem;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid rgb(72 216 242 / 24%);
+  border-radius: 10px;
+  background: rgb(72 216 242 / 6%);
+  color: var(--muted);
+  font-size: 0.9rem;
+
+  p {
+    margin: 0;
+  }
+
+  strong {
+    color: var(--text);
+  }
+}
+
+// Previews & Timelines
+.preview-box {
+  margin: 0 0 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.timeline {
+  display: grid;
+  gap: 0;
+  padding: 0 0 0 1.5rem;
+  list-style: none;
+  margin-bottom: 1.4rem;
+
+  li {
+    position: relative;
+    padding: 0 0 1.3rem 1rem;
+    border-left: 1px solid var(--line);
+
+    &:last-child {
+      border-left-color: transparent;
+      padding-bottom: 0;
+    }
+
+    &::before {
+      position: absolute;
+      top: 0.55rem;
+      left: -5px;
+      width: 9px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--accent);
+      content: "";
+    }
+  }
+
+  strong {
+    color: var(--text);
+  }
+
+  p {
+    margin: 0.25rem 0 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+}
+
+.item-badge {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 6px;
+  background: var(--panel-raised);
+  color: var(--muted);
+  font-size: 0.75rem;
+  vertical-align: middle;
+}
+
+// Pager Cards (Previous / Next Article Reading Navigation)
+.pager,
+.doc-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.pager-previous,
+.pager-next,
+.doc-pager-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0.8rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: border-color 0.2s;
+  min-width: 140px;
+
+  span,
+  .doc-pager-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.2rem;
+  }
+
+  .doc-pager-title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  &:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+
+    .doc-pager-title {
+      color: var(--accent);
+    }
+  }
+}
+
+.pager-next,
+.doc-pager-card--next {
+  margin-left: auto;
+  text-align: right;
+}
+
+.doc-pager-spacer {
+  flex: 1;
+}
+
+// Mermaid Diagram Frames
+.mermaid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #050d18;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+// Site Footer
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 0.4rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+
+  @include mobile-sm {
+    flex-direction: column;
+  }
+
+  .docs-footer-links,
+  .wiki-footer-links {
+    display: flex;
+    gap: 1rem;
+
+    a {
+      color: var(--muted);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--accent);
+      }
+    }
+  }
+}
