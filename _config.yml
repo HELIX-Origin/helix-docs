@@ -43,6 +43,12 @@ collections:
   wiki:
     output: true
     permalink: /wiki/:path/
+  catalogue:
+    output: true
+    permalink: /catalogue/:path/
+  store:
+    output: true
+    permalink: /store/:path/
 
 plugins:
   - jekyll-relative-links
@@ -91,3 +97,17 @@ defaults:
       layout: wiki
       page_class: page--wiki
       section: wiki
+
+  - scope:
+      type: catalogue
+    values:
+      layout: catalogue-item
+      page_class: page--catalogue-item
+      section: catalogue
+
+  - scope:
+      type: store
+    values:
+      layout: store-item
+      page_class: page--store-item
+      section: store

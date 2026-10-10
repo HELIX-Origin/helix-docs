@@ -237,3 +237,78 @@
     }
   }
 }
+
+// Catalogue Item Detail Page & Sub-pages
+.catalogue-item-shell {
+  width: min(1080px, 100%);
+}
+
+.catalogue-item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.catalogue-author {
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.catalogue-item-subnav {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.catalogue-subnav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.catalogue-subnav-link {
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  background: var(--panel-raised);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.84rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.15s ease;
+
+  &:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  &.active {
+    background: linear-gradient(100deg, var(--accent), #9cf0fc);
+    border-color: transparent;
+    color: #06111e;
+    font-weight: 700;
+  }
+}
+
+.catalogue-item-banner {
+  margin: 1.5rem 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  aspect-ratio: 16 / 9;
+  background: var(--panel-raised);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+

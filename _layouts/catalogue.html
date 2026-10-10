@@ -1,7 +1,29 @@
 {%- assign page_title = page.title | default: "Catalogue" -%}
 {%- assign repo_slug = site.repository | default: site.github.repository_nwo | default: "HELIX-Origin/helix-docs" -%}
 {%- assign brand_logo = site.logo | default: "https://github.com/HELIX-Origin.png?size=150" -%}
+
 {%- assign catalogue_items = page.items | default: site.data.catalogue -%}
+{%- if catalogue_items == nil or catalogue_items.size == 0 -%}
+  {%- if site.catalogue -%}
+    {%- assign catalogue_items = "" | split: "" -%}
+    {%- for doc in site.catalogue -%}
+      {%- unless doc.url == '/catalogue/' or doc.path == '_catalogue/index.md' or doc.is_subpage -%}
+        {%- assign path_parts = doc.path | remove_first: "_catalogue/" | split: "/" -%}
+        {%- if path_parts.size == 1 or path_parts[1] == "index.md" -%}
+          {%- assign catalogue_items = catalogue_items | push: doc -%}
+        {%- endif -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- assign categories_list = page.categories -%}
+{%- if categories_list == nil or categories_list.size == 0 -%}
+  {%- assign raw_cats = catalogue_items | map: "category" | compact | uniq -%}
+  {%- if raw_cats.size > 0 -%}
+    {%- assign categories_list = raw_cats -%}
+  {%- endif -%}
+{%- endif -%}
 <!doctype html>
 <html lang="{{ site.lang | default: 'en' }}">
   <head>
@@ -33,6 +55,9 @@
               <li><a class="navbar-link" href="{{ '/wiki/' | relative_url }}">Wiki</a></li>
               {%- endif -%}
               <li><a class="navbar-link active" href="{{ page.url | relative_url }}" aria-current="page">Catalogue</a></li>
+              {%- if site.store or site.collections.store -%}
+              <li><a class="navbar-link" href="{{ '/store/' | relative_url }}">Store</a></li>
+              {%- endif -%}
               {%- if repo_slug -%}
               <li><a class="navbar-link" href="https://github.com/{{ repo_slug }}/releases">Releases ↗</a></li>
               {%- endif -%}
@@ -74,10 +99,10 @@
               <input type="search" id="catalogue-search-input" placeholder="Search catalogue by name, tag, or description..." aria-label="Search catalogue">
             </div>
 
-            {%- if page.categories -%}
+            {%- if categories_list and categories_list.size > 0 -%}
             <div class="catalogue-filter-pills" id="catalogue-category-filters" role="group" aria-label="Category filters">
               <button type="button" class="catalogue-pill active" data-category="all">All</button>
-              {%- for cat in page.categories -%}
+              {%- for cat in categories_list -%}
               <button type="button" class="catalogue-pill" data-category="{{ cat | slugify }}">{{ cat }}</button>
               {%- endfor -%}
             </div>
@@ -100,19 +125,22 @@
 
           <div class="catalogue-grid" id="catalogue-grid">
             {%- for item in catalogue_items -%}
+            {%- assign item_target_url = item.url | default: item.preview_url | relative_url -%}
             <article class="catalogue-card" data-category="{{ item.category | default: 'general' | slugify }}" data-title="{{ item.title | escape | downcase }}" data-tags="{{ item.tags | join: ' ' | downcase }}">
               {%- if item.image -%}
-              <div class="catalogue-card__media">
+              <a href="{{ item_target_url }}" class="catalogue-card__media" aria-label="{{ item.title | escape }}">
                 <img src="{{ item.image | relative_url }}" alt="{{ item.title | escape }}" loading="lazy">
                 {%- if item.badge -%}
                 <span class="catalogue-card__badge">{{ item.badge }}</span>
                 {%- endif -%}
-              </div>
+              </a>
               {%- endif -%}
 
               <div class="catalogue-card__body">
                 <div class="catalogue-card__head">
-                  <h3 class="catalogue-card__title">{{ item.title }}</h3>
+                  <h3 class="catalogue-card__title">
+                    <a href="{{ item_target_url }}">{{ item.title }}</a>
+                  </h3>
                   {%- if item.version -%}
                   <span class="item-badge">{{ item.version }}</span>
                   {%- endif -%}
@@ -131,9 +159,7 @@
                 {%- endif -%}
 
                 <div class="catalogue-card__actions">
-                  {%- if item.preview_url -%}
-                  <a href="{{ item.preview_url | relative_url }}" class="button button--primary button--sm">Preview</a>
-                  {%- endif -%}
+                  <a href="{{ item_target_url }}" class="button button--primary button--sm">View Details →</a>
                   {%- if item.docs_url -%}
                   <a href="{{ item.docs_url | relative_url }}" class="button button--secondary button--sm">Docs</a>
                   {%- endif -%}
