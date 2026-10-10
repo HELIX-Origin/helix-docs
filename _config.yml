@@ -34,9 +34,6 @@ kramdown:
 sass:
   sass_dir: _sass
   style: compressed
-  load_paths:
-    - _sass
-    - _scss
 
 # Jekyll Collections Registration
 collections:

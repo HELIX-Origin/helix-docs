@@ -1,9 +1,32 @@
 {%- assign page_title = page.title | default: page.heading | default: site.title | default: "Documentation" -%}
+{%- assign page_desc = page.summary | default: page.lead | default: page.description | default: site.description -%}
+{%- assign social_img = page.social_image | default: page.image | default: site.social_image | default: site.logo -%}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="{{ page.summary | default: page.lead | default: page.description | default: site.description | escape }}">
+<meta name="description" content="{{ page_desc | escape }}">
 <meta name="theme-color" content="#081426">
 <title>{{ page_title | escape }} | {{ site.title | default: "HELIX Origin" }}</title>
+
+<!-- Open Graph / Social Media Meta -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ page_title | escape }}">
+<meta property="og:description" content="{{ page_desc | escape }}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:site_name" content="{{ site.title | default: 'HELIX Origin' | escape }}">
+{%- if social_img -%}
+  {%- if social_img contains '://' -%}
+    {%- assign full_social_img = social_img -%}
+  {%- else -%}
+    {%- assign full_social_img = social_img | absolute_url -%}
+  {%- endif -%}
+<meta property="og:image" content="{{ full_social_img }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{{ full_social_img }}">
+{%- else -%}
+<meta name="twitter:card" content="summary">
+{%- endif -%}
+<meta name="twitter:title" content="{{ page_title | escape }}">
+<meta name="twitter:description" content="{{ page_desc | escape }}">
 <link rel="icon" href="{{ site.favicon | default: 'https://github.com/HELIX-Origin.png?size=64' }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
