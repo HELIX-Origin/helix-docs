@@ -1,6 +1,6 @@
 ---
 layout: default
-title: HELIX Docs Theme
+title: HELIX Docs
 summary: The universal Jekyll theme for documentation, wikis, and project portals across the HELIX Origin organization.
 nav_order: 0
 notice: "<strong>Zero-Install Remote Theme:</strong> Use directly on GitHub Pages by adding <code>remote_theme: HELIX-Origin/helix-docs</code> to your <code>_config.yml</code>."

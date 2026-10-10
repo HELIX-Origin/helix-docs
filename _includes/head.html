@@ -5,7 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{{ page_desc | escape }}">
 <meta name="theme-color" content="#081426">
+{%- if page_title == site.title -%}
+<title>{{ page_title | escape }}</title>
+{%- else -%}
 <title>{{ page_title | escape }} | {{ site.title | default: "HELIX Origin" }}</title>
+{%- endif -%}
 
 <!-- Open Graph / Social Media Meta -->
 <meta property="og:type" content="website">
