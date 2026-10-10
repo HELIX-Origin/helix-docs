@@ -67,6 +67,7 @@
             {%- endif -%}
           </div>
 
+          {%- if catalogue_items and catalogue_items.size > 0 -%}
           <div class="catalogue-toolbar">
             <div class="catalogue-search-wrapper">
               <span class="catalogue-search-icon" aria-hidden="true">🔍</span>
@@ -82,6 +83,7 @@
             </div>
             {%- endif -%}
           </div>
+          {%- endif -%}
         </header>
 
         {%- if content and content != "" -%}

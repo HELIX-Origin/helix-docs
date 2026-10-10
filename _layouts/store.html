@@ -104,6 +104,7 @@
           </div>
           {%- endif -%}
 
+          {%- if store_packages and store_packages.size > 0 -%}
           <div class="store-toolbar">
             <div class="store-search-wrapper">
               <span class="store-search-icon" aria-hidden="true">🔍</span>
@@ -119,6 +120,7 @@
             </div>
             {%- endif -%}
           </div>
+          {%- endif -%}
         </header>
 
         {%- if content and content != "" -%}
