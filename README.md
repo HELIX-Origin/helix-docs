@@ -1,4 +1,4 @@
-# helix-docs
+# HELIX Docs
 
 > Modern, multi-layout GitHub Pages Jekyll theme engineered for developer documentation, technical knowledge base wikis, and project portals. Built for the **HELIX Origin** ecosystem.
 
