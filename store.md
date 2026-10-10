@@ -4,13 +4,50 @@ title: Store Template
 eyebrow: Layout Template
 heading: Package & Add-on Store
 lead: A digital distribution hub layout for releases, installers, tools, and downloadable packages.
-categories: []
-packages: []
+featured:
+  title: Example Package Spotlight
+  description: This is a placeholder spotlight demonstrating how a featured release, platform requirements, and download buttons render.
+  version: v1.0.0-example
+  license: Demo License
+  platform: Example OS (x64 / ARM64)
+  download_url: "#"
+  docs_url: /docs/
+
+categories:
+  - Example Category A
+  - Example Category B
+
+packages:
+  - title: Example Package Alpha
+    category: Example Category A
+    version: v1.0.0-example
+    license: Demo
+    platform: Cross-Platform
+    size: 12.0 MB
+    description: Sample package card demonstrating thumbnail icon, version chips, and action buttons.
+    features:
+      - Example feature bullet 1
+      - Example feature bullet 2
+    download_url: "#"
+    docs_url: /docs/
+
+  - title: Example Package Beta
+    category: Example Category B
+    version: v1.0.0-example
+    license: Open Source
+    platform: Web / Desktop
+    size: 5.4 MB
+    description: Another example entry demonstrating filter switching and card styling.
+    features:
+      - Example capability A
+      - Example capability B
+    download_url: "#"
+    docs_url: /docs/
 ---
 
 ## 📦 Store Layout
 
-This page demonstrates the `store` layout structure. No packages have been published to this store yet.
+This page demonstrates the `store` layout structure with clearly labeled placeholder packages.
 
 ### How to Add Packages
 

@@ -4,13 +4,33 @@ title: Catalogue Template
 eyebrow: Layout Template
 heading: Catalogue Showcase
 lead: An interactive showcase layout for browsing, filtering, and previewing assets, themes, components, and extensions.
-categories: []
-items: []
+categories:
+  - Example Category A
+  - Example Category B
+
+items:
+  - title: Example Item Alpha
+    category: Example Category A
+    badge: Demo Badge
+    version: v1.0.0-example
+    description: This is a placeholder item demonstrating card layout, tag badges, and preview action links.
+    tags: [Example, Demo Tag, Preview]
+    preview_url: "#"
+    docs_url: /docs/
+
+  - title: Example Item Beta
+    category: Example Category B
+    badge: Sample
+    version: v1.0.0-example
+    description: Another example entry illustrating real-time category filtering and search functionality.
+    tags: [Placeholder, Template]
+    preview_url: "#"
+    docs_url: /docs/
 ---
 
 ## 🎨 Catalogue Layout
 
-This page demonstrates the `catalogue` layout structure. No themes or items have been published to this catalogue yet.
+This page demonstrates the `catalogue` layout structure with clearly labeled placeholder items.
 
 ### How to Add Items
 
