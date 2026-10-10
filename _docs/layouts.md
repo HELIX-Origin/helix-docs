@@ -43,6 +43,8 @@ header_actions:
 ---
 ```
 
+> Home pages (`index.md`) that use this layout follow the **vCard pattern** — see [Home Pages & the vCard Pattern]({{ '/docs/home-page/' | relative_url }}) for the full section-by-section recipe.
+
 ---
 
 ## 2. Docs Layout (`docs`)

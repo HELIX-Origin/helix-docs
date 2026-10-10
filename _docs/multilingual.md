@@ -3,7 +3,7 @@ layout: docs
 title: Multilingual Translation Engine
 summary: Zero-configuration Google Translate dropdown with persistent cookie state and graceful degradation.
 parent: Theme Documentation Directory
-nav_order: 6
+nav_order: 7
 ---
 
 ## 🌐 Supported Languages

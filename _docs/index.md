@@ -11,6 +11,7 @@ nav_icon: "📖"
 
 - [**Getting Started**]({{ '/docs/getting-started/' | relative_url }}) — Quick start guide for using `helix-docs` as a remote theme on GitHub Pages or locally via RubyGems.
 - [**Working with Layouts**]({{ '/docs/layouts/' | relative_url }}) — Detailed reference and frontmatter schemas for all nine built-in layouts.
+- [**Home Pages & the vCard Pattern**]({{ '/docs/home-page/' | relative_url }}) — Composing the site home page (`index.md`) with the default layout and vCard-style sections.
 - [**Theme Configuration**]({{ '/docs/configuration/' | relative_url }}) — Complete reference of `_config.yml` keys, collection settings, and cascade defaults.
 - [**UI Components & Elements**]({{ '/docs/components/' | relative_url }}) — Using responsive cards, tables, callout notices, button groups, and Mermaid diagrams.
 - [**18-Language Translation**]({{ '/docs/multilingual/' | relative_url }}) — Configuring and customizing the Google Translate integration and persistent cookie system.

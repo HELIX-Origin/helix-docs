@@ -3,7 +3,7 @@ layout: docs
 title: UI Components & Elements
 summary: Learn how to leverage built-in Markdown elements, cards, notices, and Mermaid diagrams.
 parent: Theme Documentation Directory
-nav_order: 5
+nav_order: 6
 ---
 
 ## 📊 Standard Markdown Tables
