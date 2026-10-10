@@ -31,10 +31,15 @@ Declare the desired layout in your page's YAML frontmatter using `layout: <name>
 
 | Layout | Purpose | Content Wrapper | Navigation Support |
 | :--- | :--- | :--- | :--- |
-| `default` | Portals, landing pages, and standalone pages | Full shell + dynamic hero header | Sidebar navigation groups |
-| `docs` | Sequential documentation guides & reading books | Breadcrumbs + sequential pager | Pager (prev/next) & wiki banner |
+| `default` | Portals, landing pages, and standalone pages | Full shell + hero header | Header navigation & sidebar |
+| `docs` | Focused reading guides & documentation | In-page Table of Contents | Sequential pager & breadcrumbs |
 | `wiki` | In-depth technical catalogs & reference trees | Filterable tree + deep breadcrumbs | Live filter search box |
-| `catalogue` | Grid-based project/theme showcases | Catalog cards grid | Category filterable (reserved) |
+| `catalogue` | Grid showcase for assets, themes & tools | Responsive showcase cards | Live search & category pills |
+| `catalogue-item` | Dedicated landing page for individual catalogue items | Media preview & specification header | Back to catalogue & breadcrumbs |
+| `store` | Package marketplace & digital release center | Featured hero spotlight & app cards | Live search, pills & downloads |
+| `store-item` | Dedicated product page for individual store items | App icon, version chip & download CTA | Back to store & breadcrumbs |
+| `changelog` | Release milestones & version history | Glowing nodes along vertical timeline | Category tags (Feat, Fix, Break) |
+| `faq` | Collapsible question & answer troubleshooting | Native accessible `<details>` accordions | Live Q&A search & category pills |
 
 ---
 

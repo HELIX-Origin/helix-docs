@@ -105,8 +105,15 @@ nav_order: 2
 ---
 ```
 
-### 4. Catalogue Layout (`layout: catalogue`)
-Reserved for grid-based project or theme showcases (`.catalogue-grid`).
+### 4. Showcase, Distribution & Support Layouts
+- **Catalogue (`layout: catalogue`)**: Visual showcase gallery with live search and category filter pills.
+- **Catalogue Item (`layout: catalogue-item`)**: Dedicated subpages for individual catalogue items.
+- **Store (`layout: store`)**: Release distribution portal with featured spotlights and download cards.
+- **Store Item (`layout: store-item`)**: Dedicated product page with app icon, version chip, and download button.
+- **Changelog (`layout: changelog`)**: Vertical release timeline with categorized milestone tags.
+- **FAQ (`layout: faq`)**: Accessible collapsible accordion troubleshooting base with live search.
+
+For comprehensive frontmatter options and code examples for each layout, see [Working with Layouts](_docs/layouts.md).
 
 ---
 
