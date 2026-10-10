@@ -26,36 +26,7 @@
 
       <main id="main" class="main-content">
         <header class="page-header">
-          <nav class="navbar" aria-label="Site navigation">
-            <ul class="navbar-list">
-              {%- if page.navbar_links -%}
-                {%- for link in page.navbar_links -%}
-                <li><a class="navbar-link{% if link.url == '#' or link.url == '#about' or link.active %} active{% endif %}" href="{{ link.url | relative_url }}">{{ link.title }}</a></li>
-                {%- endfor -%}
-              {%- else -%}
-                <li><a class="navbar-link{% if is_home %} active{% endif %}" href="{{ '/' | relative_url }}"{% if is_home %} aria-current="page"{% endif %}>Home</a></li>
-                {%- if is_home -%}
-                  {%- if site.has_surfaces -%}
-                  <li><a class="navbar-link" href="#surfaces">Surfaces</a></li>
-                  <li><a class="navbar-link" href="#toolchain">Toolchain</a></li>
-                  {%- endif -%}
-                  {%- if site.has_projects -%}
-                  <li><a class="navbar-link" href="#projects">Projects</a></li>
-                  {%- endif -%}
-                {%- endif -%}
-                {%- if site.docs or site.collections.docs -%}
-                <li><a class="navbar-link{% if page.url contains '/docs/' or page.collection == 'docs' %} active{% endif %}" href="{{ '/docs/' | relative_url }}">Docs</a></li>
-                {%- endif -%}
-                {%- if site.wiki or site.collections.wiki -%}
-                <li><a class="navbar-link{% if page.url contains '/wiki/' or page.collection == 'wiki' %} active{% endif %}" href="{{ '/wiki/' | relative_url }}">Wiki</a></li>
-                {%- endif -%}
-                {%- if repo_slug -%}
-                <li><a class="navbar-link" href="https://github.com/{{ repo_slug }}/releases">Releases ↗</a></li>
-                {%- endif -%}
-              {%- endif -%}
-            </ul>
-            {% include translate-control.html %}
-          </nav>
+          {% include components/navbar.html %}
 
           {%- assign category_label = page.eyebrow | default: page.tagline | default: page.parent | default: page.category | default: site.tagline_short | default: site.tagline -%}
           {%- if category_label -%}

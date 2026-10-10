@@ -1,0 +1,48 @@
+{%- comment -%}
+  components/navbar.html — Site-wide top navigation bar.
+
+  Minimal cross-collection navigation: renders Home + one link per theme-supported
+  collection (docs, wiki, catalogue, store — the collection types this theme ships
+  layouts for). A link is only rendered when a root index page exists at
+  `/<label>/` in the build, so unregistered collections never appear and the bar
+  stays small and can never grow into a multi-line nav. Order follows the
+  registration order in `_config.yml` (Jekyll exposes `site.collections` sorted
+  alphabetically, so the canonical list below preserves the natural order).
+
+  There is deliberately NO hard-coded section list and no per-page customisation:
+  the top bar only navigates between collections. Multi-page navigation within a
+  collection lives in components/sidebar.html (frontmatter tree).
+{%- endcomment -%}
+{%- assign nav_is_home = false -%}
+{%- if page.url == '/' or page.url == '/index.html' or page.path == 'index.md' or page.page_class contains 'page--home' or page.layout == 'home' -%}
+  {%- assign nav_is_home = true -%}
+{%- endif -%}
+
+{%- comment -%} Pool of every built page/document so a collection root can be found
+                across root pages AND collection documents (e.g. an index living in
+                another collection). {%- endcomment -%}
+{%- assign nav_all_pages = site.html_pages -%}
+{%- if site.docs -%}{%- assign nav_all_pages = nav_all_pages | concat: site.docs -%}{%- endif -%}
+{%- if site.wiki -%}{%- assign nav_all_pages = nav_all_pages | concat: site.wiki -%}{%- endif -%}
+{%- if site.catalogue -%}{%- assign nav_all_pages = nav_all_pages | concat: site.catalogue -%}{%- endif -%}
+{%- if site.store -%}{%- assign nav_all_pages = nav_all_pages | concat: site.store -%}{%- endif -%}
+
+<nav class="navbar docs-navbar" aria-label="Main navigation">
+  <ul class="navbar-list">
+    <li><a class="navbar-link{% if nav_is_home %} active{% endif %}" href="{{ '/' | relative_url }}"{% if nav_is_home %} aria-current="page"{% endif %}>Home</a></li>
+    {%- assign nav_supported = "docs,wiki,catalogue,store" | split: "," -%}
+    {%- for nav_label in nav_supported -%}
+      {%- assign nav_root = '/' | append: nav_label | append: '/' -%}
+      {%- assign nav_root_found = nav_all_pages | where: "url", nav_root | size -%}
+      {%- if nav_root_found == 0 -%}
+        {%- continue -%}
+      {%- endif -%}
+      {%- assign nav_active = false -%}
+      {%- if page.url contains nav_root -%}
+        {%- assign nav_active = true -%}
+      {%- endif -%}
+      <li><a class="navbar-link{% if nav_active %} active{% endif %}" href="{{ nav_root | relative_url }}"{% if nav_active %} aria-current="page"{% endif %}>{{ nav_label | capitalize }}</a></li>
+    {%- endfor -%}
+  </ul>
+  {% include translate-control.html %}
+</nav>

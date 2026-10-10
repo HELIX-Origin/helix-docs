@@ -2,6 +2,7 @@
 layout: catalogue
 title: Catalogue Showcase
 summary: An interactive showcase layout for browsing, filtering, and previewing assets, themes, components, and extensions.
+permalink: /catalogue/
 nav_order: 2
 categories:
   - Example Category A

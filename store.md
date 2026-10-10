@@ -2,6 +2,7 @@
 layout: store
 title: Package & Add-on Store
 summary: A digital distribution hub layout for releases, installers, tools, and downloadable packages.
+permalink: /store/
 nav_order: 3
 featured:
   title: Example Package Spotlight

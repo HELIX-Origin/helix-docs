@@ -41,21 +41,7 @@
 
       <main id="main" class="main-content wiki-main">
         <header class="page-header wiki-header">
-          <nav class="navbar wiki-navbar" aria-label="Main navigation">
-            <ul class="navbar-list">
-              <li><a class="navbar-link" href="{{ '/' | relative_url }}">Home</a></li>
-              {%- if site.docs or site.collections.docs -%}
-              <li><a class="navbar-link{% if is_docs %} active{% endif %}" href="{{ '/docs/' | relative_url }}"{% if is_docs %} aria-current="page"{% endif %}>Docs</a></li>
-              {%- endif -%}
-              {%- if site.wiki or site.collections.wiki -%}
-              <li><a class="navbar-link{% if is_docs != true %} active{% endif %}" href="{{ '/wiki/' | relative_url }}"{% if is_docs != true %} aria-current="page"{% endif %}>Wiki</a></li>
-              {%- endif -%}
-              {%- if repo_slug -%}
-              <li><a class="navbar-link" href="https://github.com/{{ repo_slug }}/releases">Releases ↗</a></li>
-              {%- endif -%}
-            </ul>
-            {% include translate-control.html %}
-          </nav>
+          {% include components/navbar.html %}
 
           <div class="wiki-header-top">
             {% include components/breadcrumbs.html variant=current_variant %}
