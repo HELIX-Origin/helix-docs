@@ -2,6 +2,7 @@
 layout: docs
 title: Theme Documentation Directory
 summary: Comprehensive guides for installing, configuring, and building multi-layout documentation sites with helix-docs.
+permalink: /docs/
 nav_order: 1
 ---
 
