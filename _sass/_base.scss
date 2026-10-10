@@ -80,7 +80,10 @@ button:focus-visible {
   }
 
   &--docs {
-    width: min(1520px, 100%);
+    display: block;
+    width: min(1080px, 100%);
+    margin: 0 auto;
+    padding: clamp(1rem, 3vw, 2.5rem);
   }
 
   @include mobile {

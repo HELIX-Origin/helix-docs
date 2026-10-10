@@ -193,6 +193,85 @@
   vertical-align: middle;
 }
 
+// In-Page Table of Contents (for docs layout)
+.in-page-toc,
+#markdown-toc {
+  margin: 1.5rem 0 2rem;
+  padding: 1.25rem 1.6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(145deg, rgb(18 36 58 / 90%), rgb(9 22 39 / 92%));
+  box-shadow: 0 10px 30px rgb(0 0 0 / 20%);
+}
+
+.in-page-toc-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.in-page-toc-icon {
+  font-size: 1.1rem;
+}
+
+.in-page-toc-title {
+  font-family: $font-display;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.in-page-toc-list,
+#markdown-toc {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.in-page-toc-item,
+#markdown-toc li {
+  margin: 0;
+
+  a {
+    display: inline-block;
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    text-decoration: none;
+    transition: color 0.15s ease, transform 0.15s ease;
+
+    &:hover {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+  }
+
+  &--h3 {
+    padding-left: 1.2rem;
+    position: relative;
+
+    &::before {
+      content: "↳";
+      position: absolute;
+      left: 0.2rem;
+      color: var(--line);
+      font-size: 0.8rem;
+    }
+
+    a {
+      font-size: 0.84rem;
+    }
+  }
+}
+
 // Pager Cards (Previous / Next Article Reading Navigation)
 .pager,
 .doc-pager {

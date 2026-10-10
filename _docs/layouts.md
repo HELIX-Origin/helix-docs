@@ -41,11 +41,13 @@ header_actions:
 
 ## 2. Docs Layout (`docs`)
 
-The `docs` layout is optimized for reading sequential documentation:
-- Breadcrumb navigation path
-- Section grouping from `_data/navigation.yml`
-- Reading navigation pager (**← Previous** and **Next →**)
-- Edit on GitHub link
+The `docs` layout is an uncluttered, reading-focused layout designed for guides and tutorials:
+- **No Left Sidebar**: Clean, full-width single-column reading space without redundant directory sidebars.
+- **In-Page Table of Contents**: Automatically scans and generates anchor links for all `h2` and `h3` headings in the article.
+- **Top Brand & Navigation Bar**: Integrated brand logo, site navigation, and Google Translate control.
+- **Breadcrumb Navigation**: Clear path trail linking back to Home, Docs, and section.
+- **Reading Pager Cards**: Interactive **← Previous Guide** and **Next Guide →** cards for sequential reading.
+- **Edit on GitHub**: Direct link to edit the source Markdown file.
 
 ```markdown
 ---
