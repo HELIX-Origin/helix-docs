@@ -8,10 +8,24 @@
 {%- assign all_site_docs = site.html_pages -%}
 {%- if site.docs -%}{%- assign all_site_docs = all_site_docs | concat: site.docs -%}{%- endif -%}
 {%- if site.wiki -%}{%- assign all_site_docs = all_site_docs | concat: site.wiki -%}{%- endif -%}
-{%- assign wiki_items = "" | split: "" -%}
+{%- assign is_docs = false -%}
+{%- if page.collection == 'docs' or page.url contains '/docs/' or page.layout == 'docs' -%}
+  {%- assign is_docs = true -%}
+{%- endif -%}
+{%- assign current_variant = "wiki" -%}
+{%- if is_docs -%}
+  {%- assign current_variant = "docs" -%}
+{%- endif -%}
+{%- assign current_items = "" | split: "" -%}
 {%- for item in all_site_docs -%}
-  {%- if item.layout == 'wiki' or item.collection == 'wiki' -%}
-    {%- assign wiki_items = wiki_items | push: item -%}
+  {%- if is_docs -%}
+    {%- if item.collection == 'docs' or item.layout == 'docs' or item.path contains 'docs/' -%}
+      {%- assign current_items = current_items | push: item -%}
+    {%- endif -%}
+  {%- else -%}
+    {%- if item.layout == 'wiki' or item.collection == 'wiki' -%}
+      {%- assign current_items = current_items | push: item -%}
+    {%- endif -%}
   {%- endif -%}
 {%- endfor -%}
 <!doctype html>
@@ -19,21 +33,23 @@
   <head>
     {% include head.html %}
   </head>
-  <body class="is-wiki wiki-theme{% if page.page_class %} {{ page.page_class }}{% endif %}" data-page-layout="wiki">
+  <body class="{% if is_docs %}is-doc docs-theme{% else %}is-wiki wiki-theme{% endif %}{% if page.page_class %} {{ page.page_class }}{% endif %}" data-page-layout="{% if is_docs %}docs{% else %}wiki{% endif %}">
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="site-shell site-shell--wiki wiki-layout">
 
-      {% include components/sidebar.html variant="wiki" items=wiki_items %}
+      {% include components/sidebar.html variant=current_variant items=current_items %}
 
       <main id="main" class="main-content wiki-main">
         <header class="page-header wiki-header">
-          <nav class="navbar wiki-navbar" aria-label="Main wiki navigation">
+          <nav class="navbar wiki-navbar" aria-label="Main navigation">
             <ul class="navbar-list">
               <li><a class="navbar-link" href="{{ '/' | relative_url }}">Home</a></li>
               {%- if site.docs or site.collections.docs -%}
-              <li><a class="navbar-link" href="{{ '/docs/' | relative_url }}">Docs</a></li>
+              <li><a class="navbar-link{% if is_docs %} active{% endif %}" href="{{ '/docs/' | relative_url }}"{% if is_docs %} aria-current="page"{% endif %}>Docs</a></li>
               {%- endif -%}
-              <li><a class="navbar-link active" href="{{ '/wiki/' | relative_url }}" aria-current="page">Wiki</a></li>
+              {%- if site.wiki or site.collections.wiki -%}
+              <li><a class="navbar-link{% if is_docs != true %} active{% endif %}" href="{{ '/wiki/' | relative_url }}"{% if is_docs != true %} aria-current="page"{% endif %}>Wiki</a></li>
+              {%- endif -%}
               {%- if repo_slug -%}
               <li><a class="navbar-link" href="https://github.com/{{ repo_slug }}/releases">Releases ↗</a></li>
               {%- endif -%}
@@ -42,20 +58,33 @@
           </nav>
 
           <div class="wiki-header-top">
-            {% include components/breadcrumbs.html variant="wiki" %}
+            {% include components/breadcrumbs.html variant=current_variant %}
 
             <div class="wiki-header-actions">
               {%- if repo_slug -%}
               <a href="https://github.com/{{ repo_slug }}/blob/main/{{ edit_path }}" class="wiki-action-link" target="_blank" rel="noopener">✏️ Edit Page</a>
               {%- endif -%}
-              {%- if site.collections.docs -%}
-              <a href="{{ '/docs/' | relative_url }}" class="wiki-action-link">📖 Open Docs</a>
+              {%- if is_docs -%}
+                {%- if site.wiki or site.collections.wiki -%}
+                <a href="{{ '/wiki/' | relative_url }}" class="wiki-action-link">📚 Open Wiki</a>
+                {%- endif -%}
+              {%- else -%}
+                {%- if site.docs or site.collections.docs -%}
+                <a href="{{ '/docs/' | relative_url }}" class="wiki-action-link">📖 Open Docs</a>
+                {%- endif -%}
               {%- endif -%}
             </div>
           </div>
 
           <div class="wiki-title-block">
-            {%- assign category_label = page.parent | default: page.category | default: page.eyebrow | default: "Community Knowledge Base" -%}
+            {%- assign category_label = page.parent | default: page.category | default: page.eyebrow -%}
+            {%- if category_label == nil or category_label == '' -%}
+              {%- if is_docs -%}
+                {%- assign category_label = "Documentation Directory" -%}
+              {%- else -%}
+                {%- assign category_label = "Community Knowledge Base" -%}
+              {%- endif -%}
+            {%- endif -%}
             <p class="eyebrow">{{ category_label }}</p>
             <h1>{{ page.title | default: page.heading | default: page_title | escape }}</h1>
             {%- assign page_summary = page.summary | default: page.lead | default: page.description -%}
@@ -69,9 +98,9 @@
           {{ content }}
         </article>
 
-        {% include components/children_nav.html variant="wiki" %}
+        {% include components/children_nav.html variant=current_variant %}
 
-        {% include components/footer.html variant="wiki" %}
+        {% include components/footer.html variant=current_variant %}
       </main>
 
     </div>
