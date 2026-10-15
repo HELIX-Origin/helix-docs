@@ -6,6 +6,9 @@ contact_links:
   - name: 📚 Community Wiki
     url: https://helix-origin.github.io/helix-docs/wiki/
     about: Explore technical schemas, layout specifications, and architecture notes.
+  - name: 💬 Discord Community
+    url: https://discord.com/invite/Ww3XBZC2HV
+    about: Join our Discord server to chat, ask questions, or share feedback.
   - name: 🧬 HELIX Origin Portal
     url: https://helix-origin.github.io/
     about: Learn more about HELIX Origin open-source projects, tools, and themes.
