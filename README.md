@@ -4,7 +4,7 @@
   <a href="https://github.com/HELIX-Origin/helix-jekyll-theme"><img src="https://img.shields.io/badge/Theme-helix--jekyll--theme-blue" alt="Theme: helix-jekyll-theme" height="20" /></a>
   <a href="https://docs.helix-origin.club"><img src="https://img.shields.io/badge/Docs-docs.helix--origin.club-brightgreen" alt="Docs Hub" height="20" /></a>
   <a href="https://wiki.helix-origin.club"><img src="https://img.shields.io/badge/Wiki-wiki.helix--origin.club-brightgreen" alt="Wiki Hub" height="20" /></a>
-  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" height="20" /></a>
+  <a href="https://opensource.org/licenses/BSD-3-Clause"><img src="https://img.shields.io/badge/License-BSD--3--Clause-blue.svg" alt="License: BSD-3-Clause" height="20" /></a>
 </p>
 
 > Modern, multi-layout GitHub Pages Jekyll theme engineered for developer documentation, technical knowledge base wikis, and project portals. Built for the **HELIX Origin** ecosystem.
@@ -205,11 +205,12 @@ helix-jekyll-theme/
 ├── index.md                   # Live theme documentation page
 ├── Gemfile                    # Dependency specification
 ├── helix-docs.gemspec         # Ruby gem specification
-└── LICENSE.md                 # MIT License
+└── LICENSE                    # BSD-3-Clause License
 ```
 
 ---
 
 ## License
 
-MIT © [HELIX Origin](https://github.com/HELIX-Origin)
+BSD-3-Clause © [HELIX Origin](https://github.com/HELIX-Origin) — see [LICENSE](LICENSE) for details.
+

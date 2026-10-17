@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "A modern, multi-layout GitHub Pages Jekyll theme engineered for developer documentation, technical wikis, and project portals."
   spec.description   = "Multi-layout Jekyll theme supporting default portal landings, developer documentation guides, Just-the-docs style technical wikis, and catalogues with integrated multi-language Google Translate and Mermaid diagram support."
   spec.homepage      = "https://github.com/HELIX-Origin/helix-docs"
-  spec.license       = "MIT"
+  spec.license       = "BSD-3-Clause"
 
   spec.files         = Dir.glob(["_layouts/**/*", "_includes/**/*", "assets/**/*", "_data/**/*", "LICENSE*", "README*"])
 
