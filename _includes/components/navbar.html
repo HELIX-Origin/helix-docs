@@ -24,6 +24,7 @@
 {%- assign nav_all_pages = site.html_pages -%}
 {%- if site.docs -%}{%- assign nav_all_pages = nav_all_pages | concat: site.docs -%}{%- endif -%}
 {%- if site.wiki -%}{%- assign nav_all_pages = nav_all_pages | concat: site.wiki -%}{%- endif -%}
+{%- if site.projects -%}{%- assign nav_all_pages = nav_all_pages | concat: site.projects -%}{%- endif -%}
 {%- if site.catalogue -%}{%- assign nav_all_pages = nav_all_pages | concat: site.catalogue -%}{%- endif -%}
 {%- if site.store -%}{%- assign nav_all_pages = nav_all_pages | concat: site.store -%}{%- endif -%}
 

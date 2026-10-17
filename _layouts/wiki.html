@@ -8,8 +8,10 @@
 {%- assign all_site_docs = site.html_pages -%}
 {%- if site.docs -%}{%- assign all_site_docs = all_site_docs | concat: site.docs -%}{%- endif -%}
 {%- if site.wiki -%}{%- assign all_site_docs = all_site_docs | concat: site.wiki -%}{%- endif -%}
+{%- if site.projects -%}{%- assign all_site_docs = all_site_docs | concat: site.projects -%}{%- endif -%}
+{%- if site.catalogue -%}{%- assign all_site_docs = all_site_docs | concat: site.catalogue -%}{%- endif -%}
 {%- assign is_docs = false -%}
-{%- if page.collection == 'docs' or page.url contains '/docs/' or page.layout == 'docs' -%}
+{%- if page.collection == 'docs' or page.url contains '/docs/' or page.layout == 'docs' or site.repository contains '/docs' -%}
   {%- assign is_docs = true -%}
 {%- endif -%}
 {%- assign current_variant = "wiki" -%}
@@ -19,11 +21,11 @@
 {%- assign current_items = "" | split: "" -%}
 {%- for item in all_site_docs -%}
   {%- if is_docs -%}
-    {%- if item.collection == 'docs' or item.layout == 'docs' or item.path contains 'docs/' -%}
+    {%- if item.collection == 'docs' or item.layout == 'docs' or item.path contains 'docs/' or item.collection == 'projects' or item.collection == 'catalogue' -%}
       {%- assign current_items = current_items | push: item -%}
     {%- endif -%}
   {%- else -%}
-    {%- if item.layout == 'wiki' or item.collection == 'wiki' -%}
+    {%- if item.layout == 'wiki' or item.collection == 'wiki' or item.collection == 'projects' -%}
       {%- assign current_items = current_items | push: item -%}
     {%- endif -%}
   {%- endif -%}

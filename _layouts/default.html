@@ -3,6 +3,8 @@
 {%- assign all_site_docs = site.html_pages -%}
 {%- if site.docs -%}{%- assign all_site_docs = all_site_docs | concat: site.docs -%}{%- endif -%}
 {%- if site.wiki -%}{%- assign all_site_docs = all_site_docs | concat: site.wiki -%}{%- endif -%}
+{%- if site.projects -%}{%- assign all_site_docs = all_site_docs | concat: site.projects -%}{%- endif -%}
+{%- if site.catalogue -%}{%- assign all_site_docs = all_site_docs | concat: site.catalogue -%}{%- endif -%}
 {%- assign nav_items = "" | split: "" -%}
 {%- for item in all_site_docs -%}
   {%- if item.layout != 'wiki' and item.collection != 'wiki' -%}

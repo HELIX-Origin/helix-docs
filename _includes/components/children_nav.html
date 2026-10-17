@@ -13,6 +13,8 @@
 {%- assign all_pages = site.html_pages -%}
 {%- if site.docs -%}{%- assign all_pages = all_pages | concat: site.docs -%}{%- endif -%}
 {%- if site.wiki -%}{%- assign all_pages = all_pages | concat: site.wiki -%}{%- endif -%}
+{%- if site.projects -%}{%- assign all_pages = all_pages | concat: site.projects -%}{%- endif -%}
+{%- if site.catalogue -%}{%- assign all_pages = all_pages | concat: site.catalogue -%}{%- endif -%}
 
 {%- comment -%} Section pages: published, in the requested docs/wiki scope {%- endcomment -%}
 {%- assign section_pages = "" | split: "" -%}
@@ -20,6 +22,7 @@
   {%- assign in_section = false -%}
   {%- if item.layout == pager_variant -%}{%- assign in_section = true -%}{%- endif -%}
   {%- if item.collection == pager_variant -%}{%- assign in_section = true -%}{%- endif -%}
+  {%- if item.collection == 'projects' -%}{%- assign in_section = true -%}{%- endif -%}
   {%- if in_section and item.published != false -%}
     {%- assign section_pages = section_pages | push: item -%}
   {%- endif -%}
