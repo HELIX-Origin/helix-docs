@@ -1,4 +1,11 @@
-# HELIX Docs
+# HELIX Jekyll Theme
+
+<p align="center">
+  <a href="https://github.com/HELIX-Origin/helix-jekyll-theme"><img src="https://img.shields.io/badge/Theme-helix--jekyll--theme-blue" alt="Theme: helix-jekyll-theme" height="20" /></a>
+  <a href="https://docs.helix-origin.club"><img src="https://img.shields.io/badge/Docs-docs.helix--origin.club-brightgreen" alt="Docs Hub" height="20" /></a>
+  <a href="https://wiki.helix-origin.club"><img src="https://img.shields.io/badge/Wiki-wiki.helix--origin.club-brightgreen" alt="Wiki Hub" height="20" /></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" height="20" /></a>
+</p>
 
 > Modern, multi-layout GitHub Pages Jekyll theme engineered for developer documentation, technical knowledge base wikis, and project portals. Built for the **HELIX Origin** ecosystem.
 
@@ -7,7 +14,7 @@
 ## Features
 
 - 🎨 **Multi-Layout System**: Seamlessly switch between portal landing pages (`layout: default`), sequential documentation guides (`layout: docs`), deep technical wikis (`layout: wiki`), and catalogues (`layout: catalogue`).
-- 🚀 **Zero-Install Remote Theme**: Works natively on GitHub Pages via `remote_theme: HELIX-Origin/helix-docs` without requiring Ruby or local gem compilation.
+- 🚀 **Zero-Install Remote Theme**: Works natively on GitHub Pages via `remote_theme: HELIX-Origin/helix-jekyll-theme` without requiring Ruby or local gem compilation.
 - 🌐 **Integrated 18-Language Translation**: Built-in Google Translate integration with persistent cookies and responsive dropdown.
 - 📊 **Native Mermaid Diagrams**: Automatically detects and renders GitHub Flavored Markdown `mermaid` code blocks into dark-themed architectural diagrams.
 - 📱 **Fully Responsive**: Dual sticky sidebar architecture, breadcrumbs, reading navigation pager, and responsive table wrappers.
@@ -22,7 +29,7 @@
 Add the following to your site's `_config.yml`:
 
 ```yaml
-remote_theme: HELIX-Origin/helix-docs
+remote_theme: HELIX-Origin/helix-jekyll-theme
 plugins:
   - jekyll-remote-theme
 ```
@@ -32,14 +39,15 @@ plugins:
 Add this line to your Jekyll site's `Gemfile`:
 
 ```ruby
-gem "helix-docs"
+gem "helix-jekyll-theme"
 ```
 
 And add this line to your Jekyll site's `_config.yml`:
 
 ```yaml
-theme: helix-docs
+theme: helix-jekyll-theme
 ```
+
 
 ---
 
@@ -58,7 +66,7 @@ summary: A high-performance framework and multi-layout theme for technical docum
 parent: Parent Page (optional)
 grand_parent: Grand Parent Page (optional)
 nav_order: 1
-notice: "<strong>Documentation Notice:</strong> This documentation site is powered by helix-docs."
+notice: "<strong>Documentation Notice:</strong> This documentation site is powered by helix-jekyll-theme."
 header_actions:
   - title: Read Documentation
     url: /docs/
@@ -81,7 +89,7 @@ Includes:
 ---
 layout: docs
 title: Getting Started
-summary: Learn how to connect helix-docs in two minutes.
+summary: Learn how to connect helix-jekyll-theme in two minutes.
 parent: Theme Documentation Directory
 nav_order: 2
 ---
@@ -119,7 +127,7 @@ For comprehensive frontmatter options and code examples for each layout, see [Wo
 
 ## Navigation Configuration
 
-helix-docs computes **all** navigation — sidebar trees, breadcrumbs, and the previous/next pager —
+HELIX Jekyll Theme computes **all** navigation — sidebar trees, breadcrumbs, and the previous/next pager —
 from page **frontmatter** (the just-the-docs model). There is no `_data/navigation.yml`; consuming
 sites do not need any `_data` files for navigation.
 
@@ -140,7 +148,7 @@ Example:
 ---
 layout: docs
 title: Getting Started
-summary: Learn how to connect helix-docs to any GitHub repository.
+summary: Learn how to connect helix-jekyll-theme to any GitHub repository.
 parent: Theme Documentation Directory
 nav_order: 2
 ---
@@ -156,7 +164,7 @@ by `nav_order`, then their children, then grandchildren — the same composition
 ## Repository Structure
 
 ```text
-helix-docs/
+helix-jekyll-theme/
 ├── _data/
 │   └── languages.yml          # Canonical 18-language list for translation
 ├── _includes/
