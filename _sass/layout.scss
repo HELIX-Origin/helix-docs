@@ -6,23 +6,27 @@
 // Adaptive Site Grid Shell
 .site-shell {
   display: grid;
-  grid-template-columns: minmax(230px, 280px) minmax(0, 1fr);
-  gap: clamp(1rem, 3vw, 2.75rem);
-  width: min(1440px, 100%);
+  grid-template-columns: minmax(240px, 290px) minmax(0, 1fr);
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   margin: 0 auto;
-  padding: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(1rem, 2.5vw, 2.5rem);
 
   &--wiki {
     grid-template-columns: minmax(260px, 310px) minmax(0, 1fr);
-    width: min(1680px, 100%);
-    gap: clamp(1.2rem, 3vw, 3rem);
+    width: 100%;
+    max-width: 100%;
+    gap: clamp(1.2rem, 2.5vw, 2.75rem);
   }
 
   &--docs {
     display: block;
-    width: min(1080px, 100%);
+    width: 100%;
+    max-width: 100%;
     margin: 0 auto;
-    padding: clamp(1rem, 3vw, 2.5rem);
+    padding: clamp(1rem, 2.5vw, 2.5rem);
   }
 
   @include mobile {
@@ -38,7 +42,8 @@
 // Per-Page Layout Frontmatter Modifiers
 body[data-page-layout="wide"] .site-shell,
 body[data-page-layout="full"] .site-shell {
-  width: min(1800px, 100%);
+  width: 100%;
+  max-width: 100%;
 }
 
 // Google Translate Suppression
