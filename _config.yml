@@ -5,7 +5,7 @@
 title: HELIX Docs
 tagline: Modern Multi-Layout Theme for GitHub Pages
 description: "A developer-first, multi-layout Jekyll theme engineered for developer documentation, technical knowledge base wikis, and project portals."
-url: "https://helix-origin.github.io"
+url: "https://helix-origin.club"
 baseurl: "/helix-docs"
 # This preview builds directly from the theme sources; it is not a theme-gem
 # site. `theme: null` stops the github-pages gem from falling back to its
@@ -24,7 +24,7 @@ icon: "assets/images/icon.png"
 
 author:
   name: "HELIX Origin"
-  url: "https://helix-origin.github.io"
+  url: "https://www.helix-origin.club"
 
 encoding: "utf-8"
 markdown: kramdown
